@@ -1,0 +1,984 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Node,gulp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器。它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成。使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。  
+gulp的安装全局安装
+npm install -g gulp
+在项目根目录下创建一个名为 gulpfile.js 的文件：  
+var gulp = require(&amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用gulp">
+<meta property="og:url" content="http://yoursite.com/2016/11/12/gulp-use/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器。它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成。使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。  
+gulp的安装全局安装
+npm install -g gulp
+在项目根目录下创建一个名为 gulpfile.js 的文件：  
+var gulp = require(&amp;a">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用gulp">
+<meta name="twitter:description" content="gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器。它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成。使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。  
+gulp的安装全局安装
+npm install -g gulp
+在项目根目录下创建一个名为 gulpfile.js 的文件：  
+var gulp = require(&amp;a">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/12/gulp-use/"/>
+
+  <title> 使用gulp | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用gulp
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-12T17:40:19+08:00" content="2016-11-12 17:40:19">
+              2016-11-12 17:40:19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/12/gulp-use/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/12/gulp-use/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>gulp是前端开发过程中对代码进行构建的工具，是自动化项目的构建利器。它不仅能对网站资源进行优化，而且在开发过程中很多重复的任务能够使用正确的工具自动完成。使用它，我们不仅可以很愉快的编写代码，而且大大提高我们的工作效率。  </p>
+<h2 id="gulp的安装"><a href="#gulp的安装" class="headerlink" title="gulp的安装"></a>gulp的安装</h2><p>全局安装</p>
+<pre><code>npm install -g gulp
+</code></pre><p>在项目根目录下创建一个名为 gulpfile.js 的文件：  </p>
+<pre><code>var gulp = require(&apos;gulp&apos;);
+gulp.task(&apos;default&apos;, function() {
+  // 将你的默认的任务代码放在这
+});
+</code></pre><p>运行 gulp：</p>
+<pre><code>$ gulp
+</code></pre><p>默认的名为 default的任务（task）将会被运行，在这里，这个任务并未做任何事情。  </p>
+<p>想要单独执行特定的任务（task），请输入 gulp <task> <othertask>。  </othertask></task></p>
+<h2 id="gulp的使用"><a href="#gulp的使用" class="headerlink" title="gulp的使用"></a>gulp的使用</h2><h3 id="gulp-src-globs-options"><a href="#gulp-src-globs-options" class="headerlink" title="gulp.src(globs[, options])"></a>gulp.src(globs[, options])</h3><p>输出（Emits）符合所提供的匹配模式（glob）或者匹配模式的数组（array of globs）的文件。 将返回一个 Vinyl files 的 stream 它可以被 piped 到别的插件中。  </p>
+<pre><code>gulp.src(&apos;client/templates/*.jade&apos;)
+  .pipe(jade())
+  .pipe(minify())
+  .pipe(gulp.dest(&apos;build/minified_templates&apos;));
+</code></pre><p>glob 请参考 <a href="https://github.com/isaacs/node-glob" target="_blank" rel="external">node-glob</a> 语法 或者，你也可以直接写文件的路径。</p>
+<h4 id="globs"><a href="#globs" class="headerlink" title="globs"></a>globs</h4><p>类型： String 或 Array  </p>
+<p>所要读取的 glob 或者包含 globs 的数组。  </p>
+<h4 id="options"><a href="#options" class="headerlink" title="options"></a>options</h4><p>类型： Object  </p>
+<p>通过 glob-stream 所传递给 node-glob 的参数。  </p>
+<p>除了 node-glob 和 glob-stream 所支持的参数外，gulp 增加了一些额外的选项参数：  </p>
+<h5 id="options-buffer"><a href="#options-buffer" class="headerlink" title="options.buffer"></a>options.buffer</h5><p>类型： Boolean 默认值： true  </p>
+<p>如果该项被设置为false，那么将会以stream方式返回file.contents 而不是文件 buffer的形式。这在处理一些大文件的时候将会很有用。  </p>
+<p><code>注意：插件可能并不会实现对 stream 的支持。</code></p>
+<h5 id="options-read"><a href="#options-read" class="headerlink" title="options.read"></a>options.read</h5><p>类型： Boolean 默认值： true  </p>
+<p>如果该项被设置为false，么file.contents会返回空值（null），也就是并不会去读取文件。  </p>
+<h5 id="options-base"><a href="#options-base" class="headerlink" title="options.base"></a>options.base</h5><p>类型： String 默认值： 将会加在 glob 之前 (请看 glob2base)  </p>
+<p>如, 请想像一下在一个路径为client/js/somedir的目录中，有一个文件叫 somefile.js ：  </p>
+<pre><code>gulp.src(&apos;client/js/**/*.js&apos;)  //匹配&apos;client/js/somedir/somefile.js&apos; 并且将 `base` 解析为 `client/js/`
+    .pipe(minify())
+    .pipe(gulp.dest(&apos;build&apos;));  //写入&apos;build/somedir/somefile.js&apos;
+
+gulp.src(&apos;client/js/**/*.js&apos;, { base: &apos;client&apos; })
+    .pipe(minify())
+    .pipe(gulp.dest(&apos;build&apos;));  //写入&apos;build/js/somedir/somefile.js&apos;
+</code></pre><h3 id="gulp-dest-path-options"><a href="#gulp-dest-path-options" class="headerlink" title="gulp.dest(path[, options])"></a>gulp.dest(path[, options])</h3><p>能被 pipe 进来，并且将会写文件。并且重新输出（emits）所有数据，因此你可以将它pip到多个文件夹。如果某文件夹不存在，将会自动创建它。  </p>
+<pre><code>gulp.src(&apos;./client/templates/*.jade&apos;)
+  .pipe(jade())
+  .pipe(gulp.dest(&apos;./build/templates&apos;))
+  .pipe(minify())
+  .pipe(gulp.dest(&apos;./build/minified_templates&apos;));
+</code></pre><p>文件被写入的路径是以所给的相对路径根据所给的目标目录计算而来。类似的，相对路径也可以根据所给的 base 来计算。   </p>
+<p>请查看上述的 gulp.src 来了解更多信息。  </p>
+<h4 id="path"><a href="#path" class="headerlink" title="path"></a>path</h4><p>类型： String or Function  </p>
+<p>文件将被写入的路径（输出目录）。也可以传入一个函数，在函数中返回相应路径，这个函数也可以由 vinyl 文件实例 来提供。  </p>
+<h4 id="options-1"><a href="#options-1" class="headerlink" title="options"></a>options</h4><p>类型： Object  </p>
+<h5 id="options-cwd"><a href="#options-cwd" class="headerlink" title="options.cwd"></a>options.cwd</h5><p>类型： String 默认值： process.cwd()  </p>
+<p>输出目录的 cwd 参数，只在所给的输出目录是相对路径时候有效。</p>
+<h5 id="options-mode"><a href="#options-mode" class="headerlink" title="options.mode"></a>options.mode</h5><p>类型： String 默认值： 0777  </p>
+<p>八进制权限字符，用以定义所有在输出目录中所创建的目录的权限。  </p>
+<h3 id="gulp-task-name-deps-fn"><a href="#gulp-task-name-deps-fn" class="headerlink" title="gulp.task(name[, deps], fn)"></a>gulp.task(name[, deps], fn)</h3><p>定义一个使用 Orchestrator 实现的任务（task）。  </p>
+<pre><code>gulp.task(&apos;somename&apos;, function() {
+  // 做一些事
+});
+</code></pre><h4 id="name"><a href="#name" class="headerlink" title="name"></a>name</h4><p>任务的名字，如果你需要在命令行中运行你的某些任务，那么，请不要在名字中使用空格。  </p>
+<h4 id="deps"><a href="#deps" class="headerlink" title="deps"></a>deps</h4><p>类型： Array  </p>
+<p>一个包含任务列表的数组，这些任务会在你当前任务运行之前完成。  </p>
+<pre><code>gulp.task(&apos;mytask&apos;, [&apos;array&apos;, &apos;of&apos;, &apos;task&apos;, &apos;names&apos;], function() {
+  // 做一些事
+});
+</code></pre><p>注意： 你的任务是否在这些前置依赖的任务完成之前运行了？请一定要确保你所依赖的任务列表中的任务都使用了正确的异步执行方式：使用一个 callback，或者返回一个 promise 或 stream。  </p>
+<h4 id="fn"><a href="#fn" class="headerlink" title="fn"></a>fn</h4><p>该函数定义任务所要执行的一些操作。通常来说，它会是这种形式：</p>
+<pre><code>gulp.src().pipe(someplugin())。
+</code></pre><p>异步任务支持  </p>
+<p>任务可以异步执行，如果 fn 能做到以下其中一点：  </p>
+<ul>
+<li><p>接受一个 callback</p>
+<pre><code>// 在 shell 中执行一个命令
+var exec = require(&apos;child_process&apos;).exec;
+gulp.task(&apos;jekyll&apos;, function(cb) {
+  // 编译 Jekyll
+  exec(&apos;jekyll build&apos;, function(err) {
+    if (err) return cb(err); // 返回 error
+    cb(); // 完成 task
+  });
+});
+</code></pre></li>
+<li><p>返回一个 stream</p>
+<pre><code>gulp.task(&apos;somename&apos;, function() {
+  var stream = gulp.src(&apos;client/**/*.js&apos;)
+    .pipe(minify())
+    .pipe(gulp.dest(&apos;build&apos;));
+  return stream;
+});
+</code></pre></li>
+<li><p>返回一个 promise</p>
+<pre><code>var Q = require(&apos;q&apos;);
+
+gulp.task(&apos;somename&apos;, function() {
+  var deferred = Q.defer();
+
+  // 执行异步的操作
+  setTimeout(function() {
+    deferred.resolve();
+  }, 1);
+
+  return deferred.promise;
+});
+</code></pre></li>
+</ul>
+<p>注意： 默认的，task 将以最大的并发数执行，也就是说，gulp 会一次性运行所有的task并且不做任何等待。如果你想要创建一个序列化的 task 队列，并以特定的顺序执行，你需要做两件事：  </p>
+<ul>
+<li>给出一个提示，来告知 task 什么时候执行完毕，</li>
+<li>并且再给出一个提示，来告知一个 task 依赖另一个 task 的完成。 </li>
+</ul>
+<p>对于这个例子，让我们先假定你有两个 task，”one” 和 “two”，并且你希望它们按照这个顺序执行：  </p>
+<ol>
+<li>在 “one” 中，你加入一个提示，来告知什么时候它会完成：可以再完成时候返回一个 callback，或者返回一个 promise 或 stream，这样系统会去等待它完成。  </li>
+<li>在 “two” 中，你需要添加一个提示来告诉系统它需要依赖第一个 task 完成。  </li>
+</ol>
+<p>因此，这个例子的实际代码将会是这样：  </p>
+<pre><code>var gulp = require(&apos;gulp&apos;);
+
+// 返回一个 callback，因此系统可以知道它什么时候完成
+gulp.task(&apos;one&apos;, function(cb) {
+    // 做一些事 -- 异步的或者其他的
+    cb(err); // 如果 err 不是 null 或 undefined，则会停止执行，且注意，这样代表执行失败了
+});
+
+// 定义一个所依赖的 task 必须在这个 task 执行之前完成
+gulp.task(&apos;two&apos;, [&apos;one&apos;], function() {
+    // &apos;one&apos; 完成后
+});
+
+gulp.task(&apos;default&apos;, [&apos;one&apos;, &apos;two&apos;]);
+</code></pre><h3 id="gulp-watch-glob-opts-tasks-或-gulp-watch-glob-opts-cb"><a href="#gulp-watch-glob-opts-tasks-或-gulp-watch-glob-opts-cb" class="headerlink" title="gulp.watch(glob [, opts], tasks) 或 gulp.watch(glob [, opts, cb])"></a>gulp.watch(glob [, opts], tasks) 或 gulp.watch(glob [, opts, cb])</h3><p>监视文件，并且可以在文件发生改动时候做一些事情。它总会返回一个 EventEmitter 来发射（emit） change 事件。  </p>
+<pre><code>gulp.watch(glob[, opts], tasks)
+</code></pre><h4 id="glob"><a href="#glob" class="headerlink" title="glob"></a>glob</h4><p>类型： String or Array  </p>
+<p>一个 glob 字符串，或者一个包含多个 glob 字符串的数组，用来指定具体监控哪些文件的变动。  </p>
+<h4 id="opts"><a href="#opts" class="headerlink" title="opts"></a>opts</h4><p>类型： Object  </p>
+<p>传给 gaze 的参数。  </p>
+<h4 id="tasks"><a href="#tasks" class="headerlink" title="tasks"></a>tasks</h4><p>类型： Array  </p>
+<p>需要在文件变动后执行的一个或者多个通过 gulp.task() 创建的 task 的名字，  </p>
+<pre><code>var watcher = gulp.watch(&apos;js/**/*.js&apos;, [&apos;uglify&apos;,&apos;reload&apos;]);
+watcher.on(&apos;change&apos;, function(event) {
+  console.log(&apos;File &apos; + event.path + &apos; was &apos; + event.type + &apos;, running tasks...&apos;);
+});
+</code></pre><h3 id="gulp-watch-glob-opts-cb"><a href="#gulp-watch-glob-opts-cb" class="headerlink" title="gulp.watch(glob[, opts, cb])"></a>gulp.watch(glob[, opts, cb])</h3><h4 id="glob-1"><a href="#glob-1" class="headerlink" title="glob"></a>glob</h4><p>类型： String or Array  </p>
+<p>一个 glob 字符串，或者一个包含多个 glob 字符串的数组，用来指定具体监控哪些文件的变动。  </p>
+<h4 id="opts-1"><a href="#opts-1" class="headerlink" title="opts"></a>opts</h4><p>类型： Object  </p>
+<p>传给 gaze 的参数。  </p>
+<h4 id="cb-event"><a href="#cb-event" class="headerlink" title="cb(event)"></a>cb(event)</h4><p>类型： Function   </p>
+<p>每次变动需要执行的 callback。  </p>
+<pre><code>gulp.watch(&apos;js/**/*.js&apos;, function(event) {
+  console.log(&apos;File &apos; + event.path + &apos; was &apos; + event.type + &apos;, running tasks...&apos;);
+});
+</code></pre><p>callback 会被传入一个名为 event 的对象。这个对象描述了所监控到的变动：  </p>
+<h5 id="event-type"><a href="#event-type" class="headerlink" title="event.type"></a>event.type</h5><p>类型： String  </p>
+<p>发生的变动的类型：added, changed 或者 deleted。  </p>
+<h5 id="event-path"><a href="#event-path" class="headerlink" title="event.path"></a>event.path</h5><p>类型： String  </p>
+<p>触发了该事件的文件的路径。  </p>
+<h2 id="gulp命令行（CLI）"><a href="#gulp命令行（CLI）" class="headerlink" title="gulp命令行（CLI）"></a>gulp命令行（CLI）</h2><h3 id="参数标记"><a href="#参数标记" class="headerlink" title="参数标记"></a>参数标记</h3><p>gulp 只有你需要熟知的参数标记，其他所有的参数标记只在一些任务需要的时候使用。  </p>
+<ul>
+<li>-v 或 –version 会显示全局和项目本地所安装的 gulp 版本号</li>
+<li>–require <module path=""> 将会在执行之前 reqiure 一个模块。这对于一些语言编译器或者需要其他应用的情况来说来说很有用。你可以使用多个–require</module></li>
+<li>–gulpfile <gulpfile path=""> 手动指定一个 gulpfile 的路径，这在你有很多个 gulpfile 的时候很有用。这也会将 CWD 设置到该 gulpfile 所在目录</gulpfile></li>
+<li>–cwd <dir path=""> 手动指定 CWD。定义 gulpfile 查找的位置，此外，所有的相应的依赖（require）会从这里开始计算相对路径</dir></li>
+<li>-T 或 –tasks 会显示所指定 gulpfile 的 task 依赖树</li>
+<li>–tasks-simple 会以纯文本的方式显示所载入的 gulpfile 中的 task 列表</li>
+<li>–color 强制 gulp 和 gulp 插件显示颜色，即便没有颜色支持</li>
+<li>–no-color 强制不显示颜色，即便检测到有颜色支持</li>
+<li>–silent 禁止所有的 gulp 日志<br>命令行会在 process.env.INIT_CW 中记录它是从哪里被运行的。</li>
+</ul>
+<h4 id="Task-特定的参数标记"><a href="#Task-特定的参数标记" class="headerlink" title="Task 特定的参数标记"></a>Task 特定的参数标记</h4><p>请参考 <a href="http://stackoverflow.com/questions/23023650/is-it-possible-to-pass-a-flag-to-gulp-to-have-it-run-tasks-in-different-ways" target="_blank" rel="external">StackOverflow</a> 了解如何增加任务特定的参数标记。  </p>
+<h3 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h3><p>Task 可以通过 gulp <task> <othertask> 方式来执行。如果只运行 gulp 命令，则会执行所注册的名为 default 的 task，如果没有这个 task，那么 gulp 会报错。  </othertask></task></p>
+<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>你可以在 interpret 找到所支持的语言列表。如果你想要增加一个语言的支持，请在这里提交一个 pull request 或者 issue。  </p>
+<h2 id="更多插件"><a href="#更多插件" class="headerlink" title="更多插件"></a>更多插件</h2><p>gulp 开发社区正在快速成长，每天都会有新的插件诞生。在<a href="http://gulpjs.com/plugins/" target="_blank" rel="external">主站</a> 上可以查看完整的列表。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag">#Node</a>
+          
+            <a href="/tags/gulp/" rel="tag">#gulp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/08/zhihuDailyPurify/" rel="next" title="知乎日报 API 分析">
+                <i class="fa fa-chevron-left"></i> 知乎日报 API 分析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/29/gulp-project/" rel="prev" title="gulp在项目中的具体使用">
+                gulp在项目中的具体使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/12/gulp-use/"
+           data-title="使用gulp" data-url="http://yoursite.com/2016/11/12/gulp-use/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp的安装"><span class="nav-number">1.</span> <span class="nav-text">gulp的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp的使用"><span class="nav-number">2.</span> <span class="nav-text">gulp的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-src-globs-options"><span class="nav-number">2.1.</span> <span class="nav-text">gulp.src(globs[, options])</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#globs"><span class="nav-number">2.1.1.</span> <span class="nav-text">globs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#options"><span class="nav-number">2.1.2.</span> <span class="nav-text">options</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#options-buffer"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">options.buffer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#options-read"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">options.read</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#options-base"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">options.base</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-dest-path-options"><span class="nav-number">2.2.</span> <span class="nav-text">gulp.dest(path[, options])</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#path"><span class="nav-number">2.2.1.</span> <span class="nav-text">path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#options-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">options</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#options-cwd"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">options.cwd</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#options-mode"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">options.mode</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-task-name-deps-fn"><span class="nav-number">2.3.</span> <span class="nav-text">gulp.task(name[, deps], fn)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#name"><span class="nav-number">2.3.1.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deps"><span class="nav-number">2.3.2.</span> <span class="nav-text">deps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fn"><span class="nav-number">2.3.3.</span> <span class="nav-text">fn</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-watch-glob-opts-tasks-或-gulp-watch-glob-opts-cb"><span class="nav-number">2.4.</span> <span class="nav-text">gulp.watch(glob [, opts], tasks) 或 gulp.watch(glob [, opts, cb])</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#glob"><span class="nav-number">2.4.1.</span> <span class="nav-text">glob</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opts"><span class="nav-number">2.4.2.</span> <span class="nav-text">opts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tasks"><span class="nav-number">2.4.3.</span> <span class="nav-text">tasks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gulp-watch-glob-opts-cb"><span class="nav-number">2.5.</span> <span class="nav-text">gulp.watch(glob[, opts, cb])</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#glob-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">glob</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opts-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">opts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cb-event"><span class="nav-number">2.5.3.</span> <span class="nav-text">cb(event)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#event-type"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">event.type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#event-path"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">event.path</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gulp命令行（CLI）"><span class="nav-number">3.</span> <span class="nav-text">gulp命令行（CLI）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数标记"><span class="nav-number">3.1.</span> <span class="nav-text">参数标记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Task-特定的参数标记"><span class="nav-number">3.1.1.</span> <span class="nav-text">Task 特定的参数标记</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tasks"><span class="nav-number">3.2.</span> <span class="nav-text">Tasks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器"><span class="nav-number">3.3.</span> <span class="nav-text">编译器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多插件"><span class="nav-number">4.</span> <span class="nav-text">更多插件</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

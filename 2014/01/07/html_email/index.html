@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML,Email," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="HTML Email 编写指南
+
+话说我订阅了不少了新闻邮件（Newsletter），比如JavaScript Weekly。每周收到一封邮件，了解本周的大事。  
+有一天，我就在想，是不是我也能做一个这样的邮件？  
+然后，就发现这事不那么容易。抛开后台和编辑工作，单单是设计一个Email样板，就需要不少心思。  
+因为这种带格式的邮件，其实就是一张网页，正式名称叫做HTML Email。它能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Email 编写指南">
+<meta property="og:url" content="http://yoursite.com/2014/01/07/html_email/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="HTML Email 编写指南
+
+话说我订阅了不少了新闻邮件（Newsletter），比如JavaScript Weekly。每周收到一封邮件，了解本周的大事。  
+有一天，我就在想，是不是我也能做一个这样的邮件？  
+然后，就发现这事不那么容易。抛开后台和编辑工作，单单是设计一个Email样板，就需要不少心思。  
+因为这种带格式的邮件，其实就是一张网页，正式名称叫做HTML Email。它能">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML Email 编写指南">
+<meta name="twitter:description" content="HTML Email 编写指南
+
+话说我订阅了不少了新闻邮件（Newsletter），比如JavaScript Weekly。每周收到一封邮件，了解本周的大事。  
+有一天，我就在想，是不是我也能做一个这样的邮件？  
+然后，就发现这事不那么容易。抛开后台和编辑工作，单单是设计一个Email样板，就需要不少心思。  
+因为这种带格式的邮件，其实就是一张网页，正式名称叫做HTML Email。它能">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/01/07/html_email/"/>
+
+  <title> HTML Email 编写指南 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML Email 编写指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-01-07T22:33:12+08:00" content="2014-01-07 22:33:12">
+              2014-01-07 22:33:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/01/07/html_email/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/01/07/html_email/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/06/html_email.html" target="_blank" rel="external">HTML Email 编写指南</a></p>
+</blockquote>
+<p>话说我订阅了不少了新闻邮件（Newsletter），比如<a href="http://javascriptweekly.com/" target="_blank" rel="external">JavaScript Weekly</a>。每周收到一封邮件，了解本周的大事。  </p>
+<p>有一天，我就在想，是不是我也能做一个这样的邮件？  </p>
+<p>然后，就发现这事不那么容易。抛开后台和编辑工作，单单是设计一个Email样板，就需要不少心思。  </p>
+<p>因为这种带格式的邮件，其实就是一张网页，正式名称叫做HTML Email。它能否正常显示，完全取决于邮件客户端。大多数的邮件客户端（比如Outlook和Gmail），会过滤HTML设置，让邮件面目全非。  </p>
+<p>我发现，编写HTML Email的窍门，就是使用15年前的网页制作方法。下面就是我整理的编写指南。  </p>
+<h3 id="Doctype"><a href="#Doctype" class="headerlink" title="Doctype"></a>Doctype</h3><p>目前，兼容性最好的Doctype是XHTML 1.0 Strict，事实上Gmail和Hotmail会删掉你的Doctype，换上这个Doctype。  </p>
+<pre><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+　&lt;head&gt;
+　　&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+　　&lt;title&gt;HTML Email编写指南&lt;/title&gt;
+　　&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+　&lt;/head&gt;
+&lt;/html&gt;
+</code></pre><p>使用这个Doctype，也就意味着，不能使用HTML5的语法。  </p>
+<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p>网页的布局（layout）必须使用表格（table）。首先，放置一个最外层的大表格，用来设置背景。  </p>
+<pre><code>&lt;body style=&quot;margin: 0; padding: 0;&quot;&gt;
+　&lt;table border=&quot;1&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+　　&lt;tr&gt; 
+　　　&lt;td&gt; Hello! &lt;/td&gt;
+　　&lt;/tr&gt;
+　&lt;/table&gt;
+&lt;/body&gt;
+</code></pre><p>表格的 border 属性等于1, 是为了方便开发。正式发布的时候，再把这个属性设为0。  </p>
+<p>在内层，放置第二个表格。用来展示内容。第二个table的宽度定为600像素，防止超过客户端的显示宽度。  </p>
+<pre><code>&lt;table align=&quot;center&quot; border=&quot;1&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; width=&quot;600&quot; style=&quot;border-collapse: collapse;&quot;&gt;
+　&lt;tr&gt;
+　　&lt;td&gt; Row 1 &lt;/td&gt;
+　&lt;/tr&gt;
+　&lt;tr&gt;
+　　&lt;td&gt; Row 2 &lt;/td&gt;
+　&lt;/tr&gt;
+　&lt;tr&gt;
+　　&lt;td&gt; Row 3 &lt;/td&gt;
+　&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre><p>邮件内容有几个部分，就设置几行（row）。  </p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>图片是唯一可以引用的外部资源。其他的外部资源，比如样式表文件、字体文件、视频文件等，一概不能引用。  </p>
+<p>有些客户端会给图片链接加上边框，要去除边框。  </p>
+<pre><code>　　img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
+　　a img {border:none;}
+　　&lt;img border=&quot;0&quot; style=&quot;display:block;&quot;&gt;
+</code></pre><p>需要注意的是，不少客户端默认不显示图片（比如Gmail），所以要确保即使没有图片，主要内容也能被阅读。  </p>
+<h3 id="行内样式"><a href="#行内样式" class="headerlink" title="行内样式"></a>行内样式</h3><p>所有的CSS规则，最好都采用行内样式。因为放置在网页头部的样式，很可能会被客户端删除。客户端对CSS规则的支持情况，请看这里。  </p>
+<p>另外，不要采用CSS的简写形式，有些客户端不支持。比如，不要写成下面这样：  </p>
+<pre><code>style=&quot;font: 8px/14px Arial, sans-serif;&quot;
+</code></pre><p>如果想表达  </p>
+<pre><code>&lt;p style=&quot;margin: 1em 0;&quot;&gt;
+</code></pre><p>要写成下面这样：  </p>
+<pre><code>&lt;p style=&quot;margin-top: 1em; margin-bottom: 1em; margin-left: 0; margin-right: 0;&quot;&gt;
+</code></pre><h3 id="W3C校验和测试工具"><a href="#W3C校验和测试工具" class="headerlink" title="W3C校验和测试工具"></a>W3C校验和测试工具</h3><p>要保证最终的代码，能够通过W3C的校验，因为某些客户端会把不合格属性剥离。还要使用测试工具（1, 2, 3），查看在不同客户端的显示结果。  </p>
+<p>发送HTML Email的时候，不要忘记MIME类型不能使用  </p>
+<pre><code>Content-Type: text/plain;
+</code></pre><p>而要使用  </p>
+<pre><code>Content-Type: Multipart/Alternative;
+</code></pre><p>发送工具可以考虑使用 MailChimp 和 Campaign Monitor 。  </p>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>使用别人已经做好的模板，是一个不错的选择（这里和这里），网上还可以搜到更多。  </p>
+<p>自己开发的话，可以参考HTML Email Boilerplate和Emailology。  </p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>进一步研究，请参考下面的文章。  </p>
+<ul>
+<li>Sean Powell，<a href="http://hub.tutsplus.com/tutorials/say-hello-to-the-html-email-boilerplate--webdesign-5143" target="_blank" rel="external">Say Hello to the HTML Email Boilerplate</a></li>
+<li>Nicole Merlin，<a href="http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/build-an-html-email-template-from-scratch/" target="_blank" rel="external">Build an HTML Email Template From Scratch</a></li>
+<li>Nicole Merlin， <a href="http://hub.tutsplus.com/tutorials/what-you-should-know-about-html-email--webdesign-12908" target="_blank" rel="external">What You Should Know About HTML Email</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag">#HTML</a>
+          
+            <a href="/tags/Email/" rel="tag">#Email</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/12/27/sass/" rel="next" title="SASS用法指南">
+                <i class="fa fa-chevron-left"></i> SASS用法指南
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/02/09/tcp-ip_model/" rel="prev" title="TCP/IP模型的一个简单解释">
+                TCP/IP模型的一个简单解释 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/01/07/html_email/"
+           data-title="HTML Email 编写指南" data-url="http://yoursite.com/2014/01/07/html_email/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Doctype"><span class="nav-number">1.</span> <span class="nav-text">Doctype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局"><span class="nav-number">2.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">3.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行内样式"><span class="nav-number">4.</span> <span class="nav-text">行内样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#W3C校验和测试工具"><span class="nav-number">5.</span> <span class="nav-text">W3C校验和测试工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板"><span class="nav-number">6.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

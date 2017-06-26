@@ -1,0 +1,902 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Javascript的10个设计缺陷
+
+为什么Javascript有设计缺陷？这里有三个客观原因，导致Javascript的设计不够完善。  
+设计阶段过于仓促Javascript的设计，其实只用了十天。而且，设计师是为了向公司交差，本人并不愿意这样设计（参见《Javascript诞生记》）。  
+另一方面，这种语言的设计初衷，是为了解决一些简单的网页互动（比如，检查”用户名”是否填写），并没有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript的10个设计缺陷">
+<meta property="og:url" content="http://yoursite.com/2014/12/06/Javascript的10个设计缺陷/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="Javascript的10个设计缺陷
+
+为什么Javascript有设计缺陷？这里有三个客观原因，导致Javascript的设计不够完善。  
+设计阶段过于仓促Javascript的设计，其实只用了十天。而且，设计师是为了向公司交差，本人并不愿意这样设计（参见《Javascript诞生记》）。  
+另一方面，这种语言的设计初衷，是为了解决一些简单的网页互动（比如，检查”用户名”是否填写），并没有">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Javascript的10个设计缺陷">
+<meta name="twitter:description" content="Javascript的10个设计缺陷
+
+为什么Javascript有设计缺陷？这里有三个客观原因，导致Javascript的设计不够完善。  
+设计阶段过于仓促Javascript的设计，其实只用了十天。而且，设计师是为了向公司交差，本人并不愿意这样设计（参见《Javascript诞生记》）。  
+另一方面，这种语言的设计初衷，是为了解决一些简单的网页互动（比如，检查”用户名”是否填写），并没有">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/12/06/Javascript的10个设计缺陷/"/>
+
+  <title> Javascript的10个设计缺陷 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Javascript的10个设计缺陷
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-06T19:22:40+08:00" content="2014-12-06 19:22:40">
+              2014-12-06 19:22:40
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/06/Javascript的10个设计缺陷/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/06/Javascript的10个设计缺陷/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2011/06/10_design_defects_in_javascript.html" target="_blank" rel="external">Javascript的10个设计缺陷</a></p>
+</blockquote>
+<h3 id="为什么Javascript有设计缺陷？"><a href="#为什么Javascript有设计缺陷？" class="headerlink" title="为什么Javascript有设计缺陷？"></a>为什么Javascript有设计缺陷？</h3><p>这里有三个客观原因，导致Javascript的设计不够完善。  </p>
+<h4 id="设计阶段过于仓促"><a href="#设计阶段过于仓促" class="headerlink" title="设计阶段过于仓促"></a>设计阶段过于仓促</h4><p>Javascript的设计，其实只用了十天。而且，设计师是为了向公司交差，本人并不愿意这样设计（参见《Javascript诞生记》）。  </p>
+<p>另一方面，这种语言的设计初衷，是为了解决一些简单的网页互动（比如，检查”用户名”是否填写），并没有考虑复杂应用的需要。设计者做梦也想不到，Javascript将来可以写出像Gmail这种极其庞大复杂的网页。  </p>
+<h4 id="没有先例"><a href="#没有先例" class="headerlink" title="没有先例"></a>没有先例</h4><p>Javascript同时结合了函数式编程和面向对象编程的特点，这很可能是历史上的第一例。而且直到今天为止，Javascript仍然是世界上唯一使用Prototype继承模型的主要语言。这使得它没有设计先例可以参考。  </p>
+<h4 id="过早的标准化"><a href="#过早的标准化" class="headerlink" title="过早的标准化"></a>过早的标准化</h4><p>Javascript的发展非常快，根本没有时间调整设计。  </p>
+<p>1995年5月，设计方案定稿；10月，解释器开发成功；12月，向市场推出，立刻被广泛接受，全世界的用户大量使用。Javascript缺乏一个从小到大、慢慢积累用户的过程，而是连续的爆炸式扩散增长。大量的既成网页和业余网页设计者的参与，使得调整语言规格困难重重。  </p>
+<p>更糟的是，Javascript的规格还没来及调整，就固化了。  </p>
+<p>1996年8月，微软公司强势介入，宣布推出自己的脚本语言Jscript；11月，为了压制微软，网景公司决定申请Javascript的国际标准；1997年6月，第一个国际标准ECMA-262正式颁布。  </p>
+<p>也就是说，Javascript推出一年半之后，国际标准就问世了。设计缺陷还没有充分暴露就成了标准。相比之下，C语言问世将近20年之后，国际标准才颁布。  </p>
+<h3 id="Javascript的10个设计缺陷"><a href="#Javascript的10个设计缺陷" class="headerlink" title="Javascript的10个设计缺陷"></a>Javascript的10个设计缺陷</h3><h4 id="不适合开发大型程序"><a href="#不适合开发大型程序" class="headerlink" title="不适合开发大型程序"></a>不适合开发大型程序</h4><p>Javascript没有名称空间（namespace），很难模块化；没有如何将代码分布在多个文件的规范；允许同名函数的重复定义，后面的定义可以覆盖前面的定义，很不利于模块化加载。  </p>
+<h4 id="非常小的标准库"><a href="#非常小的标准库" class="headerlink" title="非常小的标准库"></a>非常小的标准库</h4><p>Javascript提供的标准函数库非常小，只能完成一些基本操作，很多功能都不具备。  </p>
+<h4 id="null和undefined"><a href="#null和undefined" class="headerlink" title="null和undefined"></a>null和undefined</h4><p>null属于对象（object）的一种，意思是该对象为空；undefined则是一种数据类型，表示未定义。</p>
+<pre><code>typeof null; // object
+typeof undefined; // undefined
+</code></pre><p>两者非常容易混淆，但是含义完全不同。  </p>
+<pre><code>var foo;
+alert(foo == null); // true
+alert(foo == undefined); // true
+alert(foo === null); // false
+alert(foo === undefined); // true
+</code></pre><p>在编程实践中，null几乎没用，根本不应该设计它。  </p>
+<h4 id="全局变量难以控制"><a href="#全局变量难以控制" class="headerlink" title="全局变量难以控制"></a>全局变量难以控制</h4><p>Javascript的全局变量，在所有模块中都是可见的；任何一个函数内部都可以生成全局变量，这大大加剧了程序的复杂性。  </p>
+<pre><code>a = 1;
+(function(){
+    b=2;
+    alert(a);
+})(); // 1
+alert(b); //2
+</code></pre><h4 id="自动插入行尾分号"><a href="#自动插入行尾分号" class="headerlink" title="自动插入行尾分号"></a>自动插入行尾分号</h4><p>Javascript的所有语句，都必须以分号结尾。但是，如果你忘记加分号，解释器并不报错，而是为你自动加上分号。有时候，这会导致一些难以发现的错误。  </p>
+<p>比如，下面这个函数根本无法达到预期的结果，返回值不是一个对象，而是undefined。  </p>
+<pre><code>function(){
+    return
+        {
+            i=1
+        };
+}
+</code></pre><p>原因是解释器自动在return语句后面加上了分号。  </p>
+<pre><code>function(){
+    return;
+        {
+            i=1
+        };
+}
+</code></pre><h4 id="加号运算符"><a href="#加号运算符" class="headerlink" title="加号运算符"></a>加号运算符</h4><p>+号作为运算符，有两个含义，可以表示数字与数字的和，也可以表示字符与字符的连接。  </p>
+<pre><code>alert(1+10); // 11
+alert(&quot;1&quot;+&quot;10&quot;); // 110
+</code></pre><p>如果一个操作项是字符，另一个操作项是数字，则数字自动转化为字符。  </p>
+<pre><code>alert(1+&quot;10&quot;); // 110
+alert(&quot;10&quot;+1); // 101
+</code></pre><p>这样的设计，不必要地加剧了运算的复杂性，完全可以另行设置一个字符连接的运算符。  </p>
+<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>NaN是一种数字，表示超出了解释器的极限。它有一些很奇怪的特性：  </p>
+<pre><code>NaN === NaN; //false
+NaN !== NaN; //true
+alert( 1 + NaN ); // NaN
+</code></pre><p>与其设计NaN，不如解释器直接报错，反而有利于简化程序。  </p>
+<h4 id="数组和对象的区分"><a href="#数组和对象的区分" class="headerlink" title="数组和对象的区分"></a>数组和对象的区分</h4><p>由于Javascript的数组也属于对象（object），所以要区分一个对象到底是不是数组，相当麻烦。Douglas Crockford的代码是这样的：  </p>
+<pre><code>if ( arr &amp;&amp; 
+    typeof arr === &apos;object&apos; &amp;&amp;
+    typeof arr.length === &apos;number&apos; &amp;&amp;
+    !arr.propertyIsEnumerable(&apos;length&apos;)){
+    alert(&quot;arr is an array&quot;);
+}
+</code></pre><h4 id="和"><a href="#和" class="headerlink" title="== 和 ==="></a>== 和 ===</h4><p>==用来判断两个值是否相等。当两个值类型不同时，会发生自动转换，得到的结果非常不符合直觉。  </p>
+<pre><code>&quot;&quot; == &quot;0&quot; // false
+0 == &quot;&quot; // true
+0 == &quot;0&quot; // true
+false == &quot;false&quot; // false
+false == &quot;0&quot; // true
+false == undefined // false
+false == null // false
+null == undefined // true
+&quot; \t\r\n&quot; == 0 // true
+</code></pre><p>因此，推荐任何时候都使用”===”（精确判断）比较符。  </p>
+<h4 id="基本类型的包装对象"><a href="#基本类型的包装对象" class="headerlink" title="基本类型的包装对象"></a>基本类型的包装对象</h4><p>Javascript有三种基本数据类型：字符串、数字和布尔值。它们都有相应的建构函数，可以生成字符串对象、数字对象和布尔值对象。  </p>
+<pre><code>new Boolean(false);
+new Number(1234);
+new String(&quot;Hello World&quot;);
+</code></pre><p>与基本数据类型对应的对象类型，作用很小，造成的混淆却很大。  </p>
+<pre><code>alert( typeof 1234); // number
+alert( typeof new Number(1234)); // object
+</code></pre><p>关于Javascript的更多怪异行为，请参见Javascript Garden和wtfjs.com。  </p>
+<p>###如何看待Javascript的设计缺陷？</p>
+<p>既然Javascript有缺陷，数量还不少，那么它是不是一种很糟糕的语言？有没有前途？  </p>
+<p>回答是Javascript并不算糟糕，相反它的编程能力很强大，前途很光明。<br>首先，如果遵守良好的编程规范，加上第三方函数库的帮助，Javascript的这些缺陷大部分可以回避。  </p>
+<p>其次，Javascript目前是网页编程的唯一语言，只要互联网继续发展，它就必然一起发展。目前，许多新项目大大扩展了它的用途，node.js使得Javascript可以用于后端的服务器编程，coffeeScript使你可以用python和ruby的语法，撰写Javascript。  </p>
+<p>最后，只要发布新版本的语言标准（比如 ECMAscript 5），就可以弥补这些设计缺陷。当然，标准的发布和标准的实现是两回事，上述的很多缺陷也许会一直伴随到Javascript存在的最后一天。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/28/Javascript继承机制的设计思想/" rel="next" title="Javascript继承机制的设计思想">
+                <i class="fa fa-chevron-left"></i> Javascript继承机制的设计思想
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/09/jQuery设计思想/" rel="prev" title="jQuery设计思想">
+                jQuery设计思想 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/12/06/Javascript的10个设计缺陷/"
+           data-title="Javascript的10个设计缺陷" data-url="http://yoursite.com/2014/12/06/Javascript的10个设计缺陷/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么Javascript有设计缺陷？"><span class="nav-number">1.</span> <span class="nav-text">为什么Javascript有设计缺陷？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设计阶段过于仓促"><span class="nav-number">1.1.</span> <span class="nav-text">设计阶段过于仓促</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有先例"><span class="nav-number">1.2.</span> <span class="nav-text">没有先例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过早的标准化"><span class="nav-number">1.3.</span> <span class="nav-text">过早的标准化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javascript的10个设计缺陷"><span class="nav-number">2.</span> <span class="nav-text">Javascript的10个设计缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不适合开发大型程序"><span class="nav-number">2.1.</span> <span class="nav-text">不适合开发大型程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常小的标准库"><span class="nav-number">2.2.</span> <span class="nav-text">非常小的标准库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null和undefined"><span class="nav-number">2.3.</span> <span class="nav-text">null和undefined</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局变量难以控制"><span class="nav-number">2.4.</span> <span class="nav-text">全局变量难以控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动插入行尾分号"><span class="nav-number">2.5.</span> <span class="nav-text">自动插入行尾分号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加号运算符"><span class="nav-number">2.6.</span> <span class="nav-text">加号运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN"><span class="nav-number">2.7.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组和对象的区分"><span class="nav-number">2.8.</span> <span class="nav-text">数组和对象的区分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和"><span class="nav-number">2.9.</span> <span class="nav-text">== 和 ===</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本类型的包装对象"><span class="nav-number">2.10.</span> <span class="nav-text">基本类型的包装对象</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

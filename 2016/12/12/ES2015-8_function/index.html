@@ -1,0 +1,1822 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,ES2015," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="函数的扩展
+
+函数参数的默认值基本用法在ES6之前，不能直接为函数的参数指定默认值，只能采用变通的方法。
+function log(x, y) {
+  y = y || &amp;apos;World&amp;apos;;
+  console.log(x, y);
+}
+
+log(&amp;apos;Hello&amp;apos;) // Hello World
+log(&amp;apos;Hello&amp;apos;, &amp;apos;Chin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES2015——8.函数的扩展">
+<meta property="og:url" content="http://yoursite.com/2016/12/12/ES2015-8_function/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="函数的扩展
+
+函数参数的默认值基本用法在ES6之前，不能直接为函数的参数指定默认值，只能采用变通的方法。
+function log(x, y) {
+  y = y || &amp;apos;World&amp;apos;;
+  console.log(x, y);
+}
+
+log(&amp;apos;Hello&amp;apos;) // Hello World
+log(&amp;apos;Hello&amp;apos;, &amp;apos;Chin">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES2015——8.函数的扩展">
+<meta name="twitter:description" content="函数的扩展
+
+函数参数的默认值基本用法在ES6之前，不能直接为函数的参数指定默认值，只能采用变通的方法。
+function log(x, y) {
+  y = y || &amp;apos;World&amp;apos;;
+  console.log(x, y);
+}
+
+log(&amp;apos;Hello&amp;apos;) // Hello World
+log(&amp;apos;Hello&amp;apos;, &amp;apos;Chin">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/12/ES2015-8_function/"/>
+
+  <title> ES2015——8.函数的扩展 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ES2015——8.函数的扩展
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T17:56:36+08:00" content="2016-12-12 17:56:36">
+              2016-12-12 17:56:36
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/12/ES2015-8_function/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/12/ES2015-8_function/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://es6.ruanyifeng.com/#docs/function" target="_blank" rel="external">函数的扩展</a></p>
+</blockquote>
+<h3 id="函数参数的默认值"><a href="#函数参数的默认值" class="headerlink" title="函数参数的默认值"></a>函数参数的默认值</h3><h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>在ES6之前，不能直接为函数的参数指定默认值，只能采用变通的方法。</p>
+<pre><code>function log(x, y) {
+  y = y || &apos;World&apos;;
+  console.log(x, y);
+}
+
+log(&apos;Hello&apos;) // Hello World
+log(&apos;Hello&apos;, &apos;China&apos;) // Hello China
+log(&apos;Hello&apos;, &apos;&apos;) // Hello World
+</code></pre><p>上面代码检查函数log的参数y有没有赋值，如果没有，则指定默认值为World。这种写法的缺点在于，如果参数y赋值了，但是对应的布尔值为false，则该赋值不起作用。就像上面代码的最后一行，参数y等于空字符，结果被改为默认值。  </p>
+<p>为了避免这个问题，通常需要先判断一下参数y是否被赋值，如果没有，再等于默认值。</p>
+<pre><code>if (typeof y === &apos;undefined&apos;) {
+  y = &apos;World&apos;;
+}
+</code></pre><p>ES6允许为函数的参数设置默认值，即直接写在参数定义的后面。</p>
+<pre><code>function log(x, y = &apos;World&apos;) {
+  console.log(x, y);
+}
+
+log(&apos;Hello&apos;) // Hello World
+log(&apos;Hello&apos;, &apos;China&apos;) // Hello China
+log(&apos;Hello&apos;, &apos;&apos;) // Hello
+</code></pre><p>可以看到，ES6的写法比ES5简洁许多，而且非常自然。下面是另一个例子。</p>
+<pre><code>function Point(x = 0, y = 0) {
+  this.x = x;
+  this.y = y;
+}
+
+var p = new Point();
+p // { x: 0, y: 0 }
+</code></pre><p>除了简洁，ES6的写法还有两个好处：首先，阅读代码的人，可以立刻意识到哪些参数是可以省略的，不用查看函数体或文档；其次，有利于将来的代码优化，即使未来的版本在对外接口中，彻底拿掉这个参数，也不会导致以前的代码无法运行。  </p>
+<p>参数变量是默认声明的，所以不能用let或const再次声明。</p>
+<pre><code>function foo(x = 5) {
+  let x = 1; // error
+  const x = 2; // error
+}
+</code></pre><p>上面代码中，参数变量x是默认声明的，在函数体中，不能用let或const再次声明，否则会报错。</p>
+<h4 id="与解构赋值默认值结合使用"><a href="#与解构赋值默认值结合使用" class="headerlink" title="与解构赋值默认值结合使用"></a>与解构赋值默认值结合使用</h4><p>参数默认值可以与解构赋值的默认值，结合起来使用。</p>
+<pre><code>function foo({x, y = 5}) {
+  console.log(x, y);
+}
+
+foo({}) // undefined, 5
+foo({x: 1}) // 1, 5
+foo({x: 1, y: 2}) // 1, 2
+foo() // TypeError: Cannot read property &apos;x&apos; of undefined
+</code></pre><p>上面代码使用了对象的解构赋值默认值，而没有使用函数参数的默认值。只有当函数foo的参数是一个对象时，变量x和y才会通过解构赋值而生成。如果函数foo调用时参数不是对象，变量x和y就不会生成，从而报错。如果参数对象没有y属性，y的默认值5才会生效。  </p>
+<p>下面是另一个对象的解构赋值默认值的例子。</p>
+<pre><code>function fetch(url, { body = &apos;&apos;, method = &apos;GET&apos;, headers = {} }) {
+  console.log(method);
+}
+
+fetch(&apos;http://example.com&apos;, {})
+// &quot;GET&quot;
+
+fetch(&apos;http://example.com&apos;)
+// 报错
+</code></pre><p>上面代码中，如果函数fetch的第二个参数是一个对象，就可以为它的三个属性设置默认值。  </p>
+<p>上面的写法不能省略第二个参数，如果结合函数参数的默认值，就可以省略第二个参数。这时，就出现了双重默认值。</p>
+<pre><code>function fetch(url, { method = &apos;GET&apos; } = {}) {
+  console.log(method);
+}
+
+fetch(&apos;http://example.com&apos;)
+// &quot;GET&quot;
+</code></pre><p>上面代码中，函数fetch没有第二个参数时，函数参数的默认值就会生效，然后才是解构赋值的默认值生效，变量method才会取到默认值GET。  </p>
+<p>再请问下面两种写法有什么差别？</p>
+<pre><code>// 写法一
+function m1({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+
+// 写法二
+function m2({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+</code></pre><p>上面两种写法都对函数的参数设定了默认值，区别是写法一函数参数的默认值是空对象，但是设置了对象解构赋值的默认值；写法二函数参数的默认值是一个有具体属性的对象，但是没有设置对象解构赋值的默认值。</p>
+<pre><code>// 函数没有参数的情况
+m1() // [0, 0]
+m2() // [0, 0]
+
+// x和y都有值的情况
+m1({x: 3, y: 8}) // [3, 8]
+m2({x: 3, y: 8}) // [3, 8]
+
+// x有值，y无值的情况
+m1({x: 3}) // [3, 0]
+m2({x: 3}) // [3, undefined]
+
+// x和y都无值的情况
+m1({}) // [0, 0];
+m2({}) // [undefined, undefined]
+
+m1({z: 3}) // [0, 0]
+m2({z: 3}) // [undefined, undefined]
+</code></pre><h4 id="参数默认值的位置"><a href="#参数默认值的位置" class="headerlink" title="参数默认值的位置"></a>参数默认值的位置</h4><p>通常情况下，定义了默认值的参数，应该是函数的尾参数。因为这样比较容易看出来，到底省略了哪些参数。如果非尾部的参数设置默认值，实际上这个参数是没法省略的。</p>
+<pre><code>// 例一
+function f(x = 1, y) {
+  return [x, y];
+}
+
+f() // [1, undefined]
+f(2) // [2, undefined])
+f(, 1) // 报错
+f(undefined, 1) // [1, 1]
+
+// 例二
+function f(x, y = 5, z) {
+  return [x, y, z];
+}
+
+f() // [undefined, 5, undefined]
+f(1) // [1, 5, undefined]
+f(1, ,2) // 报错
+f(1, undefined, 2) // [1, 5, 2]
+</code></pre><p>上面代码中，有默认值的参数都不是尾参数。这时，无法只省略该参数，而不省略它后面的参数，除非显式输入undefined。  </p>
+<p>如果传入undefined，将触发该参数等于默认值，null则没有这个效果。</p>
+<pre><code>function foo(x = 5, y = 6) {
+  console.log(x, y);
+}
+
+foo(undefined, null)
+// 5 null
+</code></pre><p>上面代码中，x参数对应undefined，结果触发了默认值，y参数等于null，就没有触发默认值。</p>
+<h4 id="函数的length属性"><a href="#函数的length属性" class="headerlink" title="函数的length属性"></a>函数的length属性</h4><p>指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。</p>
+<pre><code>(function (a) {}).length // 1
+(function (a = 5) {}).length // 0
+(function (a, b, c = 5) {}).length // 2
+</code></pre><p>上面代码中，length属性的返回值，等于函数的参数个数减去指定了默认值的参数个数。比如，上面最后一个函数，定义了3个参数，其中有一个参数c指定了默认值，因此length属性等于3减去1，最后得到2。  </p>
+<p>这是因为length属性的含义是，该函数预期传入的参数个数。某个参数指定默认值以后，预期传入的参数个数就不包括这个参数了。同理，rest参数也不会计入length属性。</p>
+<pre><code>(function(...args) {}).length // 0
+</code></pre><p>如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了。</p>
+<pre><code>(function (a = 0, b, c) {}).length // 0
+(function (a, b = 1, c) {}).length // 1
+</code></pre><h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>一个需要注意的地方是，如果参数默认值是一个变量，则该变量所处的作用域，与其他变量的作用域规则是一样的，即先是当前函数的作用域，然后才是全局作用域。</p>
+<pre><code>var x = 1;
+
+function f(x, y = x) {
+  console.log(y);
+}
+
+f(2) // 2
+</code></pre><p>上面代码中，参数y的默认值等于x。调用时，由于函数作用域内部的变量x已经生成，所以y等于参数x，而不是全局变量x。  </p>
+<p>如果调用时，函数作用域内部的变量x没有生成，结果就会不一样。</p>
+<pre><code>let x = 1;
+
+function f(y = x) {
+  let x = 2;
+  console.log(y);
+}
+
+f() // 1
+</code></pre><p>上面代码中，函数调用时，y的默认值变量x尚未在函数内部生成，所以x指向全局变量。  </p>
+<p>如果此时，全局变量x不存在，就会报错。</p>
+<pre><code>function f(y = x) {
+  let x = 2;
+  console.log(y);
+}
+
+f() // ReferenceError: x is not defined
+</code></pre><p>下面这样写，也会报错。</p>
+<pre><code>var x = 1;
+
+function foo(x = x) {
+  // ...
+}
+
+foo() // ReferenceError: x is not defined
+</code></pre><p>上面代码中，函数foo的参数x的默认值也是x。这时，默认值x的作用域是函数作用域，而不是全局作用域。由于在函数作用域中，存在变量x，但是默认值在x赋值之前先执行了，所以这时属于暂时性死区（参见《let和const命令》一章），任何对x的操作都会报错。  </p>
+<p>如果参数的默认值是一个函数，该函数的作用域是其声明时所在的作用域。请看下面的例子。</p>
+<pre><code>let foo = &apos;outer&apos;;
+
+function bar(func = x =&gt; foo) {
+  let foo = &apos;inner&apos;;
+  console.log(func()); // outer
+}
+
+bar();
+</code></pre><p>上面代码中，函数bar的参数func的默认值是一个匿名函数，返回值为变量foo。这个匿名函数声明时，bar函数的作用域还没有形成，所以匿名函数里面的foo指向外层作用域的foo，输出outer。  </p>
+<p>如果写成下面这样，就会报错。</p>
+<pre><code>function bar(func = () =&gt; foo) {
+  let foo = &apos;inner&apos;;
+  console.log(func());
+}
+
+bar() // ReferenceError: foo is not defined
+</code></pre><p>上面代码中，匿名函数里面的foo指向函数外层，但是函数外层并没有声明foo，所以就报错了。  </p>
+<p>下面是一个更复杂的例子。</p>
+<pre><code>var x = 1;
+function foo(x, y = function() { x = 2; }) {
+  var x = 3;
+  y();
+  console.log(x);
+}
+
+foo() // 3
+</code></pre><p>上面代码中，函数foo的参数y的默认值是一个匿名函数。函数foo调用时，它的参数x的值为undefined，所以y函数内部的x一开始是undefined，后来被重新赋值2。但是，函数foo内部重新声明了一个x，值为3，这两个x是不一样的，互相不产生影响，因此最后输出3。  </p>
+<p>如果将var x = 3的var去除，两个x就是一样的，最后输出的就是2。</p>
+<pre><code>var x = 1;
+function foo(x, y = function() { x = 2; }) {
+  x = 3;
+  y();
+  console.log(x);
+}
+
+foo() // 2
+</code></pre><h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>利用参数默认值，可以指定某一个参数不得省略，如果省略就抛出一个错误。</p>
+<pre><code>function throwIfMissing() {
+  throw new Error(&apos;Missing parameter&apos;);
+}
+
+function foo(mustBeProvided = throwIfMissing()) {
+  return mustBeProvided;
+}
+
+foo()
+// Error: Missing parameter
+</code></pre><p>上面代码的foo函数，如果调用的时候没有参数，就会调用默认值throwIfMissing函数，从而抛出一个错误。  </p>
+<p>从上面代码还可以看到，参数mustBeProvided的默认值等于throwIfMissing函数的运行结果（即函数名之后有一对圆括号），这表明参数的默认值不是在定义时执行，而是在运行时执行（即如果参数已经赋值，默认值中的函数就不会运行），这与python语言不一样。  </p>
+<p>另外，可以将参数默认值设为undefined，表明这个参数是可以省略的。</p>
+<pre><code>function foo(optional = undefined) { ··· }
+</code></pre><h3 id="rest参数"><a href="#rest参数" class="headerlink" title="rest参数"></a>rest参数</h3><p>ES6引入rest参数（形式为“…变量名”），用于获取函数的多余参数，这样就不需要使用arguments对象了。rest参数搭配的变量是一个数组，该变量将多余的参数放入数组中。</p>
+<pre><code>function add(...values) {
+  let sum = 0;
+
+  for (var val of values) {
+    sum += val;
+  }
+
+  return sum;
+}
+
+add(2, 5, 3) // 10
+</code></pre><p>上面代码的add函数是一个求和函数，利用rest参数，可以向该函数传入任意数目的参数。  </p>
+<p>下面是一个rest参数代替arguments变量的例子。</p>
+<pre><code>// arguments变量的写法
+function sortNumbers() {
+  return Array.prototype.slice.call(arguments).sort();
+}
+
+// rest参数的写法
+const sortNumbers = (...numbers) =&gt; numbers.sort();
+</code></pre><p>上面代码的两种写法，比较后可以发现，rest参数的写法更自然也更简洁。  </p>
+<p>rest参数中的变量代表一个数组，所以数组特有的方法都可以用于这个变量。下面是一个利用rest参数改写数组push方法的例子。</p>
+<pre><code>function push(array, ...items) {
+  items.forEach(function(item) {
+    array.push(item);
+    console.log(item);
+  });
+}
+
+var a = [];
+push(a, 1, 2, 3)
+</code></pre><p>注意，rest参数之后不能再有其他参数（即只能是最后一个参数），否则会报错。</p>
+<pre><code>// 报错
+function f(a, ...b, c) {
+  // ...
+}
+</code></pre><p>函数的length属性，不包括rest参数。</p>
+<pre><code>(function(a) {}).length  // 1
+(function(...a) {}).length  // 0
+(function(a, ...b) {}).length  // 1
+</code></pre><h3 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>扩展运算符（spread）是三个点（…）。它好比rest参数的逆运算，将一个数组转为用逗号分隔的参数序列。</p>
+<pre><code>console.log(...[1, 2, 3])
+// 1 2 3
+
+console.log(1, ...[2, 3, 4], 5)
+// 1 2 3 4 5
+
+[...document.querySelectorAll(&apos;div&apos;)]
+// [&lt;div&gt;, &lt;div&gt;, &lt;div&gt;]
+</code></pre><p>该运算符主要用于函数调用。</p>
+<pre><code>function push(array, ...items) {
+  array.push(...items);
+}
+
+function add(x, y) {
+  return x + y;
+}
+
+var numbers = [4, 38];
+add(...numbers) // 42
+</code></pre><p>上面代码中，array.push(…items)和add(…numbers)这两行，都是函数的调用，它们的都使用了扩展运算符。该运算符将一个数组，变为参数序列。  </p>
+<p>扩展运算符与正常的函数参数可以结合使用，非常灵活。</p>
+<pre><code>function f(v, w, x, y, z) { }
+var args = [0, 1];
+f(-1, ...args, 2, ...[3]);
+</code></pre><h4 id="替代数组的apply方法"><a href="#替代数组的apply方法" class="headerlink" title="替代数组的apply方法"></a>替代数组的apply方法</h4><p>由于扩展运算符可以展开数组，所以不再需要apply方法，将数组转为函数的参数了。</p>
+<pre><code>// ES5的写法
+function f(x, y, z) {
+  // ...
+}
+var args = [0, 1, 2];
+f.apply(null, args);
+
+// ES6的写法
+function f(x, y, z) {
+  // ...
+}
+var args = [0, 1, 2];
+f(...args);
+</code></pre><p>下面是扩展运算符取代apply方法的一个实际的例子，应用Math.max方法，简化求出一个数组最大元素的写法。</p>
+<pre><code>// ES5的写法
+Math.max.apply(null, [14, 3, 77])
+
+// ES6的写法
+Math.max(...[14, 3, 77])
+
+// 等同于
+Math.max(14, 3, 77);
+</code></pre><p>上面代码表示，由于JavaScript不提供求数组最大元素的函数，所以只能套用Math.max函数，将数组转为一个参数序列，然后求最大值。有了扩展运算符以后，就可以直接用Math.max了。  </p>
+<p>另一个例子是通过push函数，将一个数组添加到另一个数组的尾部。</p>
+<pre><code>// ES5的写法
+var arr1 = [0, 1, 2];
+var arr2 = [3, 4, 5];
+Array.prototype.push.apply(arr1, arr2);
+
+// ES6的写法
+var arr1 = [0, 1, 2];
+var arr2 = [3, 4, 5];
+arr1.push(...arr2);
+</code></pre><p>上面代码的ES5写法中，push方法的参数不能是数组，所以只好通过apply方法变通使用push方法。有了扩展运算符，就可以直接将数组传入push方法。  </p>
+<p>下面是另外一个例子。</p>
+<pre><code>// ES5
+new (Date.bind.apply(Date, [null, 2015, 1, 1]))
+// ES6
+new Date(...[2015, 1, 1]);
+</code></pre><h4 id="扩展运算符的应用"><a href="#扩展运算符的应用" class="headerlink" title="扩展运算符的应用"></a>扩展运算符的应用</h4><h5 id="合并数组"><a href="#合并数组" class="headerlink" title="合并数组"></a>合并数组</h5><p>扩展运算符提供了数组合并的新写法。</p>
+<pre><code>// ES5
+[1, 2].concat(more)
+// ES6
+[1, 2, ...more]
+
+var arr1 = [&apos;a&apos;, &apos;b&apos;];
+var arr2 = [&apos;c&apos;];
+var arr3 = [&apos;d&apos;, &apos;e&apos;];
+
+// ES5的合并数组
+arr1.concat(arr2, arr3);
+// [ &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos; ]
+
+// ES6的合并数组
+[...arr1, ...arr2, ...arr3]
+// [ &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos; ]
+</code></pre><h5 id="与解构赋值结合"><a href="#与解构赋值结合" class="headerlink" title="与解构赋值结合"></a>与解构赋值结合</h5><p>扩展运算符可以与解构赋值结合起来，用于生成数组。</p>
+<pre><code>// ES5
+a = list[0], rest = list.slice(1)
+// ES6
+[a, ...rest] = list
+</code></pre><p>下面是另外一些例子。</p>
+<pre><code>const [first, ...rest] = [1, 2, 3, 4, 5];
+first // 1
+rest  // [2, 3, 4, 5]
+
+const [first, ...rest] = [];
+first // undefined
+rest  // []:
+
+const [first, ...rest] = [&quot;foo&quot;];
+first  // &quot;foo&quot;
+rest   // []
+</code></pre><p>如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。</p>
+<pre><code>const [...butLast, last] = [1, 2, 3, 4, 5];
+// 报错
+
+const [first, ...middle, last] = [1, 2, 3, 4, 5];
+// 报错
+</code></pre><h5 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h5><p>JavaScript的函数只能返回一个值，如果需要返回多个值，只能返回数组或对象。扩展运算符提供了解决这个问题的一种变通方法。</p>
+<pre><code>var dateFields = readDateFields(database);
+var d = new Date(...dateFields);
+</code></pre><p>上面代码从数据库取出一行数据，通过扩展运算符，直接将其传入构造函数Date。</p>
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><p>扩展运算符还可以将字符串转为真正的数组。</p>
+<pre><code>[...&apos;hello&apos;]
+// [ &quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot; ]
+</code></pre><p>上面的写法，有一个重要的好处，那就是能够正确识别32位的Unicode字符。</p>
+<pre><code>&apos;x\uD83D\uDE80y&apos;.length // 4
+[...&apos;x\uD83D\uDE80y&apos;].length // 3
+</code></pre><p>上面代码的第一种写法，JavaScript会将32位Unicode字符，识别为2个字符，采用扩展运算符就没有这个问题。因此，正确返回字符串长度的函数，可以像下面这样写。</p>
+<pre><code>function length(str) {
+  return [...str].length;
+}
+
+length(&apos;x\uD83D\uDE80y&apos;) // 3
+</code></pre><p>凡是涉及到操作32位Unicode字符的函数，都有这个问题。因此，最好都用扩展运算符改写。</p>
+<pre><code>let str = &apos;x\uD83D\uDE80y&apos;;
+
+str.split(&apos;&apos;).reverse().join(&apos;&apos;)
+// &apos;y\uDE80\uD83Dx&apos;
+
+[...str].reverse().join(&apos;&apos;)
+// &apos;y\uD83D\uDE80x&apos;
+</code></pre><p>上面代码中，如果不用扩展运算符，字符串的reverse操作就不正确。</p>
+<h5 id="实现了Iterator接口的对象"><a href="#实现了Iterator接口的对象" class="headerlink" title="实现了Iterator接口的对象"></a>实现了Iterator接口的对象</h5><p>任何Iterator接口的对象，都可以用扩展运算符转为真正的数组。</p>
+<pre><code>var nodeList = document.querySelectorAll(&apos;div&apos;);
+var array = [...nodeList];
+</code></pre><p>上面代码中，querySelectorAll方法返回的是一个nodeList对象。它不是数组，而是一个类似数组的对象。这时，扩展运算符可以将其转为真正的数组，原因就在于NodeList对象实现了Iterator接口。</p>
+<p>对于那些没有部署Iterator接口的类似数组的对象，扩展运算符就无法将其转为真正的数组。</p>
+<pre><code>let arrayLike = {
+  &apos;0&apos;: &apos;a&apos;,
+  &apos;1&apos;: &apos;b&apos;,
+  &apos;2&apos;: &apos;c&apos;,
+  length: 3
+};
+
+// TypeError: Cannot spread non-iterable object.
+let arr = [...arrayLike];
+</code></pre><p>上面代码中，arrayLike是一个类似数组的对象，但是没有部署Iterator接口，扩展运算符就会报错。这时，可以改为使用Array.from方法将arrayLike转为真正的数组。</p>
+<h5 id="Map和Set结构，Generator函数"><a href="#Map和Set结构，Generator函数" class="headerlink" title="Map和Set结构，Generator函数"></a>Map和Set结构，Generator函数</h5><p>扩展运算符内部调用的是数据结构的Iterator接口，因此只要具有Iterator接口的对象，都可以使用扩展运算符，比如Map结构。</p>
+<pre><code>let map = new Map([
+  [1, &apos;one&apos;],
+  [2, &apos;two&apos;],
+  [3, &apos;three&apos;],
+]);
+
+let arr = [...map.keys()]; // [1, 2, 3]
+</code></pre><p>Generator函数运行后，返回一个遍历器对象，因此也可以使用扩展运算符。</p>
+<pre><code>var go = function*(){
+  yield 1;
+  yield 2;
+  yield 3;
+};
+
+[...go()] // [1, 2, 3]
+</code></pre><p>上面代码中，变量go是一个Generator函数，执行后返回的是一个遍历器对象，对这个遍历器对象执行扩展运算符，就会将内部遍历得到的值，转为一个数组。  </p>
+<p>如果对没有iterator接口的对象，使用扩展运算符，将会报错。</p>
+<pre><code>var obj = {a: 1, b: 2};
+let arr = [...obj]; // TypeError: Cannot spread non-iterable object
+</code></pre><h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>从ES5开始，函数内部可以设定为严格模式。</p>
+<pre><code>function doSomething(a, b) {
+  &apos;use strict&apos;;
+  // code
+}
+</code></pre><p>《ECMAScript 2016标准》做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。</p>
+<pre><code>// 报错
+function doSomething(a, b = a) {
+  &apos;use strict&apos;;
+  // code
+}
+
+// 报错
+const doSomething = function ({a, b}) {
+  &apos;use strict&apos;;
+  // code
+};
+
+// 报错
+const doSomething = (...a) =&gt; {
+  &apos;use strict&apos;;
+  // code
+};
+
+const obj = {
+  // 报错
+  doSomething({a, b}) {
+    &apos;use strict&apos;;
+    // code
+  }
+};
+</code></pre><p>这样规定的原因是，函数内部的严格模式，同时适用于函数体代码和函数参数代码。但是，函数执行的时候，先执行函数参数代码，然后再执行函数体代码。这样就有一个不合理的地方，只有从函数体代码之中，才能知道参数代码是否应该以严格模式执行，但是参数代码却应该先于函数体代码执行。</p>
+<pre><code>// 报错
+function doSomething(value = 070) {
+  &apos;use strict&apos;;
+  return value;
+}
+</code></pre><p>上面代码中，参数value的默认值是八进制数070，但是严格模式下不能用前缀0表示八进制，所以应该报错。但是实际上，JavaScript引擎会先成功执行value = 070，然后进入函数体内部，发现需要用严格模式执行，这时才会报错。  </p>
+<p>虽然可以先解析函数体代码，再执行参数代码，但是这样无疑就增加了复杂性。因此，标准索性禁止了这种用法，只要参数使用了默认值、解构赋值、或者扩展运算符，就不能显式指定严格模式。  </p>
+<p>两种方法可以规避这种限制。第一种是设定全局性的严格模式，这是合法的。</p>
+<pre><code>&apos;use strict&apos;;
+
+function doSomething(a, b = a) {
+  // code
+}
+</code></pre><p>第二种是把函数包在一个无参数的立即执行函数里面。</p>
+<pre><code>const doSomething = (function () {
+  &apos;use strict&apos;;
+  return function(value = 42) {
+    return value;
+  };
+}());
+</code></pre><h3 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h3><p>函数的name属性，返回该函数的函数名。</p>
+<pre><code>function foo() {}
+foo.name // &quot;foo&quot;
+</code></pre><p>这个属性早就被浏览器广泛支持，但是直到ES6，才将其写入了标准。  </p>
+<p>需要注意的是，ES6对这个属性的行为做出了一些修改。如果将一个匿名函数赋值给一个变量，ES5的name属性，会返回空字符串，而ES6的name属性会返回实际的函数名。</p>
+<pre><code>var func1 = function () {};
+
+// ES5
+func1.name // &quot;&quot;
+
+// ES6
+func1.name // &quot;func1&quot;
+</code></pre><p>上面代码中，变量func1等于一个匿名函数，ES5和ES6的name属性返回的值不一样。  </p>
+<p>如果将一个具名函数赋值给一个变量，则ES5和ES6的name属性都返回这个具名函数原本的名字。</p>
+<pre><code>const bar = function baz() {};
+
+// ES5
+bar.name // &quot;baz&quot;
+
+// ES6
+bar.name // &quot;baz&quot;
+</code></pre><p>Function构造函数返回的函数实例，name属性的值为“anonymous”。</p>
+<pre><code>(new Function).name // &quot;anonymous&quot;
+</code></pre><p>bind返回的函数，name属性值会加上“bound ”前缀。</p>
+<pre><code>function foo() {};
+foo.bind({}).name // &quot;bound foo&quot;
+
+(function(){}).bind({}).name // &quot;bound &quot;
+</code></pre><h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><h4 id="基本用法-1"><a href="#基本用法-1" class="headerlink" title="基本用法"></a>基本用法</h4><p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
+<pre><code>var f = v =&gt; v;
+</code></pre><p>上面的箭头函数等同于：</p>
+<pre><code>var f = function(v) {
+  return v;
+};
+</code></pre><p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。</p>
+<pre><code>var f = () =&gt; 5;
+// 等同于
+var f = function () { return 5 };
+
+var sum = (num1, num2) =&gt; num1 + num2;
+// 等同于
+var sum = function(num1, num2) {
+  return num1 + num2;
+};
+</code></pre><p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。  </p>
+<pre><code>var sum = (num1, num2) =&gt; { return num1 + num2; }
+</code></pre><p>由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。</p>
+<pre><code>var getTempItem = id =&gt; ({ id: id, name: &quot;Temp&quot; });
+</code></pre><p>箭头函数可以与变量解构结合使用。</p>
+<pre><code>const full = ({ first, last }) =&gt; first + &apos; &apos; + last;
+
+// 等同于
+function full(person) {
+  return person.first + &apos; &apos; + person.last;
+}
+</code></pre><p>箭头函数使得表达更加简洁。</p>
+<pre><code>const isEven = n =&gt; n % 2 == 0;
+const square = n =&gt; n * n;
+</code></pre><p>上面代码只用了两行，就定义了两个简单的工具函数。如果不用箭头函数，可能就要占用多行，而且还不如现在这样写醒目。  </p>
+<p>箭头函数的一个用处是简化回调函数。</p>
+<pre><code>// 正常函数写法
+[1,2,3].map(function (x) {
+  return x * x;
+});
+
+// 箭头函数写法
+[1,2,3].map(x =&gt; x * x);
+</code></pre><p>另一个例子是</p>
+<pre><code>// 正常函数写法
+var result = values.sort(function (a, b) {
+  return a - b;
+});
+
+// 箭头函数写法
+var result = values.sort((a, b) =&gt; a - b);
+</code></pre><p>下面是rest参数与箭头函数结合的例子。</p>
+<pre><code>const numbers = (...nums) =&gt; nums;
+
+numbers(1, 2, 3, 4, 5)
+// [1,2,3,4,5]
+
+const headAndTail = (head, ...tail) =&gt; [head, tail];
+
+headAndTail(1, 2, 3, 4, 5)
+// [1,[2,3,4,5]]
+</code></pre><h4 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h4><p>箭头函数有几个使用注意点。</p>
+<ul>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</li>
+<li>不可以使用yield命令，因此箭头函数不能用作Generator函数。</li>
+</ul>
+<p>上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。</p>
+<pre><code>function foo() {
+  setTimeout(() =&gt; {
+    console.log(&apos;id:&apos;, this.id);
+  }, 100);
+}
+
+var id = 21;
+
+foo.call({ id: 42 });
+// id: 42
+</code></pre><p>上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时，而它的真正执行要等到100毫秒后。如果是普通函数，执行时this应该指向全局对象window，这时应该输出21。但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以输出的是42。  </p>
+<p>箭头函数可以让setTimeout里面的this，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。</p>
+<pre><code>function Timer() {
+  this.s1 = 0;
+  this.s2 = 0;
+  // 箭头函数
+  setInterval(() =&gt; this.s1++, 1000);
+  // 普通函数
+  setInterval(function () {
+    this.s2++;
+  }, 1000);
+}
+
+var timer = new Timer();
+
+setTimeout(() =&gt; console.log(&apos;s1: &apos;, timer.s1), 3100);
+setTimeout(() =&gt; console.log(&apos;s2: &apos;, timer.s2), 3100);
+// s1: 3
+// s2: 0
+</code></pre><p>上面代码中，Timer函数内部设置了两个定时器，分别使用了箭头函数和普通函数。前者的this绑定定义时所在的作用域（即Timer函数），后者的this指向运行时所在的作用域（即全局对象）。所以，3100毫秒之后，timer.s1被更新了3次，而timer.s2一次都没更新。  </p>
+<p>箭头函数可以让this指向固定化，这种特性很有利于封装回调函数。下面是一个例子，DOM事件的回调函数封装在一个对象里面。</p>
+<pre><code>var handler = {
+  id: &apos;123456&apos;,
+
+  init: function() {
+    document.addEventListener(&apos;click&apos;,
+      event =&gt; this.doSomething(event.type), false);
+  },
+
+  doSomething: function(type) {
+    console.log(&apos;Handling &apos; + type  + &apos; for &apos; + this.id);
+  }
+};
+</code></pre><p>上面代码的init方法中，使用了箭头函数，这导致这个箭头函数里面的this，总是指向handler对象。否则，回调函数运行时，this.doSomething这一行会报错，因为此时this指向document对象。  </p>
+<p>this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。  </p>
+<p>所以，箭头函数转成ES5的代码如下。</p>
+<pre><code>// ES6
+function foo() {
+  setTimeout(() =&gt; {
+    console.log(&apos;id:&apos;, this.id);
+  }, 100);
+}
+
+// ES5
+function foo() {
+  var _this = this;
+
+  setTimeout(function () {
+    console.log(&apos;id:&apos;, _this.id);
+  }, 100);
+}
+</code></pre><p>上面代码中，转换后的ES5版本清楚地说明了，箭头函数里面根本没有自己的this，而是引用外层的this。  </p>
+<p>请问下面的代码之中有几个this？</p>
+<pre><code>function foo() {
+  return () =&gt; {
+    return () =&gt; {
+      return () =&gt; {
+        console.log(&apos;id:&apos;, this.id);
+      };
+    };
+  };
+}
+
+var f = foo.call({id: 1});
+
+var t1 = f.call({id: 2})()(); // id: 1
+var t2 = f().call({id: 3})(); // id: 1
+var t3 = f()().call({id: 4}); // id: 1
+</code></pre><p>上面代码之中，只有一个this，就是函数foo的this，所以t1、t2、t3都输出同样的结果。因为所有的内层函数都是箭头函数，都没有自己的this，它们的this其实都是最外层foo函数的this。  </p>
+<p>除了this，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。</p>
+<pre><code>function foo() {
+  setTimeout(() =&gt; {
+    console.log(&apos;args:&apos;, arguments);
+  }, 100);
+}
+
+foo(2, 4, 6, 8)
+// args: [2, 4, 6, 8]
+</code></pre><p>上面代码中，箭头函数内部的变量arguments，其实是函数foo的arguments变量。  </p>
+<p>另外，由于箭头函数没有自己的this，所以当然也就不能用call()、apply()、bind()这些方法去改变this的指向。</p>
+<pre><code>(function() {
+  return [
+    (() =&gt; this.x).bind({ x: &apos;inner&apos; })()
+  ];
+}).call({ x: &apos;outer&apos; });
+// [&apos;outer&apos;]
+</code></pre><p>上面代码中，箭头函数没有自己的this，所以bind方法无效，内部的this指向外部的this。  </p>
+<p>长期以来，JavaScript语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。箭头函数”绑定”this，很大程度上解决了这个困扰。</p>
+<h4 id="嵌套的箭头函数"><a href="#嵌套的箭头函数" class="headerlink" title="嵌套的箭头函数"></a>嵌套的箭头函数</h4><p>箭头函数内部，还可以再使用箭头函数。下面是一个ES5语法的多重嵌套函数。</p>
+<pre><code>function insert(value) {
+  return {into: function (array) {
+    return {after: function (afterValue) {
+      array.splice(array.indexOf(afterValue) + 1, 0, value);
+      return array;
+    }};
+  }};
+}
+
+insert(2).into([1, 3]).after(1); //[1, 2, 3]
+</code></pre><p>上面这个函数，可以使用箭头函数改写。</p>
+<pre><code>let insert = (value) =&gt; ({into: (array) =&gt; ({after: (afterValue) =&gt; {
+  array.splice(array.indexOf(afterValue) + 1, 0, value);
+  return array;
+}})});
+
+insert(2).into([1, 3]).after(1); //[1, 2, 3]
+</code></pre><p>下面是一个部署管道机制（pipeline）的例子，即前一个函数的输出是后一个函数的输入。</p>
+<pre><code>const pipeline = (...funcs) =&gt;
+  val =&gt; funcs.reduce((a, b) =&gt; b(a), val);
+
+const plus1 = a =&gt; a + 1;
+const mult2 = a =&gt; a * 2;
+const addThenMult = pipeline(plus1, mult2);
+
+addThenMult(5)
+// 12
+</code></pre><p>如果觉得上面的写法可读性比较差，也可以采用下面的写法。</p>
+<pre><code>const plus1 = a =&gt; a + 1;
+const mult2 = a =&gt; a * 2;
+
+mult2(plus1(5))
+// 12
+</code></pre><p>箭头函数还有一个功能，就是可以很方便地改写λ演算。</p>
+<pre><code>// λ演算的写法
+fix = λf.(λx.f(λv.x(x)(v)))(λx.f(λv.x(x)(v)))
+
+// ES6的写法
+var fix = f =&gt; (x =&gt; f(v =&gt; x(x)(v)))
+               (x =&gt; f(v =&gt; x(x)(v)));
+</code></pre><p>上面两种写法，几乎是一一对应的。由于λ演算对于计算机科学非常重要，这使得我们可以用ES6作为替代工具，探索计算机科学。</p>
+<h3 id="绑定-this"><a href="#绑定-this" class="headerlink" title="绑定 this"></a>绑定 this</h3><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。但是，箭头函数并不适用于所有场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用。虽然该语法还是ES7的一个提案，但是Babel转码器已经支持。  </p>
+<p>函数绑定运算符是并排的两个双冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。</p>
+<pre><code>foo::bar;
+// 等同于
+bar.bind(foo);
+
+foo::bar(...arguments);
+// 等同于
+bar.apply(foo, arguments);
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+  return obj::hasOwnProperty(key);
+}
+</code></pre><p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定在该对象上面。</p>
+<pre><code>var method = obj::obj.foo;
+// 等同于
+var method = ::obj.foo;
+
+let log = ::console.log;
+// 等同于
+var log = console.log.bind(console);
+</code></pre><p>由于双冒号运算符返回的还是原对象，因此可以采用链式写法。</p>
+<pre><code>// 例一
+import { map, takeWhile, forEach } from &quot;iterlib&quot;;
+
+getPlayers()
+::map(x =&gt; x.character())
+::takeWhile(x =&gt; x.strength &gt; 100)
+::forEach(x =&gt; console.log(x));
+
+// 例二
+let { find, html } = jake;
+
+document.querySelectorAll(&quot;div.myClass&quot;)
+::find(&quot;p&quot;)
+::html(&quot;hahaha&quot;);
+</code></pre><h3 id="尾调用优化"><a href="#尾调用优化" class="headerlink" title="尾调用优化"></a>尾调用优化</h3><h4 id="什么是尾调用？"><a href="#什么是尾调用？" class="headerlink" title="什么是尾调用？"></a>什么是尾调用？</h4><p>尾调用（Tail Call）是函数式编程的一个重要概念，本身非常简单，一句话就能说清楚，就是指某个函数的最后一步是调用另一个函数。  </p>
+<pre><code>function f(x){
+  return g(x);
+}
+</code></pre><p>上面代码中，函数f的最后一步是调用函数g，这就叫尾调用。  </p>
+<p>以下三种情况，都不属于尾调用。</p>
+<pre><code>// 情况一
+function f(x){
+  let y = g(x);
+  return y;
+}
+
+// 情况二
+function f(x){
+  return g(x) + 1;
+}
+
+// 情况三
+function f(x){
+  g(x);
+}
+</code></pre><p>上面代码中，情况一是调用函数g之后，还有赋值操作，所以不属于尾调用，即使语义完全一样。情况二也属于调用后还有操作，即使写在一行内。情况三等同于下面的代码。</p>
+<pre><code>function f(x){
+  g(x);
+  return undefined;
+}
+</code></pre><p>尾调用不一定出现在函数尾部，只要是最后一步操作即可。</p>
+<pre><code>function f(x) {
+  if (x &gt; 0) {
+    return m(x)
+  }
+  return n(x);
+}
+</code></pre><p>上面代码中，函数m和n都属于尾调用，因为它们都是函数f的最后一步操作。</p>
+<h4 id="尾调用优化-1"><a href="#尾调用优化-1" class="headerlink" title="尾调用优化"></a>尾调用优化</h4><p>尾调用之所以与其他调用不同，就在于它的特殊的调用位置。  </p>
+<p>我们知道，函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。  </p>
+<p>尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了。</p>
+<pre><code>function f() {
+  let m = 1;
+  let n = 2;
+  return g(m + n);
+}
+f();
+
+// 等同于
+function f() {
+  return g(3);
+}
+f();
+
+// 等同于
+g(3);
+</code></pre><p>上面代码中，如果函数g不是尾调用，函数f就需要保存内部变量m和n的值、g的调用位置等信息。但由于调用g之后，函数f就结束了，所以执行到最后一步，完全可以删除 f(x) 的调用帧，只保留 g(3) 的调用帧。  </p>
+<p>这就叫做“尾调用优化”（Tail call optimization），即只保留内层函数的调用帧。如果所有函数都是尾调用，那么完全可以做到每次执行时，调用帧只有一项，这将大大节省内存。这就是“尾调用优化”的意义。  </p>
+<p>注意，只有不再用到外层函数的内部变量，内层函数的调用帧才会取代外层函数的调用帧，否则就无法进行“尾调用优化”。</p>
+<pre><code>function addOne(a){
+  var one = 1;
+  function inner(b){
+    return b + one;
+  }
+  return inner(a);
+}
+</code></pre><p>上面的函数不会进行尾调用优化，因为内层函数inner用到了外层函数addOne的内部变量one。</p>
+<h4 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h4><p>函数调用自身，称为递归。如果尾调用自身，就称为尾递归。  </p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。</p>
+<pre><code>function factorial(n) {
+  if (n === 1) return 1;
+  return n * factorial(n - 1);
+}
+
+factorial(5) // 120
+</code></pre><p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n) 。  </p>
+<p>如果改写成尾递归，只保留一个调用记录，复杂度 O(1) 。</p>
+<pre><code>function factorial(n, total) {
+  if (n === 1) return total;
+  return factorial(n - 1, n * total);
+}
+
+factorial(5, 1) // 120
+</code></pre><p>还有一个比较著名的例子，就是计算fibonacci 数列，也能充分说明尾递归优化的重要性  </p>
+<p>如果是非尾递归的fibonacci 递归方法</p>
+<pre><code>function Fibonacci (n) {
+  if ( n &lt;= 1 ) {return 1};
+
+  return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+Fibonacci(10); // 89
+// Fibonacci(100)
+// Fibonacci(500)
+// 堆栈溢出了
+</code></pre><p>如果我们使用尾递归优化过的fibonacci 递归算法</p>
+<pre><code>function Fibonacci2 (n , ac1 = 1 , ac2 = 1) {
+  if( n &lt;= 1 ) {return ac2};
+
+  return Fibonacci2 (n - 1, ac2, ac1 + ac2);
+}
+
+Fibonacci2(100) // 573147844013817200000
+Fibonacci2(1000) // 7.0330367711422765e+208
+Fibonacci2(10000) // Infinity
+</code></pre><p>由此可见，“尾调用优化”对递归操作意义重大，所以一些函数式编程语言将其写入了语言规格。ES6也是如此，第一次明确规定，所有ECMAScript的实现，都必须部署“尾调用优化”。这就是说，在ES6中，只要使用尾递归，就不会发生栈溢出，相对节省内存。</p>
+<h4 id="递归函数的改写"><a href="#递归函数的改写" class="headerlink" title="递归函数的改写"></a>递归函数的改写</h4><p>尾递归的实现，往往需要改写递归函数，确保最后一步只调用自身。做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。比如上面的例子，阶乘函数 factorial 需要用到一个中间变量 total ，那就把这个中间变量改写成函数的参数。这样做的缺点就是不太直观，第一眼很难看出来，为什么计算5的阶乘，需要传入两个参数5和1？  </p>
+<p>两个方法可以解决这个问题。方法一是在尾递归函数之外，再提供一个正常形式的函数。</p>
+<pre><code>function tailFactorial(n, total) {
+  if (n === 1) return total;
+  return tailFactorial(n - 1, n * total);
+}
+
+function factorial(n) {
+  return tailFactorial(n, 1);
+}
+
+factorial(5) // 120
+</code></pre><p>上面代码通过一个正常形式的阶乘函数 factorial ，调用尾递归函数 tailFactorial ，看起来就正常多了。  </p>
+<p>函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。</p>
+<pre><code>function currying(fn, n) {
+  return function (m) {
+    return fn.call(this, m, n);
+  };
+}
+
+function tailFactorial(n, total) {
+  if (n === 1) return total;
+  return tailFactorial(n - 1, n * total);
+}
+
+const factorial = currying(tailFactorial, 1);
+
+factorial(5) // 120
+</code></pre><p>上面代码通过柯里化，将尾递归函数 tailFactorial 变为只接受1个参数的 factorial 。  </p>
+<p>第二种方法就简单多了，就是采用ES6的函数默认值。</p>
+<pre><code>function factorial(n, total = 1) {
+  if (n === 1) return total;
+  return factorial(n - 1, n * total);
+}
+
+factorial(5) // 120
+</code></pre><p>上面代码中，参数 total 有默认值1，所以调用时不用提供这个值。  </p>
+<p>总结一下，递归本质上是一种循环操作。纯粹的函数式编程语言没有循环操作命令，所有的循环都用递归实现，这就是为什么尾递归对这些语言极其重要。对于其他支持“尾调用优化”的语言（比如Lua，ES6），只需要知道循环可以用递归代替，而一旦使用递归，就最好使用尾递归。</p>
+<h4 id="严格模式-1"><a href="#严格模式-1" class="headerlink" title="严格模式"></a>严格模式</h4><p>ES6的尾调用优化只在严格模式下开启，正常模式是无效的。</p>
+<p>这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。</p>
+<ul>
+<li>func.arguments：返回调用时函数的参数。</li>
+<li>func.caller：返回调用当前函数的那个函数。</li>
+</ul>
+<p>尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效。</p>
+<pre><code>function restricted() {
+  &quot;use strict&quot;;
+  restricted.caller;    // 报错
+  restricted.arguments; // 报错
+}
+restricted();
+</code></pre><h4 id="尾递归优化的实现"><a href="#尾递归优化的实现" class="headerlink" title="尾递归优化的实现"></a>尾递归优化的实现</h4><p>尾递归优化只在严格模式下生效，那么正常模式下，或者那些不支持该功能的环境中，有没有办法也使用尾递归优化呢？回答是可以的，就是自己实现尾递归优化。  </p>
+<p>它的原理非常简单。尾递归之所以需要优化，原因是调用栈太多，造成溢出，那么只要减少调用栈，就不会溢出。怎么做可以减少调用栈呢？就是采用“循环”换掉“递归”。  </p>
+<p>下面是一个正常的递归函数。</p>
+<pre><code>function sum(x, y) {
+  if (y &gt; 0) {
+    return sum(x + 1, y - 1);
+  } else {
+    return x;
+  }
+}
+
+sum(1, 100000)
+// Uncaught RangeError: Maximum call stack size exceeded(…)
+</code></pre><p>上面代码中，sum是一个递归函数，参数x是需要累加的值，参数y控制递归次数。一旦指定sum递归100000次，就会报错，提示超出调用栈的最大次数。  </p>
+<p>蹦床函数（trampoline）可以将递归执行转为循环执行。</p>
+<pre><code>function trampoline(f) {
+  while (f &amp;&amp; f instanceof Function) {
+    f = f();
+  }
+  return f;
+}
+</code></pre><p>上面就是蹦床函数的一个实现，它接受一个函数f作为参数。只要f执行后返回一个函数，就继续执行。注意，这里是返回一个函数，然后执行该函数，而不是函数里面调用函数，这样就避免了递归执行，从而就消除了调用栈过大的问题。  </p>
+<p>然后，要做的就是将原来的递归函数，改写为每一步返回另一个函数。</p>
+<pre><code>function sum(x, y) {
+  if (y &gt; 0) {
+    return sum.bind(null, x + 1, y - 1);
+  } else {
+    return x;
+  }
+}
+</code></pre><p>上面代码中，sum函数的每次执行，都会返回自身的另一个版本。  </p>
+<p>现在，使用蹦床函数执行sum，就不会发生调用栈溢出。</p>
+<pre><code>trampoline(sum(1, 100000))
+// 100001
+</code></pre><p>蹦床函数并不是真正的尾递归优化，下面的实现才是。</p>
+<pre><code>function tco(f) {
+  var value;
+  var active = false;
+  var accumulated = [];
+
+  return function accumulator() {
+    accumulated.push(arguments);
+    if (!active) {
+      active = true;
+      while (accumulated.length) {
+        value = f.apply(this, accumulated.shift());
+      }
+      active = false;
+      return value;
+    }
+  };
+}
+
+var sum = tco(function(x, y) {
+  if (y &gt; 0) {
+    return sum(x + 1, y - 1)
+  }
+  else {
+    return x
+  }
+});
+
+sum(1, 100000)
+// 100001
+</code></pre><p>上面代码中，tco函数是尾递归优化的实现，它的奥妙就在于状态变量active。默认情况下，这个变量是不激活的。一旦进入尾递归优化的过程，这个变量就激活了。然后，每一轮递归sum返回的都是undefined，所以就避免了递归执行；而accumulated数组存放每一轮sum执行的参数，总是有值的，这就保证了accumulator函数内部的while循环总是会执行。这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。</p>
+<h3 id="函数参数的尾逗号"><a href="#函数参数的尾逗号" class="headerlink" title="函数参数的尾逗号"></a>函数参数的尾逗号</h3><p>ECMAScript 2017将允许函数的最后一个参数有尾逗号（trailing comma）。  </p>
+<p>此前，函数定义和调用时，都不允许最后一个参数后面出现逗号。</p>
+<pre><code>function clownsEverywhere(
+  param1,
+  param2
+) { /* ... */ }
+
+clownsEverywhere(
+  &apos;foo&apos;,
+  &apos;bar&apos;
+);
+</code></pre><p>上面代码中，如果在param2或bar后面加一个逗号，就会报错。  </p>
+<p>这样的话，如果以后修改代码，想为函数clownsEverywhere添加第三个参数，就势必要在第二个参数后面添加一个逗号。这对版本管理系统来说，就会显示，添加逗号的那一行也发生了变动。这看上去有点冗余，因此新的语法允许定义和调用时，尾部直接有一个逗号。</p>
+<pre><code>function clownsEverywhere(
+  param1,
+  param2,
+) { /* ... */ }
+
+clownsEverywhere(
+  &apos;foo&apos;,
+  &apos;bar&apos;,
+);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/ES2015/" rel="tag">#ES2015</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/ES2015-7_array/" rel="next" title="ES2015——7.数组的扩展">
+                <i class="fa fa-chevron-left"></i> ES2015——7.数组的扩展
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/13/ES2015-9_object/" rel="prev" title="ES2015——9.对象的扩展">
+                ES2015——9.对象的扩展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/12/ES2015-8_function/"
+           data-title="ES2015——8.函数的扩展" data-url="http://yoursite.com/2016/12/12/ES2015-8_function/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数参数的默认值"><span class="nav-number">1.</span> <span class="nav-text">函数参数的默认值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与解构赋值默认值结合使用"><span class="nav-number">1.2.</span> <span class="nav-text">与解构赋值默认值结合使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数默认值的位置"><span class="nav-number">1.3.</span> <span class="nav-text">参数默认值的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的length属性"><span class="nav-number">1.4.</span> <span class="nav-text">函数的length属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域"><span class="nav-number">1.5.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">1.6.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rest参数"><span class="nav-number">2.</span> <span class="nav-text">rest参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展运算符"><span class="nav-number">3.</span> <span class="nav-text">扩展运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#含义"><span class="nav-number">3.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替代数组的apply方法"><span class="nav-number">3.2.</span> <span class="nav-text">替代数组的apply方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展运算符的应用"><span class="nav-number">3.3.</span> <span class="nav-text">扩展运算符的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#合并数组"><span class="nav-number">3.3.1.</span> <span class="nav-text">合并数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#与解构赋值结合"><span class="nav-number">3.3.2.</span> <span class="nav-text">与解构赋值结合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数的返回值"><span class="nav-number">3.3.3.</span> <span class="nav-text">函数的返回值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串"><span class="nav-number">3.3.4.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现了Iterator接口的对象"><span class="nav-number">3.3.5.</span> <span class="nav-text">实现了Iterator接口的对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map和Set结构，Generator函数"><span class="nav-number">3.3.6.</span> <span class="nav-text">Map和Set结构，Generator函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#严格模式"><span class="nav-number">4.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name属性"><span class="nav-number">5.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#箭头函数"><span class="nav-number">6.</span> <span class="nav-text">箭头函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法-1"><span class="nav-number">6.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用注意点"><span class="nav-number">6.2.</span> <span class="nav-text">使用注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套的箭头函数"><span class="nav-number">6.3.</span> <span class="nav-text">嵌套的箭头函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定-this"><span class="nav-number">7.</span> <span class="nav-text">绑定 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尾调用优化"><span class="nav-number">8.</span> <span class="nav-text">尾调用优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是尾调用？"><span class="nav-number">8.1.</span> <span class="nav-text">什么是尾调用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾调用优化-1"><span class="nav-number">8.2.</span> <span class="nav-text">尾调用优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾递归"><span class="nav-number">8.3.</span> <span class="nav-text">尾递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归函数的改写"><span class="nav-number">8.4.</span> <span class="nav-text">递归函数的改写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#严格模式-1"><span class="nav-number">8.5.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾递归优化的实现"><span class="nav-number">8.6.</span> <span class="nav-text">尾递归优化的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数参数的尾逗号"><span class="nav-number">9.</span> <span class="nav-text">函数参数的尾逗号</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

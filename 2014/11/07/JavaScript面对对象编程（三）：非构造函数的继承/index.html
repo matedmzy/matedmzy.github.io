@@ -1,0 +1,901 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,OOP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Javascript面向对象编程（三）：非构造函数的继承
+
+Javascript面向对象编程（三）：非构造函数的继承今天是最后一个部分，介绍不使用构造函数实现”继承”。  
+什么是”非构造函数”的继承？比如，现在有一个对象，叫做”中国人”。
+var Chinese = {
+    nation:&amp;apos;中国&amp;apos;
+};
+还有一个对象，叫做”医生”。  
+var Doctor ={">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript面对对象编程（三）：非构造函数的继承">
+<meta property="og:url" content="http://yoursite.com/2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="Javascript面向对象编程（三）：非构造函数的继承
+
+Javascript面向对象编程（三）：非构造函数的继承今天是最后一个部分，介绍不使用构造函数实现”继承”。  
+什么是”非构造函数”的继承？比如，现在有一个对象，叫做”中国人”。
+var Chinese = {
+    nation:&amp;apos;中国&amp;apos;
+};
+还有一个对象，叫做”医生”。  
+var Doctor ={">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript面对对象编程（三）：非构造函数的继承">
+<meta name="twitter:description" content="Javascript面向对象编程（三）：非构造函数的继承
+
+Javascript面向对象编程（三）：非构造函数的继承今天是最后一个部分，介绍不使用构造函数实现”继承”。  
+什么是”非构造函数”的继承？比如，现在有一个对象，叫做”中国人”。
+var Chinese = {
+    nation:&amp;apos;中国&amp;apos;
+};
+还有一个对象，叫做”医生”。  
+var Doctor ={">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/"/>
+
+  <title> JavaScript面对对象编程（三）：非构造函数的继承 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript面对对象编程（三）：非构造函数的继承
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-11-07T10:02:43+08:00" content="2014-11-07 10:02:43">
+              2014-11-07 10:02:43
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_inheritance_continued.html" target="_blank" rel="external">Javascript面向对象编程（三）：非构造函数的继承</a></p>
+</blockquote>
+<h2 id="Javascript面向对象编程（三）：非构造函数的继承"><a href="#Javascript面向对象编程（三）：非构造函数的继承" class="headerlink" title="Javascript面向对象编程（三）：非构造函数的继承"></a>Javascript面向对象编程（三）：非构造函数的继承</h2><p>今天是最后一个部分，介绍不使用构造函数实现”继承”。  </p>
+<h3 id="什么是”非构造函数”的继承？"><a href="#什么是”非构造函数”的继承？" class="headerlink" title="什么是”非构造函数”的继承？"></a>什么是”非构造函数”的继承？</h3><p>比如，现在有一个对象，叫做”中国人”。</p>
+<pre><code>var Chinese = {
+    nation:&apos;中国&apos;
+};
+</code></pre><p>还有一个对象，叫做”医生”。  </p>
+<pre><code>var Doctor ={
+    career:&apos;医生&apos;
+}
+</code></pre><p>请问怎样才能让”医生”去继承”中国人”，也就是说，我怎样才能生成一个”中国医生”的对象？  </p>
+<p>这里要注意，这两个对象都是普通对象，不是构造函数，无法使用构造函数方法实现”继承”。  </p>
+<h3 id="object-方法"><a href="#object-方法" class="headerlink" title="object()方法"></a>object()方法</h3><p>json格式的发明人Douglas Crockford，提出了一个object()函数，可以做到这一点。  </p>
+<pre><code>function object(o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+}
+</code></pre><p>这个object()函数，其实只做一件事，就是把子对象的prototype属性，指向父对象，从而使得子对象与父对象连在一起。  </p>
+<p>使用的时候，第一步先在父对象的基础上，生成子对象：  </p>
+<pre><code>var Doctor = object(Chinese);
+</code></pre><p>然后，再加上子对象本身的属性：  </p>
+<pre><code>Doctor.career = &apos;医生&apos;;
+</code></pre><p>这时，子对象已经继承了父对象的属性了。  </p>
+<pre><code>alert(Doctor.nation); //中国
+</code></pre><h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>除了使用”prototype链”以外，还有另一种思路：把父对象的属性，全部拷贝给子对象，也能实现继承。  </p>
+<p>下面这个函数，就是在做拷贝：  </p>
+<pre><code>function extendCopy(p) {
+    var c = {};
+    for (var i in p) { 
+        c[i] = p[i];
+    }
+    c.uber = p;
+    return c;
+}
+</code></pre><p>使用的时候，这样写：  </p>
+<pre><code>var Doctor = extendCopy(Chinese);
+Doctor.career = &apos;医生&apos;;
+alert(Doctor.nation); // 中国
+</code></pre><p>但是，这样的拷贝有一个问题。那就是，如果父对象的属性等于数组或另一个对象，那么实际上，子对象获得的只是一个内存地址，而不是真正拷贝，因此存在父对象被篡改的可能。  </p>
+<p>请看，现在给Chinese添加一个”出生地”属性，它的值是一个数组。  </p>
+<pre><code>Chinese.birthPlaces = [&apos;北京&apos;,&apos;上海&apos;,&apos;香港&apos;];
+</code></pre><p>通过extendCopy()函数，Doctor继承了Chinese。  </p>
+<pre><code>var Doctor = extendCopy(Chinese);
+</code></pre><p>然后，我们为Doctor的”出生地”添加一个城市：  </p>
+<pre><code>Doctor.birthPlaces.push(&apos;厦门&apos;);
+</code></pre><p>发生了什么事？Chinese的”出生地”也被改掉了！  </p>
+<pre><code>alert(Doctor.birthPlaces); //北京, 上海, 香港, 厦门
+alert(Chinese.birthPlaces); //北京, 上海, 香港, 厦门
+</code></pre><p>所以，extendCopy()只是拷贝基本类型的数据，我们把这种拷贝叫做”浅拷贝”。这是早期jQuery实现继承的方式。</p>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>所谓”深拷贝”，就是能够实现真正意义上的数组和对象的拷贝。它的实现并不难，只要递归调用”浅拷贝”就行了。  </p>
+<pre><code>function deepCopy(p, c) {
+    var c = c || {};
+    for (var i in p) {
+        if (typeof p[i] === &apos;object&apos;) {
+            c[i] = (p[i].constructor === Array) ? [] : {};
+            deepCopy(p[i], c[i]);
+        } else {
+            c[i] = p[i];
+        }
+    }
+    return c;
+}
+</code></pre><p>使用的时候这样写：  </p>
+<pre><code>var Doctor = deepCopy(Chinese);
+</code></pre><p>现在，给父对象加一个属性，值为数组。然后，在子对象上修改这个属性：  </p>
+<pre><code>Chinese.birthPlaces = [&apos;北京&apos;,&apos;上海&apos;,&apos;香港&apos;];
+Doctor.birthPlaces.push(&apos;厦门&apos;);
+</code></pre><p>这时，父对象就不会受到影响了。  </p>
+<pre><code>alert(Doctor.birthPlaces); //北京, 上海, 香港, 厦门
+alert(Chinese.birthPlaces); //北京, 上海, 香港
+</code></pre><p>目前，jQuery库使用的就是这种继承方法。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/OOP/" rel="tag">#OOP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/04/JavaScript面对对象编程（二）：构造函数的继承/" rel="next" title="JavaScript面对对象编程（二）：构造函数的继承">
+                <i class="fa fa-chevron-left"></i> JavaScript面对对象编程（二）：构造函数的继承
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/10/用Javascript获取页面元素的位置/" rel="prev" title="用Javascript获取页面元素的位置">
+                用Javascript获取页面元素的位置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/"
+           data-title="JavaScript面对对象编程（三）：非构造函数的继承" data-url="http://yoursite.com/2014/11/07/JavaScript面对对象编程（三）：非构造函数的继承/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript面向对象编程（三）：非构造函数的继承"><span class="nav-number">1.</span> <span class="nav-text">Javascript面向对象编程（三）：非构造函数的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是”非构造函数”的继承？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是”非构造函数”的继承？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-方法"><span class="nav-number">1.2.</span> <span class="nav-text">object()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浅拷贝"><span class="nav-number">1.3.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝"><span class="nav-number">1.4.</span> <span class="nav-text">深拷贝</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="开发者手册," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="谷歌的代码管理
+
+谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里。  
+我一直很困惑，为什么要这样做，不同语言的项目放在一个库有什么好处？  
+最新一期的《ACM通信》（59卷第7期）有一篇论文《为什么 Google 要把几十亿行代码放在一个库？》，作者是谷歌基础设施小组的工程师，可以看作官方对这个问题的详细解答。我读后感到收获很大，下面就是摘录。  
+概况谷歌最早使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谷歌的代码管理">
+<meta property="og:url" content="http://yoursite.com/2016/07/12/google-monolithic-source-repository/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="谷歌的代码管理
+
+谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里。  
+我一直很困惑，为什么要这样做，不同语言的项目放在一个库有什么好处？  
+最新一期的《ACM通信》（59卷第7期）有一篇论文《为什么 Google 要把几十亿行代码放在一个库？》，作者是谷歌基础设施小组的工程师，可以看作官方对这个问题的详细解答。我读后感到收获很大，下面就是摘录。  
+概况谷歌最早使用">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016070202.jpg">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谷歌的代码管理">
+<meta name="twitter:description" content="谷歌的代码管理
+
+谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里。  
+我一直很困惑，为什么要这样做，不同语言的项目放在一个库有什么好处？  
+最新一期的《ACM通信》（59卷第7期）有一篇论文《为什么 Google 要把几十亿行代码放在一个库？》，作者是谷歌基础设施小组的工程师，可以看作官方对这个问题的详细解答。我读后感到收获很大，下面就是摘录。  
+概况谷歌最早使用">
+<meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016070202.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/12/google-monolithic-source-repository/"/>
+
+  <title> 谷歌的代码管理 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                谷歌的代码管理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-12T20:51:12+08:00" content="2016-07-12 20:51:12">
+              2016-07-12 20:51:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/12/google-monolithic-source-repository/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/12/google-monolithic-source-repository/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2016/07/google-monolithic-source-repository.html" target="_blank" rel="external">谷歌的代码管理</a></p>
+</blockquote>
+<p>谷歌和 Facebook 都只有一个代码仓库，全公司的代码都放在这个库里。  </p>
+<p>我一直很困惑，为什么要这样做，不同语言的项目放在一个库有什么好处？  </p>
+<p>最新一期的《ACM通信》（59卷第7期）有一篇论文<a href="http://m.cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext" target="_blank" rel="external">《为什么 Google 要把几十亿行代码放在一个库？》</a>，作者是谷歌基础设施小组的工程师，可以看作官方对这个问题的详细解答。我读后感到收获很大，下面就是摘录。  </p>
+<h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>谷歌最早使用 CVS 进行代码管理，1999年改为 Perforce。那时是一台 Perforce 主机，加上各种缓存机。  </p>
+<p>当时，全公司的代码就在一个仓库里面，后来一直沿用这种做法。由于规模不断增长，Perforce 已经无法满足需求，谷歌就开始使用自己开发的版本管理系统 Piper。  </p>
+<p>Piper 架设在谷歌自己的分布式数据库系统（以前叫 Bigtable，现在改名 Spanner）之上，分布在全世界10个数据中心，保证世界各地的谷歌员工都有良好的访问速度。  </p>
+<p>目前，这个代码仓库包含10亿个文件、3500万次提交记录，大小为86TB，用户达到几万人。工作日每秒有50万次请求，高峰时80万次，大部分来自自动构建和测试系统。  </p>
+<p>谷歌90%以上的代码，放在 Piper 里面。对于那些开源的、需要外部协作的项目，代码放在 Git，主要是 Android 项目和 Chrome 项目。Git 的特点是，所有历史记录都会复制到用户的本地机器，所以不适合大型项目，必须拆分成更小的库。以 Android 为例，该项目一共包含800多个独立的仓库。  </p>
+<h3 id="Piper-的设计"><a href="#Piper-的设计" class="headerlink" title="Piper 的设计"></a>Piper 的设计</h3><h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p>整个仓库采用树状结构。每个团队有自己的目录。目录路径就是代码的命名空间。每个目录都有负责人（owner），他负责批准该目录的文件变动。  </p>
+<h4 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h4><p>Piper 支持文件级别的权限控制。99% 的代码对所有用户可见，只有少部分重要的配置文件和机密的关键业务，设有访问限制。  </p>
+<p>如果机密信息不小心放上了 Piper，文件可以被快速清除。并且，所有的读写都有日志，管理员能够查到谁读过这个文件。</p>
+<h4 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h4><p>Piper 的工作流（workflow）如下图。  </p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016070202.jpg" alt="">  </p>
+<p>开发者先创建文件的本地拷贝，这叫做”工作区”（workspace）。完成开发后，工作区的快照共享给其他开发者进行代码评审。只有通过了评审，代码才能合并到中央仓库。</p>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>大多数开发者通过一个叫做 CitC 的客户端，访问 Piper。  </p>
+<p>开发者通过 CitC 浏览和同步 Piper 上的文件，但是编辑和修改是在自己工作区，里面只保存有变动的文件（一个工作区一般不超过10个文件）。CitC 带有云储存机制，每个工作区就是云上的一个目录。通过代码评审以后，这些文件才从 Citc 合并进 Piper。  </p>
+<p>不使用 CitC 也是允许的，所有代码保存在本地，最终用 Git 客户端提交到 Piper。不过，由于 CitC 提供更多的功能，目前使用率达到 80% 。</p>
+<h4 id="主干开发"><a href="#主干开发" class="headerlink" title="主干开发"></a>主干开发</h4><p>Google 采用”主干开发”（trunk-based development）。代码一般提交到主干的头部。这样保证了所有用户看到的都是同一份代码的最新版本。<br>“主干开发”避免了合并分支时的麻烦。谷歌一般不采用分支开发，分支只用来发布。大多数时候，发布分支是主干某个时点的快照。以后的除错和功能增强，都是提交到主干，必要时 cherry-pick 到发布分支。与主干长期并行的开发分支，在谷歌极少见。  </p>
+<p>由于不采用”分支开发”，谷歌引入新功能，一般在代码中使用开关控制。这避免了另起一个分支，也使得通过配置切换功能变得容易，一旦新功能发生故障，很容易切换回旧功能。等到新功能稳定，再彻底删除旧代码。谷歌有类似A/B测试的路由算法，评估代码的表现，由于存在配置开关，这种测试很容易实现。</p>
+<h4 id="代码评审"><a href="#代码评审" class="headerlink" title="代码评审"></a>代码评审</h4><p>所有代码合并进仓库之前，都必须进行代码评审。大部分评审对所有人开放，任何谷歌员工都可以对代码提意见或者提交变动。  </p>
+<p>代码评审的依据是<a href="https://github.com/google/styleguide" target="_blank" rel="external">《Google 代码风格指南》</a>。谷歌有一个叫做 Critique 的工具，可以查看每一行代码的历史演变。</p>
+<h4 id="自动测试"><a href="#自动测试" class="headerlink" title="自动测试"></a>自动测试</h4><p>评审完成后，会自动运行测试。通过测试以后，代码就合并进了 Piper 仓库，整个过程不需要人工干预。  </p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>单一代码仓库主要有以下优点。  </p>
+<h4 id="统一的版本"><a href="#统一的版本" class="headerlink" title="统一的版本"></a>统一的版本</h4><p>整个公司的代码，有统一的版本和路径，不存在找不到文件的最新版本这样的问题。  </p>
+<h4 id="广泛的代码共享和复用"><a href="#广泛的代码共享和复用" class="headerlink" title="广泛的代码共享和复用"></a>广泛的代码共享和复用</h4><p>任何人都可以浏览和使用全公司的代码，这大大促进了代码的共享和复用。</p>
+<h4 id="简化的依赖管理"><a href="#简化的依赖管理" class="headerlink" title="简化的依赖管理"></a>简化的依赖管理</h4><p>如果你是库文件或者 API 的作者，因为所有人的代码都在一个库里面，所以很容易找到依赖你的所有下游代码。  </p>
+<p>每当代码变动，所有依赖你的代码都会自动构建。如果有大量的构建失败，那么系统会自动撤销这次提交。这样也保证了所有代码依赖的都是最新版本，避免依赖不同的版本所导致的冲突。  </p>
+<p>另外，由于代码的边界很清楚，所以不会发生循环依赖。而且，API的作者也很容易发现，别人怎么使用他的API。</p>
+<h4 id="原子性变动"><a href="#原子性变动" class="headerlink" title="原子性变动"></a>原子性变动</h4><p>由于每次代码变动所导致的影响，都在一个仓库里面，所以都属于原子性的变动。因此，很容易撤销，或者预先测试它所造成的影响。  </p>
+<p>为了防止错误提交，谷歌引入了”预提交”（即在提交之前，先分析一下依赖它的代码是否会构建失败）。</p>
+<h4 id="大规模代码析构"><a href="#大规模代码析构" class="headerlink" title="大规模代码析构"></a>大规模代码析构</h4><p>单一代码仓库为查找和分析代码，提供了巨大的方便。  </p>
+<p>Google的静态分析引擎 Tricorder 定时运行，对代码进行分析。比如，C++ 11 标准公布以后，很容易找到所有需要改进的变量声明语句，进行性能优化。该引擎还对许多错误提供”一键修正”的功能，同时产出大量的统计数据。  </p>
+<p>此外，编译器团队也会对不同语言的所有代码进行分析，找出不合理的代码和过时的API。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>单一代码仓库的主要缺点是，所有工具都必须自己写，因为市场上没有能够管理这种规模的代码仓库的软件。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>单一代码仓库，适合提倡透明开放的大型软件公司，不适合小公司和有大量私密代码的公司。  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发者手册/" rel="tag">#开发者手册</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/dns/" rel="next" title="DNS 原理入门">
+                <i class="fa fa-chevron-left"></i> DNS 原理入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/29/http/" rel="prev" title="HTTP 协议入门">
+                HTTP 协议入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/12/google-monolithic-source-repository/"
+           data-title="谷歌的代码管理" data-url="http://yoursite.com/2016/07/12/google-monolithic-source-repository/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概况"><span class="nav-number">1.</span> <span class="nav-text">概况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Piper-的设计"><span class="nav-number">2.</span> <span class="nav-text">Piper 的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构"><span class="nav-number">2.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权限控制"><span class="nav-number">2.2.</span> <span class="nav-text">权限控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作流"><span class="nav-number">2.3.</span> <span class="nav-text">工作流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">2.4.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主干开发"><span class="nav-number">2.5.</span> <span class="nav-text">主干开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码评审"><span class="nav-number">2.6.</span> <span class="nav-text">代码评审</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动测试"><span class="nav-number">2.7.</span> <span class="nav-text">自动测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">3.</span> <span class="nav-text">优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统一的版本"><span class="nav-number">3.1.</span> <span class="nav-text">统一的版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#广泛的代码共享和复用"><span class="nav-number">3.2.</span> <span class="nav-text">广泛的代码共享和复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简化的依赖管理"><span class="nav-number">3.3.</span> <span class="nav-text">简化的依赖管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性变动"><span class="nav-number">3.4.</span> <span class="nav-text">原子性变动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大规模代码析构"><span class="nav-number">3.5.</span> <span class="nav-text">大规模代码析构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

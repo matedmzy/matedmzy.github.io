@@ -1,0 +1,976 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css,sass," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="SASS用法指南
+
+学过CSS的人都知道，它不是一种编程语言。  
+你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。  
+很自然地，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”（css preprocessor）。它的基本思想是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SASS用法指南">
+<meta property="og:url" content="http://yoursite.com/2013/12/27/sass/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="SASS用法指南
+
+学过CSS的人都知道，它不是一种编程语言。  
+你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。  
+很自然地，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”（css preprocessor）。它的基本思想是">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SASS用法指南">
+<meta name="twitter:description" content="SASS用法指南
+
+学过CSS的人都知道，它不是一种编程语言。  
+你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。  
+很自然地，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”（css preprocessor）。它的基本思想是">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/12/27/sass/"/>
+
+  <title> SASS用法指南 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SASS用法指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-12-27T00:21:12+08:00" content="2013-12-27 00:21:12">
+              2013-12-27 00:21:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/12/27/sass/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/12/27/sass/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2012/06/sass.html" target="_blank" rel="external">SASS用法指南</a></p>
+</blockquote>
+<p>学过CSS的人都知道，它不是一种编程语言。  </p>
+<p>你可以用它开发网页样式，但是没法用它编程。也就是说，CSS基本上是设计师的工具，不是程序员的工具。在程序员眼里，CSS是一件很麻烦的东西。它没有变量，也没有条件语句，只是一行行单纯的描述，写起来相当费事。  </p>
+<p>很自然地，有人就开始为CSS加入编程元素，这被叫做”CSS预处理器”（css preprocessor）。它的基本思想是，用一种专门的编程语言，进行网页样式设计，然后再编译成正常的CSS文件。  </p>
+<p>各种”CSS预处理器”之中，我自己最喜欢SASS，觉得它有很多优点，打算以后都用它来写CSS。下面是我整理的用法总结，供自己开发时参考，相信对其他人也有用。  </p>
+<hr>
+<h3 id="什么是SASS"><a href="#什么是SASS" class="headerlink" title="什么是SASS"></a>什么是SASS</h3><p><a href="http://sass-lang.com/" target="_blank" rel="external">SASS</a>是一种CSS的开发工具，提供了许多便利的写法，大大节省了设计者的时间，使得CSS的开发，变得简单和可维护。  </p>
+<p>本文总结了SASS的主要用法。我的目标是，有了这篇文章，日常的一般使用就不需要去看<a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html" target="_blank" rel="external">官方文档</a>了。  </p>
+<h3 id="安装和使用"><a href="#安装和使用" class="headerlink" title="安装和使用"></a>安装和使用</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>SASS是Ruby语言写的，但是两者的语法没有关系。不懂Ruby，照样使用。只是必须先<a href="http://www.ruby-lang.org/zh_cn/downloads/" target="_blank" rel="external">安装Ruby</a>，然后再安装SASS。  </p>
+<p>假定你已经安装好了Ruby，接着在命令行输入下面的命令：  </p>
+<pre><code>gem install sass
+</code></pre><p>然后，就可以使用了。  </p>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>SASS文件就是普通的文本文件，里面可以直接使用CSS语法。文件后缀名是.scss，意思为Sassy CSS。  </p>
+<p>下面的命令，可以在屏幕上显示.scss文件转化的css代码。（假设文件名为test。）  </p>
+<pre><code>sass test.scss
+</code></pre><p>如果要将显示结果保存成文件，后面再跟一个.css文件名。  </p>
+<pre><code>sass test.scss test.css
+</code></pre><p>SASS提供四个<a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#output_style" target="_blank" rel="external">编译风格</a>的选项：  </p>
+<ul>
+<li>nested：嵌套缩进的css代码，它是默认值。</li>
+<li>expanded：没有缩进的、扩展的css代码。</li>
+<li>compact：简洁格式的css代码。</li>
+<li>compressed：压缩后的css代码。</li>
+</ul>
+<p>生产环境当中，一般使用最后一个选项。  </p>
+<pre><code>sass --style compressed test.sass test.css
+</code></pre><p>你也可以让SASS监听某个文件或目录，一旦源文件有变动，就自动生成编译后的版本。  </p>
+<pre><code>// watch a file
+sass --watch input.scss:output.css
+// watch a directory
+sass --watch app/sass:public/stylesheets
+</code></pre><p>SASS的官方网站，提供了一个<a href="http://sass-lang.com/try.html" target="_blank" rel="external">在线转换器</a>。你可以在那里，试运行下面的各种例子。  </p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>SASS允许使用变量，所有变量以$开头。  </p>
+<pre><code>$blue : #1875e7;　
+div {
+　color : $blue;
+}
+</code></pre><p>如果变量需要镶嵌在字符串之中，就必须需要写在#{}之中。  </p>
+<pre><code>$side : left;
+.rounded {
+　　border-#{$side}-radius: 5px;
+}
+</code></pre><h4 id="计算功能"><a href="#计算功能" class="headerlink" title="计算功能"></a>计算功能</h4><p>SASS允许在代码中使用算式：  </p>
+<pre><code>body {
+　　margin: (14px/2);
+　　top: 50px + 100px;
+　　right: $var * 10%;
+}
+</code></pre><h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><p>SASS允许选择器嵌套。比如，下面的CSS代码：  </p>
+<pre><code>div h1 {
+　　color : red;
+}
+</code></pre><p>可以写成：  </p>
+<pre><code>div {
+　　hi {
+　　　　color:red;
+　　}
+}
+</code></pre><p>属性也可以嵌套，比如border-color属性，可以写成：  </p>
+<pre><code>p {
+　　border: {
+　　　　color: red;
+　　}
+}
+</code></pre><p>注意，border后面必须加上冒号。  </p>
+<p>在嵌套的代码块内，可以使用&amp;引用父元素。比如a:hover伪类，可以写成：  </p>
+<pre><code>a {
+　　&amp;:hover { color: #ffb3ff; }
+}
+</code></pre><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>SASS共有两种注释风格。  </p>
+<p>标准的CSS注释 \/* comment *\/ ，会保留到编译后的文件。  </p>
+<p>单行注释 // comment，只保留在SASS源文件中，编译后被省略。  </p>
+<p>在\/*后面加一个感叹号，表示这是”重要注释”。即使是压缩模式编译，也会保留这行注释，通常可以用于声明版权信息。    </p>
+<pre><code>/*! 
+　　重要注释！
+*/
+</code></pre><h3 id="代码的重用"><a href="#代码的重用" class="headerlink" title="代码的重用"></a>代码的重用</h3><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>SASS允许一个选择器，继承另一个选择器。比如，现有class1：  </p>
+<pre><code>.class1 {
+　　border: 1px solid #ddd;
+}
+</code></pre><p>class2要继承class1，就要使用@extend命令：  </p>
+<pre><code>.class2 {
+　　@extend .class1;
+　　font-size:120%;
+}
+</code></pre><h4 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h4><p>Mixin有点像C语言的宏（macro），是可以重用的代码块。  </p>
+<p>使用@mixin命令，定义一个代码块。  </p>
+<pre><code>@mixin left {
+　　float: left;
+　　margin-left: 10px;
+}
+</code></pre><p>使用@include命令，调用这个mixin。  </p>
+<pre><code>div {
+　　@include left;
+}
+</code></pre><p>mixin的强大之处，在于可以指定参数和缺省值。  </p>
+<pre><code>@mixin left($value: 10px) {
+　　float: left;
+　　margin-right: $value;
+}
+</code></pre><p>使用的时候，根据需要加入参数：  </p>
+<pre><code>div {
+　　@include left(20px);
+}
+</code></pre><p>下面是一个mixin的实例，用来生成浏览器前缀。  </p>
+<pre><code>@mixin rounded($vert, $horz, $radius: 10px) {
+　　border-#{$vert}-#{$horz}-radius: $radius;
+　　-moz-border-radius-#{$vert}#{$horz}: $radius;
+　　-webkit-border-#{$vert}-#{$horz}-radius: $radius;
+}
+</code></pre><p>使用的时候，可以像下面这样调用：  </p>
+<pre><code>#navbar li { @include rounded(top, left); }
+#footer { @include rounded(top, left, 5px); }
+</code></pre><h4 id="颜色函数"><a href="#颜色函数" class="headerlink" title="颜色函数"></a>颜色函数</h4><p>SASS提供了一些内置的颜色函数，以便生成系列颜色。  </p>
+<pre><code>lighten(#cc3, 10%) // #d6d65c
+darken(#cc3, 10%) // #a3a329
+grayscale(#cc3) // #808080
+complement(#cc3) // #33c
+</code></pre><h4 id="插入文件"><a href="#插入文件" class="headerlink" title="插入文件"></a>插入文件</h4><p>@import命令，用来插入外部文件。  </p>
+<pre><code>@import &quot;path/filename.scss&quot;;
+</code></pre><p>如果插入的是.css文件，则等同于css的import命令。  </p>
+<pre><code>@import &quot;foo.css&quot;;
+</code></pre><p>###高级用法</p>
+<h4 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h4><p>@if可以用来判断：  </p>
+<pre><code>p {
+　　@if 1 + 1 == 2 { border: 1px solid; }
+　　@if 5 &lt; 3 { border: 2px dotted; }
+}
+</code></pre><p>配套的还有@else命令：  </p>
+<pre><code>@if lightness($color) &gt; 30% {
+　　background-color: #000;
+} @else {
+　　background-color: #fff;
+}
+</code></pre><h4 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h4><p>SASS支持for循环：  </p>
+<pre><code>@for $i from 1 to 10 {
+　　.border-#{$i} {
+　　　　border: #{$i}px solid blue;
+　　}
+}
+</code></pre><p>也支持while循环：  </p>
+<pre><code>$i: 6;
+@while $i &gt; 0 {
+　　.item-#{$i} { width: 2em * $i; }
+　　$i: $i - 2;
+}
+</code></pre><p>each命令，作用与for类似：  </p>
+<pre><code>@each $member in a, b, c, d {
+　　.#{$member} {
+　　　　background-image: url(&quot;/image/#{$member}.jpg&quot;);
+　　}
+}
+</code></pre><h4 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h4><p>SASS允许用户编写自己的函数。  </p>
+<pre><code>@function double($n) {
+　　@return $n * 2;
+}
+#sidebar {
+　　width: double(5px);
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag">#css</a>
+          
+            <a href="/tags/sass/" rel="tag">#sass</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/11/07/git/" rel="next" title="Git分支管理策略">
+                <i class="fa fa-chevron-left"></i> Git分支管理策略
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/01/07/html_email/" rel="prev" title="HTML Email 编写指南">
+                HTML Email 编写指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2013/12/27/sass/"
+           data-title="SASS用法指南" data-url="http://yoursite.com/2013/12/27/sass/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是SASS"><span class="nav-number">1.</span> <span class="nav-text">什么是SASS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装和使用"><span class="nav-number">2.</span> <span class="nav-text">安装和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">3.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量"><span class="nav-number">3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算功能"><span class="nav-number">3.2.</span> <span class="nav-text">计算功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套"><span class="nav-number">3.3.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释"><span class="nav-number">3.4.</span> <span class="nav-text">注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码的重用"><span class="nav-number">4.</span> <span class="nav-text">代码的重用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">4.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mixin"><span class="nav-number">4.2.</span> <span class="nav-text">Mixin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色函数"><span class="nav-number">4.3.</span> <span class="nav-text">颜色函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入文件"><span class="nav-number">4.4.</span> <span class="nav-text">插入文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件语句"><span class="nav-number">4.5.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环语句"><span class="nav-number">4.6.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义函数"><span class="nav-number">4.7.</span> <span class="nav-text">自定义函数</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

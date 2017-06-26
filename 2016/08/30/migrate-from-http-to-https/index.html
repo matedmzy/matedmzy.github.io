@@ -1,0 +1,909 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="开发者手册,http," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="HTTPS 升级指南
+
+获取证书升级到 HTTPS 协议的第一步，就是要获得一张证书。  
+证书是一个二进制文件，里面包含经过认证的网站公钥和一些元数据，要从经销商购买。  
+
+GoGetSSL
+SSLs.com
+SSLmate.com
+
+证书有很多类型，首先分为三种认证级别。  
+
+域名认证（Domain Validation）：最低级别认证，可以确认申请人拥有这个域名。对于这种证书，浏览器会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS 升级指南">
+<meta property="og:url" content="http://yoursite.com/2016/08/30/migrate-from-http-to-https/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="HTTPS 升级指南
+
+获取证书升级到 HTTPS 协议的第一步，就是要获得一张证书。  
+证书是一个二进制文件，里面包含经过认证的网站公钥和一些元数据，要从经销商购买。  
+
+GoGetSSL
+SSLs.com
+SSLmate.com
+
+证书有很多类型，首先分为三种认证级别。  
+
+域名认证（Domain Validation）：最低级别认证，可以确认申请人拥有这个域名。对于这种证书，浏览器会">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTPS 升级指南">
+<meta name="twitter:description" content="HTTPS 升级指南
+
+获取证书升级到 HTTPS 协议的第一步，就是要获得一张证书。  
+证书是一个二进制文件，里面包含经过认证的网站公钥和一些元数据，要从经销商购买。  
+
+GoGetSSL
+SSLs.com
+SSLmate.com
+
+证书有很多类型，首先分为三种认证级别。  
+
+域名认证（Domain Validation）：最低级别认证，可以确认申请人拥有这个域名。对于这种证书，浏览器会">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/30/migrate-from-http-to-https/"/>
+
+  <title> HTTPS 升级指南 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTTPS 升级指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-30T23:25:12+08:00" content="2016-08-30 23:25:12">
+              2016-08-30 23:25:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/30/migrate-from-http-to-https/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/30/migrate-from-http-to-https/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html" target="_blank" rel="external">HTTPS 升级指南</a></p>
+</blockquote>
+<h3 id="获取证书"><a href="#获取证书" class="headerlink" title="获取证书"></a>获取证书</h3><p>升级到 HTTPS 协议的第一步，就是要获得一张证书。  </p>
+<p>证书是一个二进制文件，里面包含经过认证的网站公钥和一些元数据，要从经销商购买。  </p>
+<ul>
+<li><a href="https://www.gogetssl.com/" target="_blank" rel="external">GoGetSSL</a></li>
+<li><a href="https://www.ssls.com/" target="_blank" rel="external">SSLs.com</a></li>
+<li><a href="https://sslmate.com/" target="_blank" rel="external">SSLmate.com</a></li>
+</ul>
+<p>证书有很多类型，首先分为三种认证级别。  </p>
+<ul>
+<li>域名认证（Domain Validation）：最低级别认证，可以确认申请人拥有这个域名。对于这种证书，浏览器会在地址栏显示一把锁。  </li>
+<li>公司认证（Company Validation）：确认域名所有人是哪一家公司，证书里面会包含公司信息。  </li>
+<li>扩展认证（Extended Validation）：最高级别的认证，浏览器地址栏会显示公司名。  </li>
+</ul>
+<p>还分为三种覆盖范围。  </p>
+<ul>
+<li>单域名证书：只能用于单一域名，foo.com的证书不能用于www.foo.com</li>
+<li>通配符证书：可以用于某个域名及其所有一级子域名，比如*.foo.com的证书可以用于foo.com，也可以用于www.foo.com</li>
+<li>多域名证书：可以用于多个域名，比如foo.com和bar.com  </li>
+</ul>
+<p>认证级别越高、覆盖范围越广的证书，价格越贵。  </p>
+<p>还有一个免费证书的选择。为了推广HTTPS协议，电子前哨基金会EFF成立了 <a href="https://letsencrypt.org/" target="_blank" rel="external">Let’s Encrypt</a>，提供免费证书（<a href="https://www.digitalocean.com/community/tags/let-s-encrypt?type=tutorials" target="_blank" rel="external">教程</a>和<a href="https://certbot.eff.org/" target="_blank" rel="external">工具</a>）。</p>
+<p>拿到证书以后，可以用 <a href="https://tools.keycdn.com/ssl" target="_blank" rel="external">SSL Certificate Check</a> 检查一下，信息是否正确。  </p>
+<h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><p>证书可以放在/etc/ssl目录（Linux 系统），然后根据你使用的Web服务器进行配置。  </p>
+<ul>
+<li><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/" target="_blank" rel="external">证书配置文件生成器</a>，by Mozilla</li>
+<li><a href="https://github.com/SSLMate/tlsconfigguide/tree/master/templates" target="_blank" rel="external">配置文件模板</a>，by SSLMate</li>
+</ul>
+<p>如果使用 Let’s Encrypt 证书，请使用自动安装工具 <a href="https://certbot.eff.org/" target="_blank" rel="external">Certbot</a>。  </p>
+<p>安装成功后，使用 <a href="https://www.ssllabs.com/ssltest/analyze.html" target="_blank" rel="external">SSL Labs Server Test</a> 检查一下证书是否生效。  </p>
+<h3 id="修改链接"><a href="#修改链接" class="headerlink" title="修改链接"></a>修改链接</h3><p>下一步，网页加载的 HTTP 资源，要全部改成 HTTPS 链接。因为加密网页内如果有非加密的资源，浏览器是不会加载那些资源的。  </p>
+<pre><code>&lt;script src=&quot;http://foo.com/jquery.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>上面这行加载命令，有两种改法。  </p>
+<pre><code>&lt;!-- 改法一 --&gt;
+&lt;script src=&quot;https://foo.com/jquery.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- 改法二 --&gt;
+&lt;script src=&quot;//foo.com/jquery.js&quot;&gt;&lt;/script&gt;
+</code></pre><p>其中，改法二会根据当前网页的协议，加载相同协议的外部资源，更灵活一些。  </p>
+<p>另外，如果页面头部用到了rel=”canonical”，也要改成HTTPS网址。  </p>
+<pre><code>&lt;link rel=&quot;canonical&quot; href=&quot;https://foo.com/bar.html&quot; /&gt;
+</code></pre><h3 id="301重定向"><a href="#301重定向" class="headerlink" title="301重定向"></a>301重定向</h3><p>下一步，修改 Web 服务器的配置文件，使用 301 重定向，将 HTTP 协议的访问导向 HTTPS 协议。  </p>
+<p><a href="https://serverfault.com/questions/67316/in-nginx-how-can-i-rewrite-all-http-requests-to-https-while-maintaining-sub-dom" target="_blank" rel="external">Nginx 的写法</a>。  </p>
+<pre><code>server {
+  listen 80;
+  server_name domain.com www.domain.com;
+  return 301 https://domain.com$request_uri;
+}
+</code></pre><p><a href="https://httpd.apache.org/docs/2.4/rewrite/remapping.html#canonicalhost" target="_blank" rel="external">Apache</a> 的写法（.htaccess文件）。</p>
+<pre><code>RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}     [R=301,L]
+</code></pre><h3 id="安全措施"><a href="#安全措施" class="headerlink" title="安全措施"></a>安全措施</h3><p>以下措施可以进一步保证通信安全。  </p>
+<h4 id="HTTP-Strict-Transport-Security-HSTS"><a href="#HTTP-Strict-Transport-Security-HSTS" class="headerlink" title="HTTP Strict Transport Security (HSTS)"></a>HTTP Strict Transport Security (HSTS)</h4><p>访问网站时，用户很少直接在地址栏输入<a href="https://，总是通过点击链接，或者3xx重定向，从HTTP页面进入HTTPS页面。攻击者完全可以在用户发出HTTP请求时，劫持并篡改该请求。" target="_blank" rel="external">https://，总是通过点击链接，或者3xx重定向，从HTTP页面进入HTTPS页面。攻击者完全可以在用户发出HTTP请求时，劫持并篡改该请求。</a>  </p>
+<p>另一种情况是恶意网站使用自签名证书，冒充另一个网站，这时浏览器会给出警告，但是许多用户会忽略警告继续访问。  </p>
+<p>“HTTP严格传输安全”（简称 HSTS）的作用，就是强制浏览器只能发出HTTPS请求，并阻止用户接受不安全的证书。<br>它在网站的响应头里面，加入一个强制性声明。以下例子摘自维基百科。</p>
+<pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains
+</code></pre><p>上面这段头信息有两个作用。  </p>
+<ol>
+<li>在接下来的一年（即31536000秒）中，浏览器只要向example.com或其子域名发送HTTP请求时，必须采用HTTPS来发起连接。用户点击超链接或在地址栏输入<a href="http://www.example.com/，浏览器应当自动将http转写成https，然后直接向https://www.example.com/发送请求。" target="_blank" rel="external">http://www.example.com/，浏览器应当自动将http转写成https，然后直接向https://www.example.com/发送请求。</a></li>
+<li>在接下来的一年中，如果example.com服务器发送的证书无效，用户不能忽略浏览器警告，将无法继续访问该网站。<br>HSTS 很大程度上解决了 SSL 剥离攻击。只要浏览器曾经与服务器建立过一次安全连接，之后浏览器会强制使用HTTPS，即使链接被换成了HTTP。<br>该方法的主要不足是，用户首次访问网站发出HTTP请求时，是不受HSTS保护的。  </li>
+</ol>
+<p>如果想要全面分析网站的安全程度，可以使用 Mozilla 的 <a href="https://observatory.mozilla.org/" target="_blank" rel="external">Observatory</a>。</p>
+<h4 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h4><p>另一个需要注意的地方是，确保浏览器只在使用 HTTPS 时，才发送Cookie。  </p>
+<p>网站响应头里面，Set-Cookie字段加上Secure标志即可。  </p>
+<pre><code>Set-Cookie: LSID=DQAAAK...Eaem_vYg; Secure
+</code></pre><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://docs.google.com/document/d/1oRXJUIttqQxuxmjj2tgYjj096IKw4Zcw6eAoIKWZ2oQ/edit#" target="_blank" rel="external">How To Migrate To HTTPS</a>, by Chris Palmer</li>
+<li><a href="https://www.keycdn.com/blog/http-to-https/" target="_blank" rel="external">Complete Guide - How to Migrate from HTTP to HTTPS</a>, by KeyCDN</li>
+<li><a href="http://smallbiztrends.com/2015/04/changing-from-http-to-https.html" target="_blank" rel="external">What You Need to Know About Changing From Http to Https</a>, by Matt Mansfield</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发者手册/" rel="tag">#开发者手册</a>
+          
+            <a href="/tags/http/" rel="tag">#http</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/29/http/" rel="next" title="HTTP 协议入门">
+                <i class="fa fa-chevron-left"></i> HTTP 协议入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/07/know-html5-web-notification/" rel="prev" title="简单了解HTML5中的Web Notification桌面通知">
+                简单了解HTML5中的Web Notification桌面通知 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/30/migrate-from-http-to-https/"
+           data-title="HTTPS 升级指南" data-url="http://yoursite.com/2016/08/30/migrate-from-http-to-https/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取证书"><span class="nav-number">1.</span> <span class="nav-text">获取证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装证书"><span class="nav-number">2.</span> <span class="nav-text">安装证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改链接"><span class="nav-number">3.</span> <span class="nav-text">修改链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#301重定向"><span class="nav-number">4.</span> <span class="nav-text">301重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全措施"><span class="nav-number">5.</span> <span class="nav-text">安全措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-Strict-Transport-Security-HSTS"><span class="nav-number">5.1.</span> <span class="nav-text">HTTP Strict Transport Security (HSTS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie"><span class="nav-number">5.2.</span> <span class="nav-text">Cookie</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

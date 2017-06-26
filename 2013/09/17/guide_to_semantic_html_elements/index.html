@@ -1,0 +1,944 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="HTML语言编写指南
+
+制作网页的第一步，就是学会编写HTML语言。  
+HTML是一种标签语言，通过在内容上附加各种标签，达到在浏览器中正确展示的目的。正确地编写HTML，不仅是制作网页的必要条件，也是对网页进一步处理、添加CSS和Javascript效果的前提。  
+编写HTML语言的关键，就是把标签用对，使它能够正确传达语义信息，不要使用无含义或错误含义的标签。下面就是一份我整理的HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML语言编写指南">
+<meta property="og:url" content="http://yoursite.com/2013/09/17/guide_to_semantic_html_elements/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="HTML语言编写指南
+
+制作网页的第一步，就是学会编写HTML语言。  
+HTML是一种标签语言，通过在内容上附加各种标签，达到在浏览器中正确展示的目的。正确地编写HTML，不仅是制作网页的必要条件，也是对网页进一步处理、添加CSS和Javascript效果的前提。  
+编写HTML语言的关键，就是把标签用对，使它能够正确传达语义信息，不要使用无含义或错误含义的标签。下面就是一份我整理的HTML">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML语言编写指南">
+<meta name="twitter:description" content="HTML语言编写指南
+
+制作网页的第一步，就是学会编写HTML语言。  
+HTML是一种标签语言，通过在内容上附加各种标签，达到在浏览器中正确展示的目的。正确地编写HTML，不仅是制作网页的必要条件，也是对网页进一步处理、添加CSS和Javascript效果的前提。  
+编写HTML语言的关键，就是把标签用对，使它能够正确传达语义信息，不要使用无含义或错误含义的标签。下面就是一份我整理的HTML">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/09/17/guide_to_semantic_html_elements/"/>
+
+  <title> HTML语言编写指南 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML语言编写指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-09-17T19:32:32+08:00" content="2013-09-17 19:32:32">
+              2013-09-17 19:32:32
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/09/17/guide_to_semantic_html_elements/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/09/17/guide_to_semantic_html_elements/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html" target="_blank" rel="external">HTML语言编写指南</a></p>
+</blockquote>
+<p>制作网页的第一步，就是学会编写HTML语言。  </p>
+<p>HTML是一种标签语言，通过在内容上附加各种标签，达到在浏览器中正确展示的目的。正确地编写HTML，不仅是制作网页的必要条件，也是对网页进一步处理、添加CSS和Javascript效果的前提。  </p>
+<p>编写HTML语言的关键，就是把标签用对，使它能够正确传达语义信息，不要使用无含义或错误含义的标签。下面就是一份我整理的HTML语言的编写指南。  </p>
+<h3 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h3><h4 id="div"><a href="#div" class="headerlink" title="div"></a>div</h4><p>含义：页面内容的一个独立组成部分。  </p>
+<p>常见的用途有三种：</p>
+<ol>
+<li>划分页首、页尾、页边栏或导航栏等等；</li>
+<li>表示页面的分栏；</li>
+<li>将文章进一步分成几个部分，比如正文、评论、文章的元数据等等。</li>
+</ol>
+<p>示例：  </p>
+<pre><code>&lt;div id=&quot;header&quot;&gt;页面的头部&lt;/div&gt;
+</code></pre><h4 id="h1-h2-h3-h4-h5-h6"><a href="#h1-h2-h3-h4-h5-h6" class="headerlink" title="h1, h2, h3, h4, h5, h6"></a>h1, h2, h3, h4, h5, h6</h4><p>含义：内容的标题。  </p>
+<p>h1是最高一级的标题，下一层标题使用h2，依次类推。除了h1以外，其他5个级别标题在一个页面中都可以出现多次，h1只能出现一次。  </p>
+<p>示例：  </p>
+<pre><code>&lt;h1&gt;一级标题&lt;/h1&gt;
+&lt;h2&gt;二级标题&lt;/h2&gt;
+</code></pre><h4 id="p"><a href="#p" class="headerlink" title="p"></a>p</h4><p>含义：表示段落。  </p>
+<p>它是文章内容的基本组成部分，也可以用来表示诗歌中的一节。p与div的主要区别是，前者表示文本段落，后者表示更广义的段落。  </p>
+<p>在P标签中，不应该再包含其他块级元素。此外，也不应该使用空的p标签。  </p>
+<p>示例：  </p>
+<pre><code>&lt;p&gt;这是一个段落。&lt;/p&gt;
+</code></pre><h4 id="blockquote"><a href="#blockquote" class="headerlink" title="blockquote"></a>blockquote</h4><p>含义：表示一段引用自其他来源的独立文本。  </p>
+<p>它引用的文本通常有一定的长度，以块级元素的形式出现。  </p>
+<p>blockquote应该总是与cite标签配合使用，cite用来指明引用材料的来源。  </p>
+<p>示例：  </p>
+<pre><code>&lt;blockquote&gt;    
+    不是在沉默中爆发，就是在沉默中灭亡。  
+&lt;cite&gt;鲁迅《为了忘却的纪念》&lt;/cite&gt;
+&lt;/blockquote&gt;
+</code></pre><p>在浏览器的默认样式中，blockquote有文本缩进的效果，但是不要单单因为这个原因，而使用它。  </p>
+<p>blockquote有两个属性，第一个是cite属性，用来指明引用材料的URI地址；第二个是title属性，用于提供引用材料的相关信息。  </p>
+<p>示例：  </p>
+<pre><code>&lt;blockquote cite=&quot;http://w3c.org/&quot; title=&quot;文章的标题，作者，发表日期&quot;&gt;&quot;我正在此处引用W3C的标准。&quot;&lt;/blockquote&gt;
+</code></pre><h3 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h3><h4 id="a"><a href="#a" class="headerlink" title="a"></a>a</h4><p>含义：与href属性搭配使用时，链接至外部链接，或者同一页的某个锚点。  </p>
+<p>示例：</p>
+<pre><code>&lt;a href=&quot;chapter2.html&quot;&gt;第二章&lt;/a&gt;
+</code></pre><h4 id="abbr"><a href="#abbr" class="headerlink" title="abbr"></a>abbr</h4><p>含义：表示内容是某个术语或短语的缩写形式，它有一个title属性，用来指明缩写所代表的原始词组。  </p>
+<p>示例：  </p>
+<pre><code>&lt;abbr title=&quot;Europe&quot;&gt;Eur&lt;/abbr&gt;
+</code></pre><h4 id="acronym"><a href="#acronym" class="headerlink" title="acronym"></a>acronym</h4><p>含义：表示内容是一个词组的首字母简称，比如BBC、WTO。  </p>
+<p>它有一个title属性，用来指明属性所代表的原始词组。  </p>
+<p>acronym与abbr的主要区别是，前者往往是一个可以独立使用的词，而后者不是。这意味着acronym肯定是abbr，但是abbr不一定是acronym。  </p>
+<p>示例：  </p>
+<pre><code>&lt;acronym title=&quot;World Wide Web&quot;&gt;WWW&lt;/acronym&gt;
+</code></pre><h4 id="em"><a href="#em" class="headerlink" title="em"></a>em</h4><p>含义：表示强调。  </p>
+<p>em所指明的内容，应该比其周围的内容更重要。  </p>
+<p>注意，如果你只是想表示斜体或者引用书名，那就不要使用em标签，而是用CSS命令（font-style:italic）。  </p>
+<p>示例：  </p>
+<pre><code>&lt;em&gt;我正在强调这句话。&lt;/em&gt;
+</code></pre><h4 id="strong"><a href="#strong" class="headerlink" title="strong"></a>strong</h4><p>含义：表示比em更强的强调。  </p>
+<p>示例：  </p>
+<pre><code>&lt;strong&gt;我正在以更大的强度，强调这句话。&lt;/strong&gt;
+</code></pre><h4 id="address"><a href="#address" class="headerlink" title="address"></a>address</h4><p>含义：表示某个特定文档或文档的某个部分的联系信息或联络方式。  </p>
+<p>注意：</p>
+<ol>
+<li>所有的联络方式都可以用这个标签表示，而不仅仅是地址。</li>
+<li>它是一个块级元素，不要用它来单独标识某个Email地址或电话号码。</li>
+</ol>
+<p>示例：  </p>
+<pre><code>&lt;address&gt;
+&lt;a href=&quot;../People/张三/&quot;&gt;张三&lt;/a&gt;, 
+&lt;a href=&quot;../People/李四/&quot;&gt;李四&lt;/a&gt;, 
+$ 日期：1999/12/24 23:37:50 $
+&lt;/address&gt;
+</code></pre><h4 id="cite"><a href="#cite" class="headerlink" title="cite"></a>cite</h4><p>含义：表示引述的来源。  </p>
+<p>它用来指明书目信息、个人引语、或者参考文献中的外部资源。  </p>
+<p>示例：  </p>
+<pre><code>&lt;cite&gt;《哈利波特系列小说》&lt;/cite&gt;的作者是J.K.罗琳。
+</code></pre><h4 id="dfn"><a href="#dfn" class="headerlink" title="dfn"></a>dfn</h4><p>含义：用来表示一个定义。  </p>
+<p>示例：  </p>
+<pre><code>&lt;dfn&gt;Internet Explorer&lt;/dfn&gt;是最常见的浏览器。
+</code></pre><h4 id="del"><a href="#del" class="headerlink" title="del"></a>del</h4><p>含义：表示该信息已被删除。  </p>
+<p>通常用于日期和时间，表示文档已经发生了变化。  </p>
+<h4 id="ins"><a href="#ins" class="headerlink" title="ins"></a>ins</h4><p>含义：与del的作用正好相反，表示修订后插入的内容。  </p>
+<h4 id="code"><a href="#code" class="headerlink" title="code"></a>code</h4><p>含义：表示程序代码。  </p>
+<h4 id="samp"><a href="#samp" class="headerlink" title="samp"></a>samp</h4><p>含义：表示程序代码的输出结果。  </p>
+<h4 id="kbd"><a href="#kbd" class="headerlink" title="kbd"></a>kbd</h4><p>含义：表示由用户键入的文本。  </p>
+<p>它很少使用，但是在某些场合，你想演示如何使用一个程序，它就会有用。它通常与code和samp结合使用。  </p>
+<h4 id="var"><a href="#var" class="headerlink" title="var"></a>var</h4><p>含义：表示程序中的变量或参数，与code, samp, kbd结合使用。  </p>
+<h4 id="q"><a href="#q" class="headerlink" title="q"></a>q</h4><p>含义：表示一个较短的引语。  </p>
+<p>注意：浏览器对这个标签的支持很不好，因此不推荐使用。  </p>
+<pre><code>sub/sup
+</code></pre><p>含义：表示下标/上标。  </p>
+<h4 id="span"><a href="#span" class="headerlink" title="span"></a>span</h4><p>含义：用来标识其他标签不适合表示的内容，是一个通用型的行内标签。  </p>
+<h3 id="列表元素"><a href="#列表元素" class="headerlink" title="列表元素"></a>列表元素</h3><h4 id="ul-ol-li"><a href="#ul-ol-li" class="headerlink" title="ul, ol, li"></a>ul, ol, li</h4><p>含义：表示一组相同格式的信息。  </p>
+<p>当你有一张清单的时候，就应该使用列表元素。ul是无序列表，通常前面有一个强调符号；ol是有序列表，前面通常采用数字编号。  </p>
+<h4 id="dl-dd-dt"><a href="#dl-dd-dt" class="headerlink" title="dl, dd, dt"></a>dl, dd, dt</h4><p>含义：表示一个术语列表。  </p>
+<p>dt表示术语，dd表示该术语的定义，可以为单个术语提供多个定义。  </p>
+<p>示例：  </p>
+<pre><code>&lt;dl&gt;
+    &lt;dt&gt;虚怀&lt;/dt&gt;
+    &lt;dd&gt;胸襟宽大,虚心谦退&lt;/dd&gt;
+    &lt;dt&gt;虚荣&lt;/dt&gt;
+    &lt;dd&gt;表面上的荣耀；虚假的荣名&lt;/dd&gt;
+    &lt;dt&gt;虚构&lt;/dt&gt;
+    &lt;dd&gt;凭想像编造出来&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre><h3 id="表格元素"><a href="#表格元素" class="headerlink" title="表格元素"></a>表格元素</h3><h3 id="分割元素"><a href="#分割元素" class="headerlink" title="分割元素"></a>分割元素</h3><h4 id="br"><a href="#br" class="headerlink" title="br"></a>br</h4><p>含义：表示换行。  </p>
+<p>注意，除了少数场合（比如诗歌中的分行），应该尽量避免使用这个标签，因为它并没有特别的语义含义，而且分行的视觉效果完全可以通过p标签、列表标签和CSS命令达到。  </p>
+<h4 id="hr"><a href="#hr" class="headerlink" title="hr"></a>hr</h4><p>含义：表示两个部分之间用一根水平直线分割。  </p>
+<p>事实上，不用这个标签，也有办法显示水平直线。这个标签的唯一优势，也许就是在没有CSS的场合，它可以产生视觉分割的效果。  </p>
+<h3 id="不建议使用的元素"><a href="#不建议使用的元素" class="headerlink" title="不建议使用的元素"></a>不建议使用的元素</h3><p>以下的标签都没有明确的语义，只涉及到视觉效果，很可能在以后版本的HTML语言中被废除。建议不要使用。  </p>
+<ul>
+<li>big</li>
+<li>small</li>
+<li>b</li>
+<li>i</li>
+<li>tt</li>
+<li>pre</li>
+</ul>
+<h3 id="已经被废除的标签"><a href="#已经被废除的标签" class="headerlink" title="已经被废除的标签"></a>已经被废除的标签</h3><p>下面的标签已经被废除，不应该继续使用了。  </p>
+<ul>
+<li>applet</li>
+<li>center</li>
+<li>font</li>
+<li>dir</li>
+<li>isindex</li>
+<li>menu</li>
+<li>s</li>
+<li>strike</li>
+<li>u</li>
+</ul>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a href="http://brainstormsandraves.com/articles/semantics/structure/" target="_blank" rel="external">Semantics, HTML, XHTML, and Structure</a> </li>
+<li><a href="http://www.joedolson.com/articles/2008/04/guide-to-semantic-html/" target="_blank" rel="external">Guide to Semantic Use of HTML Elements</a> </li>
+<li><a href="http://www.mozilla.org/contribute/writing/markup" target="_blank" rel="external">mozilla.org Markup Reference</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag">#HTML</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/09/12/markdown/" rel="next" title="markdown">
+                <i class="fa fa-chevron-left"></i> markdown
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2013/09/22/base64/" rel="prev" title="Base64笔记">
+                Base64笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2013/09/17/guide_to_semantic_html_elements/"
+           data-title="HTML语言编写指南" data-url="http://yoursite.com/2013/09/17/guide_to_semantic_html_elements/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素"><span class="nav-number">1.</span> <span class="nav-text">块级元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#div"><span class="nav-number">1.1.</span> <span class="nav-text">div</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#h1-h2-h3-h4-h5-h6"><span class="nav-number">1.2.</span> <span class="nav-text">h1, h2, h3, h4, h5, h6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#p"><span class="nav-number">1.3.</span> <span class="nav-text">p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#blockquote"><span class="nav-number">1.4.</span> <span class="nav-text">blockquote</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行内元素"><span class="nav-number">2.</span> <span class="nav-text">行内元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a"><span class="nav-number">2.1.</span> <span class="nav-text">a</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abbr"><span class="nav-number">2.2.</span> <span class="nav-text">abbr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#acronym"><span class="nav-number">2.3.</span> <span class="nav-text">acronym</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#em"><span class="nav-number">2.4.</span> <span class="nav-text">em</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#strong"><span class="nav-number">2.5.</span> <span class="nav-text">strong</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#address"><span class="nav-number">2.6.</span> <span class="nav-text">address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cite"><span class="nav-number">2.7.</span> <span class="nav-text">cite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dfn"><span class="nav-number">2.8.</span> <span class="nav-text">dfn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#del"><span class="nav-number">2.9.</span> <span class="nav-text">del</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ins"><span class="nav-number">2.10.</span> <span class="nav-text">ins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#code"><span class="nav-number">2.11.</span> <span class="nav-text">code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#samp"><span class="nav-number">2.12.</span> <span class="nav-text">samp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kbd"><span class="nav-number">2.13.</span> <span class="nav-text">kbd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var"><span class="nav-number">2.14.</span> <span class="nav-text">var</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#q"><span class="nav-number">2.15.</span> <span class="nav-text">q</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#span"><span class="nav-number">2.16.</span> <span class="nav-text">span</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表元素"><span class="nav-number">3.</span> <span class="nav-text">列表元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ul-ol-li"><span class="nav-number">3.1.</span> <span class="nav-text">ul, ol, li</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dl-dd-dt"><span class="nav-number">3.2.</span> <span class="nav-text">dl, dd, dt</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格元素"><span class="nav-number">4.</span> <span class="nav-text">表格元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割元素"><span class="nav-number">5.</span> <span class="nav-text">分割元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#br"><span class="nav-number">5.1.</span> <span class="nav-text">br</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hr"><span class="nav-number">5.2.</span> <span class="nav-text">hr</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不建议使用的元素"><span class="nav-number">6.</span> <span class="nav-text">不建议使用的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已经被废除的标签"><span class="nav-number">7.</span> <span class="nav-text">已经被废除的标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

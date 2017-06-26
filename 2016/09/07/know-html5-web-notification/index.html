@@ -1,0 +1,999 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,HTML5," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简单了解HTML5中的Web Notification桌面通知
+
+传统的通知实现通知可以说是web中比较常见且重要的功能，私信、在线提问、或者一些在线即时通讯工具我们总是希望第一时间知道对方有了新的反馈，这个时候，就需要页面给予即使的通知。  
+在以前，我们的通知实现主要是通过闪烁页面的标题内容来实现，实现原理其实很简单，就是定时器不断修改document.title的值。  
+例如：  
+se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单了解HTML5中的Web Notification桌面通知">
+<meta property="og:url" content="http://yoursite.com/2016/09/07/know-html5-web-notification/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="简单了解HTML5中的Web Notification桌面通知
+
+传统的通知实现通知可以说是web中比较常见且重要的功能，私信、在线提问、或者一些在线即时通讯工具我们总是希望第一时间知道对方有了新的反馈，这个时候，就需要页面给予即使的通知。  
+在以前，我们的通知实现主要是通过闪烁页面的标题内容来实现，实现原理其实很简单，就是定时器不断修改document.title的值。  
+例如：  
+se">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/new-message.gif">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220814.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220512.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/message-replace.gif">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_233335.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/notice-iphone.jpg">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-06_002004.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220512.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_223136.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201607/2016-07-06_002320.png">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单了解HTML5中的Web Notification桌面通知">
+<meta name="twitter:description" content="简单了解HTML5中的Web Notification桌面通知
+
+传统的通知实现通知可以说是web中比较常见且重要的功能，私信、在线提问、或者一些在线即时通讯工具我们总是希望第一时间知道对方有了新的反馈，这个时候，就需要页面给予即使的通知。  
+在以前，我们的通知实现主要是通过闪烁页面的标题内容来实现，实现原理其实很简单，就是定时器不断修改document.title的值。  
+例如：  
+se">
+<meta name="twitter:image" content="http://image.zhangxinxu.com/image/blog/201607/new-message.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/07/know-html5-web-notification/"/>
+
+  <title> 简单了解HTML5中的Web Notification桌面通知 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                简单了解HTML5中的Web Notification桌面通知
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-07T23:04:32+08:00" content="2016-09-07 23:04:32">
+              2016-09-07 23:04:32
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/07/know-html5-web-notification/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/07/know-html5-web-notification/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.zhangxinxu.com/wordpress/2016/07/know-html5-web-notification/" target="_blank" rel="external">简单了解HTML5中的Web Notification桌面通知</a></p>
+</blockquote>
+<h3 id="传统的通知实现"><a href="#传统的通知实现" class="headerlink" title="传统的通知实现"></a>传统的通知实现</h3><p>通知可以说是web中比较常见且重要的功能，私信、在线提问、或者一些在线即时通讯工具我们总是希望第一时间知道对方有了新的反馈，这个时候，就需要页面给予即使的通知。  </p>
+<p>在以前，我们的通知实现主要是通过闪烁页面的标题内容来实现，实现原理其实很简单，就是定时器不断修改document.title的值。  </p>
+<p>例如：  </p>
+<pre><code>setInterval(function() {
+    var title = document.title;
+    if (isShine == true) {
+        if (/新/.test(title) == false) {
+            document.title = &apos;【你有新消息】&apos;;    
+        } else {
+            document.title = &apos;【　　　　　】&apos;;
+        }
+    } else {
+        document.title = titleInit;
+    }
+}, 500);
+</code></pre><p>结果标题就会这样：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/new-message.gif" alt="你有新消息 gif">  </p>
+<p>眼见为实，您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201607/title-shine.html" target="_blank" rel="external">标题栏闪动提示JS演示demo</a>    </p>
+<p>窗体失焦的时候，标题就会闪。  </p>
+<p>这里有一个小的知识点，就是浏览器窗体获得焦点和失去焦点，Chrome和FireFox浏览器是window的onfocus, onblur方法；而IE浏览器则是document的onfocusin, onfocusout方法，因此有：  </p>
+<pre><code>window.onfocus = function() { };
+window.onblur = function() { };
+
+// for IE
+document.onfocusin = function() { };
+document.onfocusout = function() { };
+</code></pre><p>如果复杂场景，请使用addEventListener和attchEvent进行事件绑定。  </p>
+<p>然而，这种提示有个致命的缺陷，就是用户的浏览器要一直是张开的。比方说用户浏览器最小化，标题就看不见，自然就无法及时get到有新消息的信息。  </p>
+<p>好了，新技术的出现不会是无缘无故的，总是为解决某一类问题或需求出现的。Web Notification就可以很好地解决上面的痛点。  </p>
+<h3 id="HTML5-Web-Notification桌面通知特点"><a href="#HTML5-Web-Notification桌面通知特点" class="headerlink" title="HTML5 Web Notification桌面通知特点"></a>HTML5 Web Notification桌面通知特点</h3><p>HTML5 Web Notification通知是属于桌面性质的通知，有点类似于显示器右下角蹦出的QQ弹框，杀毒提示之类的，跟浏览器是脱离的，消息是置顶的。  </p>
+<p>比方说，你私信女神说“同事放我鸽子，独立日的票多了一张，浪费了可惜，要不送你？”，然后浏览器爽快地关闭…………的话，你是收不到消息的（zxx: 此处有更新），只能最小化，或非当前窗口，然后你就可以安安心心地看《余罪》，没错，就安安心心地看。跟你讲，只要女神一回复，立马，桌面右下角就会出现：“女神说：好啊！”的通知提示，你就可以秒回！女神看到这秒回的速度，心里想的一定是：“这傻小子，一定是一直盯着屏幕等我消息……” 剧情就完全不一样了！  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220814.png" alt="">  </p>
+<p>浏览器关闭是否可以接收到Web Notification通知，如果说“收不到”，肯定是不准确的，因为我自己时不时可以收到facebook的通知。但是，恕我愚钝，一直没想明白原理。难道Facebook和Chrome酱有合作，如果是这样那就是特例；如果不是，那通知是哪里发出的呢？  </p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>IE14以及其他桌面浏览器都支持Web Notification，目前移动端的支持情况并不好，Android部分支持，iOS Safari浏览器全军覆没(至9.3版本)：  </p>
+<p>移动端要是支持的话，我猜，可能会跟原生app的提示效果类似，直接出现在屏幕上，感觉到时候应该蛮吊！  </p>
+<h3 id="HTML5-Web-Notification语法"><a href="#HTML5-Web-Notification语法" class="headerlink" title="HTML5 Web Notification语法"></a>HTML5 Web Notification语法</h3><pre><code>window.Notification  
+</code></pre><p>如果浏览器支持Web Notification，不考虑私有前缀，则window.Notification就会是一个有很多静态属性和实例方法的函数。基本上，Web Notification所有的语法都是围绕Notification这个函数来进行的。  </p>
+<p>显然，通知这种事情是有可能扰民的，因此，必须经过用户同意才行。因此：  </p>
+<h4 id="Notification-requestPermission"><a href="#Notification-requestPermission" class="headerlink" title="Notification.requestPermission()"></a>Notification.requestPermission()</h4><p>这是一个静态方法，作用就是让浏览器出现是否允许通知的提示，window系统Chrome浏览器目前的UI效果是这样的：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220512.png" alt="">  </p>
+<p>语法目前有新旧两种，下面这个是最近规范上更新的基于promise的语法：</p>
+<pre><code>Notification.requestPermission().then(function(permission) { ... });  
+</code></pre><p>下面这个是基于简单的回调：  </p>
+<pre><code>Notification.requestPermission(callback);
+</code></pre><p>其中callback是可选参数，根据MDN的说法，Gecko 46开始舍弃了这种语法，但是，我自己使用FireFox 47测试，跑得很正常（有part4的截图为证）。难道FireFox的版本号不等同于Gecko的版本号？  </p>
+<p>无论是then中的还是直接callback函数的参数都是一样的，表示当前是否允许。只会是granted, denied, 或default.  </p>
+<p>其中granted表示用户允许通知，denied表示用户嫌弃你，default表示用户目前还没有管你。  </p>
+<pre><code>Notification.requestPermission().then(function(result) {
+  // result可能是是granted, denied, 或default.
+});
+</code></pre><h4 id="Notification-permission-只读"><a href="#Notification-permission-只读" class="headerlink" title="Notification.permission[只读]"></a>Notification.permission[只读]</h4><p>这是一个静态属性。表示是否允许通知，值就是上面的granted, denied, 或default.  </p>
+<p>默认情况下，Notification.permission的值是’default’:<br>默认用户是否允许通知的值  </p>
+<p>因此，Notification.requestPermission()的回调方法中，可以不使用result参数，直接使用Notification.permission获取当前的通知状态。  </p>
+<p>现在，用户允许出通知了，我们也知道可以出通知了，下面剩下的就是显示通知了。  </p>
+<h4 id="new-Notification-title-options"><a href="#new-Notification-title-options" class="headerlink" title="new Notification(title, options)"></a>new Notification(title, options)</h4><p>通过new构造，显示通知。其中title是必须参数，表示通知小框框的标题内容，options是可选参数，对象，支持的参数以及释义见下表：  </p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dir</td>
+<td>默认值是auto, 可以是ltr或rtl，有点类似direction属性。表示提示主体内容的水平书写顺序。</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>提示的语言。没看出来有什么用。大家可以忽略之~</td>
+</tr>
+<tr>
+<td>body</td>
+<td>提示主体内容。字符串。会在标题的下面显示。比方说上面的“好啊！(害羞.gif)”。</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>字符串。标记当前通知的标签。</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>字符串。通知面板左侧那个图标地址。</td>
+</tr>
+<tr>
+<td>data</td>
+<td>任意类型和通知相关联的数据。</td>
+</tr>
+<tr>
+<td>vibrate</td>
+<td>通知显示时候，设备震动硬件需要的振动模式。所谓振动模式，指的是一个描述交替时间的数组，分别表示振动和不振动的毫秒数，一直交替下去。例如[200, 100, 200]表示设备振动200毫秒，然后停止100毫秒，再振动200毫秒。</td>
+</tr>
+<tr>
+<td>renotify</td>
+<td>布尔值。新通知出现的时候是否替换之前的。如果设为true，则表示替换，表示当前标记的通知只会出现一个。注意都这里“当前标记”没？没错，true参数要想其作用，必须tag需要设置属性值。然后，通知就会像这样覆盖：<img src="http://image.zhangxinxu.com/image/blog/201607/message-replace.gif" alt="女神弹框覆盖gif">而不会是默认的叠高楼：<img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_233335.png" alt="叠高楼"></td>
+</tr>
+<tr>
+<td>silent</td>
+<td>布尔值。通知出现的时候，是否要有声音。默认false, 表示无声。</td>
+</tr>
+<tr>
+<td>sound</td>
+<td>字符串。音频地址。表示通知出现要播放的声音资源。</td>
+</tr>
+<tr>
+<td>noscreen</td>
+<td>布尔值。是否不再屏幕上显示通知信息。默认false, 表示要在屏幕上显示通知内容。<img src="http://image.zhangxinxu.com/image/blog/201607/notice-iphone.jpg" alt="显示桌面通知"></td>
+</tr>
+<tr>
+<td>sticky</td>
+<td>布尔值。是否通知具有粘性，这样用户不太容易清除通知。默认false, 表示没有粘性。根据我自己的猜测，应该和position的sticky属性值类似。  </td>
+</tr>
+</tbody>
+</table>
+<h4 id="Notification-close"><a href="#Notification-close" class="headerlink" title="Notification.close()"></a>Notification.close()</h4><p>通知显示了，如何关闭呢？可以通过调用Notification.close()实例方法，实际上，通知如果你放着不管，一段时间后就会自动隐藏，具体多久不详，我估摸着5秒有的。  </p>
+<h4 id="事件句柄"><a href="#事件句柄" class="headerlink" title="事件句柄"></a>事件句柄</h4><pre><code>Notification.onclick
+</code></pre><p>点击通知，然后……</p>
+<pre><code>Notification.onerror
+</code></pre><p>通知显示异常，然后。例如，明明Notification.permission是default，你还让我显示。  </p>
+<p>下面这些呢有必要独立出来，虽然现在是支持挺好的，但是，由于目前规范并没有把它们列入其中，所以，未来有可能浏览器就不支持了。  </p>
+<pre><code>Notification.onclose
+</code></pre><p>通知关闭了，然后…… 无论是用户手动关闭，还是直接Notification.close()关闭都会触发该该事件。  </p>
+<pre><code>Notification.onshow
+</code></pre><p>通知显示的时候，该干嘛干嘛~~  </p>
+<h4 id="其他属性值"><a href="#其他属性值" class="headerlink" title="其他属性值"></a>其他属性值</h4><p>除了Notification.permission外，Notification还有很多其他只读属性值，但是，基本上和上面的options参数一致，返回的值也是options和默认值的合并值（如果浏览器支持的话）。  </p>
+<pre><code>Notification.title[只读]
+Notification.dir[只读]
+Notification.lang[只读]
+Notification.body[只读]
+Notification.tag[只读]
+Notification.icon[只读]
+Notification.data[只读]
+Notification.silent[只读]
+Notification.title[只读]
+Notification.timestamp[只读]
+</code></pre><p>通知创建或者可以使用的时间。  </p>
+<pre><code>Notification.noscreen[只读]
+Notification.renotify[只读]
+Notification.sound[只读]
+Notification.sticky[只读]
+Notification.vibrate[只读]
+</code></pre><h3 id="HTML5-Web-Notification实例演示"><a href="#HTML5-Web-Notification实例演示" class="headerlink" title="HTML5 Web Notification实例演示"></a>HTML5 Web Notification实例演示</h3><p>知道了作用和API，下面就可以来个实例演示下，看看究竟真面目如何。  </p>
+<p>您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201607/web-notifications.html" target="_blank" rel="external">浏览器通知Web Notifications实例demo</a>  </p>
+<p>点击demo页面按钮：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-06_002004.png" alt="">  </p>
+<p>如果你是第一次，会有如下提示：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_220512.png" alt="">  </p>
+<p>通过后，就会出现妹子相关的通知信息了，例如，FireFox浏览器下（使用的是callback回调实现）：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-05_223136.png" alt="">  </p>
+<p>此时，你浏览器最小化，或者页面刷新，该通知都是纹风不动的。点击通知，可以和页面进行交互，例如，本demo显示了一段文字：  </p>
+<p><img src="http://image.zhangxinxu.com/image/blog/201607/2016-07-06_002320.png" alt="">  </p>
+<p>核心代码如下（显示和点击）：  </p>
+<pre><code>if (Notification.permission == &quot;granted&quot;) {
+    var notification = new Notification(&quot;Hi，帅哥：&quot;, {
+        body: &apos;可以加你为好友吗？&apos;,
+        icon: &apos;mm1.jpg&apos;
+    });
+
+    notification.onclick = function() {
+        text.innerHTML = &apos;张小姐已于&apos; + new Date().toTimeString().split(&apos; &apos;)[0] + &apos;加你为好友！&apos;;
+        notification.close();    
+    };
+}  
+</code></pre><p>至此，一个可以应用于实际开发的Web Notification demo就跃然纸上了。好像facebook已经在使用Web Notification了。  </p>
+<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>细心的小伙伴可能发现文章的转载协议变了，以前都是转载请注明出处，但是，现在，不允许随便转载了。因为有些网站的做法我实在忍无可忍，如果转载一些经典的文章，我还可以理解，但是，几乎把整站都搬过去，那就不是知识传播了，而是劳动果实的窃取，为己谋利的商业做法了。  </p>
+<p>比方说本文，设计demo，验证API细节，截图，制作Gif以及文章书写，那可是连续3天1点多睡觉熬出来的，累积花费十几个小时。你说，被某些人大手一挥，分分钟弄过去，不放原文地址，或者地址做得像彩蛋一样，难以轻易发现。那对原作者是没有一点点的尊重啊！  </p>
+<p>所以，从本篇文章开始，也就是2016年7月开始，使用新的转载协议，主要是用来约束那些随便盗取他人劳动知识成功的商业站点。对于，一心向善，致力于推动行业发展的小伙伴们，可以联系我进行当面授权。  </p>
+<p>尊重知识产权，共创和谐社会！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/HTML5/" rel="tag">#HTML5</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/30/migrate-from-http-to-https/" rel="next" title="HTTPS 升级指南">
+                <i class="fa fa-chevron-left"></i> HTTPS 升级指南
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/09/mou_macdown/" rel="prev" title="Mac 下两款 Markdown 编辑器 Mou/MacDown 大 PK">
+                Mac 下两款 Markdown 编辑器 Mou/MacDown 大 PK <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/07/know-html5-web-notification/"
+           data-title="简单了解HTML5中的Web Notification桌面通知" data-url="http://yoursite.com/2016/09/07/know-html5-web-notification/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的通知实现"><span class="nav-number">1.</span> <span class="nav-text">传统的通知实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-Web-Notification桌面通知特点"><span class="nav-number">2.</span> <span class="nav-text">HTML5 Web Notification桌面通知特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">3.</span> <span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-Web-Notification语法"><span class="nav-number">4.</span> <span class="nav-text">HTML5 Web Notification语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Notification-requestPermission"><span class="nav-number">4.1.</span> <span class="nav-text">Notification.requestPermission()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Notification-permission-只读"><span class="nav-number">4.2.</span> <span class="nav-text">Notification.permission[只读]</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#new-Notification-title-options"><span class="nav-number">4.3.</span> <span class="nav-text">new Notification(title, options)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Notification-close"><span class="nav-number">4.4.</span> <span class="nav-text">Notification.close()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件句柄"><span class="nav-number">4.5.</span> <span class="nav-text">事件句柄</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他属性值"><span class="nav-number">4.6.</span> <span class="nav-text">其他属性值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-Web-Notification实例演示"><span class="nav-number">5.</span> <span class="nav-text">HTML5 Web Notification实例演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束语"><span class="nav-number">6.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

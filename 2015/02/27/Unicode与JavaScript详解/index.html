@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Unicode与JavaScript详解
+
+Unicode是什么？Unicode源于一个很简单的想法：将全世界所有的字符包含在一个集合里，计算机只要支持这一个字符集，就能显示所有的字符，再也不会有乱码了。  
+它从0开始，为每个符号指定一个编号，这叫做”码点”（code point）。比如，码点0的符号就是null（表示所有二进制位都是0）。  
+U+0000 = null
+上式中，U+表示紧跟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unicode与JavaScript详解">
+<meta property="og:url" content="http://yoursite.com/2015/02/27/Unicode与JavaScript详解/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="Unicode与JavaScript详解
+
+Unicode是什么？Unicode源于一个很简单的想法：将全世界所有的字符包含在一个集合里，计算机只要支持这一个字符集，就能显示所有的字符，再也不会有乱码了。  
+它从0开始，为每个符号指定一个编号，这叫做”码点”（code point）。比如，码点0的符号就是null（表示所有二进制位都是0）。  
+U+0000 = null
+上式中，U+表示紧跟">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unicode与JavaScript详解">
+<meta name="twitter:description" content="Unicode与JavaScript详解
+
+Unicode是什么？Unicode源于一个很简单的想法：将全世界所有的字符包含在一个集合里，计算机只要支持这一个字符集，就能显示所有的字符，再也不会有乱码了。  
+它从0开始，为每个符号指定一个编号，这叫做”码点”（code point）。比如，码点0的符号就是null（表示所有二进制位都是0）。  
+U+0000 = null
+上式中，U+表示紧跟">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/02/27/Unicode与JavaScript详解/"/>
+
+  <title> Unicode与JavaScript详解 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Unicode与JavaScript详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-02-27T22:51:47+08:00" content="2015-02-27 22:51:47">
+              2015-02-27 22:51:47
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/02/27/Unicode与JavaScript详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/27/Unicode与JavaScript详解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2014/12/unicode.html" target="_blank" rel="external">Unicode与JavaScript详解</a></p>
+</blockquote>
+<h3 id="Unicode是什么？"><a href="#Unicode是什么？" class="headerlink" title="Unicode是什么？"></a>Unicode是什么？</h3><p>Unicode源于一个很简单的想法：将全世界所有的字符包含在一个集合里，计算机只要支持这一个字符集，就能显示所有的字符，再也不会有乱码了。  </p>
+<p>它从0开始，为每个符号指定一个编号，这叫做”码点”（code point）。比如，码点0的符号就是null（表示所有二进制位都是0）。  </p>
+<pre><code>U+0000 = null
+</code></pre><p>上式中，U+表示紧跟在后面的十六进制数是Unicode的码点。  </p>
+<p>目前，Unicode的最新版本是7.0版，一共收入了109449个符号，其中的中日韩文字为74500个。可以近似认为，全世界现有的符号当中，三分之二以上来自东亚文字。比如，中文”好”的码点是十六进制的597D。  </p>
+<pre><code>U+597D = 好
+</code></pre><p>这么多符号，Unicode不是一次性定义的，而是分区定义。每个区可以存放65536个（216）字符，称为一个平面（plane）。目前，一共有17个（25）平面，也就是说，整个Unicode字符集的大小现在是221。  </p>
+<p>最前面的65536个字符位，称为基本平面（缩写BMP），它的码点范围是从0一直到216-1，写成16进制就是从U+0000到U+FFFF。所有最常见的字符都放在这个平面，这是Unicode最先定义和公布的一个平面。  </p>
+<p>剩下的字符都放在辅助平面（缩写SMP），码点范围从U+010000一直到U+10FFFF。  </p>
+<h3 id="二、UTF-32与UTF-8"><a href="#二、UTF-32与UTF-8" class="headerlink" title="二、UTF-32与UTF-8"></a>二、UTF-32与UTF-8</h3><p>Unicode只规定了每个字符的码点，到底用什么样的字节序表示这个码点，就涉及到编码方法。  </p>
+<p>最直观的编码方法是，每个码点使用四个字节表示，字节内容一一对应码点。这种编码方法就叫做UTF-32。比如，码点0就用四个字节的0表示，码点597D就在前面加两个字节的0。  </p>
+<pre><code>U+0000 = 0x0000 0000
+U+597D = 0x0000 597D
+</code></pre><p>UTF-32的优点在于，转换规则简单直观，查找效率高。缺点在于浪费空间，同样内容的英语文本，它会比ASCII编码大四倍。这个缺点很致命，导致实际上没有人使用这种编码方法，HTML 5标准就明文规定，网页不得编码成UTF-32。  </p>
+<p>人们真正需要的是一种节省空间的编码方法，这导致了UTF-8的诞生。UTF-8是一种变长的编码方法，字符长度从1个字节到4个字节不等。越是常用的字符，字节越短，最前面的128个字符，只使用1个字节表示，与ASCII码完全相同。  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">编号范围</th>
+<th style="text-align:left">字节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0x0000 - 0x007F</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">0x0080 - 0x07FF</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">0x0800 - 0xFFFF</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">0x010000 - 0x10FFFF</td>
+<td style="text-align:left">4</td>
+</tr>
+</tbody>
+</table>
+<p>由于UTF-8这种节省空间的特性，导致它成为互联网上最常见的网页编码。不过，它跟今天的主题关系不大，我就不深入了，具体的转码方法，可以参考我多年前写的《字符编码笔记》。  </p>
+<h3 id="UTF-16简介"><a href="#UTF-16简介" class="headerlink" title="UTF-16简介"></a>UTF-16简介</h3><p>UTF-16编码介于UTF-32与UTF-8之间，同时结合了定长和变长两种编码方法的特点。  </p>
+<p>它的编码规则很简单：基本平面的字符占用2个字节，辅助平面的字符占用4个字节。也就是说，UTF-16的编码长度要么是2个字节（U+0000到U+FFFF），要么是4个字节（U+010000到U+10FFFF）。  </p>
+<p>于是就有一个问题，当我们遇到两个字节，怎么看出它本身是一个字符，还是需要跟其他两个字节放在一起解读？  </p>
+<p>说来很巧妙，我也不知道是不是故意的设计，在基本平面内，从U+D800到U+DFFF是一个空段，即这些码点不对应任何字符。因此，这个空段可以用来映射辅助平面的字符。  </p>
+<p>具体来说，辅助平面的字符位共有220个，也就是说，对应这些字符至少需要20个二进制位。UTF-16将这20位拆成两半，前10位映射在U+D800到U+DBFF（空间大小2^10），称为高位（H），后10位映射在U+DC00到U+DFFF（空间大小2^10），称为低位（L）。这意味着，一个辅助平面的字符，被拆成两个基本平面的字符表示。  </p>
+<p>所以，当我们遇到两个字节，发现它的码点在U+D800到U+DBFF之间，就可以断定，紧跟在后面的两个字节的码点，应该在U+DC00到U+DFFF之间，这四个字节必须放在一起解读。  </p>
+<h3 id="UTF-16的转码公式"><a href="#UTF-16的转码公式" class="headerlink" title="UTF-16的转码公式"></a>UTF-16的转码公式</h3><p>Unicode码点转成UTF-16的时候，首先区分这是基本平面字符，还是辅助平面字符。如果是前者，直接将码点转为对应的十六进制形式，长度为两字节。  </p>
+<pre><code>U+597D = 0x597D
+</code></pre><p>如果是辅助平面字符，Unicode 3.0版给出了转码公式。  </p>
+<pre><code>H = Math.floor((c-0x10000) / 0x400)+0xD800
+L = (c - 0x10000) % 0x400 + 0xDC00
+</code></pre><p>以字符为例，它是一个辅助平面字符，码点为U+1D306，将其转为UTF-16的计算过程如下。  </p>
+<pre><code>H = Math.floor((0x1D306-0x10000)/0x400)+0xD800 = 0xD834
+L = (0x1D306-0x10000) % 0x400+0xDC00 = 0xDF06
+</code></pre><p>所以，字符的UTF-16编码就是0xD834 DF06，长度为四个字节。  </p>
+<h3 id="JavaScript使用哪一种编码？"><a href="#JavaScript使用哪一种编码？" class="headerlink" title="JavaScript使用哪一种编码？"></a>JavaScript使用哪一种编码？</h3><p>JavaScript语言采用Unicode字符集，但是只支持一种编码方法。  </p>
+<p>这种编码既不是UTF-16，也不是UTF-8，更不是UTF-32。上面那些编码方法，JavaScript都不用。  </p>
+<p>JavaScript用的是UCS-2！  </p>
+<h3 id="UCS-2编码"><a href="#UCS-2编码" class="headerlink" title="UCS-2编码"></a>UCS-2编码</h3><p>怎么突然杀出一个UCS-2？这就需要讲一点历史。  </p>
+<p>互联网还没出现的年代，曾经有两个团队，不约而同想搞统一字符集。一个是1988年成立的Unicode团队，另一个是1989年成立的UCS团队。等到他们发现了对方的存在，很快就达成一致：世界上不需要两套统一字符集。  </p>
+<p>1991年10月，两个团队决定合并字符集。也就是说，从今以后只发布一套字符集，就是Unicode，并且修订此前发布的字符集，UCS的码点将与Unicode完全一致。  </p>
+<p>UCS的开发进度快于Unicode，1990年就公布了第一套编码方法UCS-2，使用2个字节表示已经有码点的字符。（那个时候只有一个平面，就是基本平面，所以2个字节就够用了。）UTF-16编码迟至1996年7月才公布，明确宣布是UCS-2的超集，即基本平面字符沿用UCS-2编码，辅助平面字符定义了4个字节的表示方法。  </p>
+<p>两者的关系简单说，就是UTF-16取代了UCS-2，或者说UCS-2整合进了UTF-16。所以，现在只有UTF-16，没有UCS-2。  </p>
+<h3 id="JavaScript的诞生背景"><a href="#JavaScript的诞生背景" class="headerlink" title="JavaScript的诞生背景"></a>JavaScript的诞生背景</h3><p>那么，为什么JavaScript不选择更高级的UTF-16，而用了已经被淘汰的UCS-2呢？  </p>
+<p>答案很简单：非不想也，是不能也。因为在JavaScript语言出现的时候，还没有UTF-16编码。  </p>
+<p>1995年5月，Brendan Eich用了10天设计了JavaScript语言；10月，第一个解释引擎问世；次年11月，Netscape正式向ECMA提交语言标准（整个过程详见《JavaScript诞生记》）。对比UTF-16的发布时间（1996年7月），就会明白Netscape公司那时没有其他选择，只有UCS-2一种编码方法可用！  </p>
+<h3 id="JavaScript字符函数的局限"><a href="#JavaScript字符函数的局限" class="headerlink" title="JavaScript字符函数的局限"></a>JavaScript字符函数的局限</h3><p>由于JavaScript只能处理UCS-2编码，造成所有字符在这门语言中都是2个字节，如果是4个字节的字符，会当作两个双字节的字符处理。JavaScript的字符函数都受到这一点的影响，无法返回正确结果。  </p>
+<p>还是以字符为例，它的UTF-16编码是4个字节的0xD834 DF06。问题就来了，4个字节的编码不属于UCS-2，JavaScript不认识，只会把它看作单独的两个字符U+D834和U+DF06。前面说过，这两个码点是空的，所以JavaScript会认为是两个空字符组成的字符串！  </p>
+<p>上面代码表示，JavaScript认为字符的长度是2，取到的第一个字符是空字符，取到的第一个字符的码点是0xDB34。这些结果都不正确！  </p>
+<p>解决这个问题，必须对码点做一个判断，然后手动调整。下面是正确的遍历字符串的写法。  </p>
+<pre><code>while (++index &lt; length) {
+    // ...
+    if (charCode &gt;= 0xD800 &amp;&amp; charCode &lt;= 0xDBFF) {
+        output.push(character + string.charAt(++index));
+    } else {
+        output.push(character);
+    }
+}
+</code></pre><p>上面代码表示，遍历字符串的时候，必须对码点做一个判断，只要落在0xD800到0xDBFF的区间，就要连同后面2个字节一起读取。  </p>
+<p>类似的问题存在于所有的JavaScript字符操作函数。  </p>
+<pre><code>String.prototype.replace()
+String.prototype.substring()
+String.prototype.slice()
+...
+</code></pre><p>上面的函数都只对2字节的码点有效。要正确处理4字节的码点，就必须逐一部署自己的版本，判断一下当前字符的码点范围。  </p>
+<h3 id="ECMAScript-6"><a href="#ECMAScript-6" class="headerlink" title="ECMAScript 6"></a>ECMAScript 6</h3><p>JavaScript的下一个版本ECMAScript 6（简称ES6），大幅增强了Unicode支持，基本上解决了这个问题。  </p>
+<h4 id="正确识别字符"><a href="#正确识别字符" class="headerlink" title="正确识别字符"></a>正确识别字符</h4><p>ES6可以自动识别4字节的码点。因此，遍历字符串就简单多了。  </p>
+<pre><code>for (let s of string ) {
+    // ...
+}
+</code></pre><p>但是，为了保持兼容，length属性还是原来的行为方式。为了得到字符串的正确长度，可以用下面的方式。  </p>
+<pre><code>Array.from(string).length
+</code></pre><h4 id="码点表示法"><a href="#码点表示法" class="headerlink" title="码点表示法"></a>码点表示法</h4><p>JavaScript允许直接用码点表示Unicode字符，写法是”反斜杠+u+码点”。</p>
+<pre><code>&apos;好&apos; === &apos;\u597D&apos; // true
+</code></pre><p>但是，这种表示法对4字节的码点无效。ES6修正了这个问题，只要将码点放在大括号内，就能正确识别。  </p>
+<h4 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h4><p>ES6新增了几个专门处理4字节码点的函数。  </p>
+<pre><code>String.fromCodePoint()：从Unicode码点返回对应字符
+String.prototype.codePointAt()：从字符返回对应的码点
+String.prototype.at()：返回字符串给定位置的字符
+</code></pre><h4 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h4><p>ES6提供了u修饰符，对正则表达式添加4字节码点的支持。  </p>
+<h4 id="Unicode正规化"><a href="#Unicode正规化" class="headerlink" title="Unicode正规化"></a>Unicode正规化</h4><p>有些字符除了字母以外，还有附加符号。比如，汉语拼音的Ǒ，字母上面的声调就是附加符号。对于许多欧洲语言来说，声调符号是非常重要的。  </p>
+<p>Unicode提供了两种表示方法。一种是带附加符号的单个字符，即一个码点表示一个字符，比如Ǒ的码点是U+01D1；另一种是将附加符号单独作为一个码点，与主体字符复合显示，即两个码点表示一个字符，比如Ǒ可以写成O（U+004F） + ˇ（U+030C）。  </p>
+<pre><code>// 方法一
+&apos;\u01D1&apos;
+// &apos;Ǒ&apos;
+
+// 方法二
+&apos;\u004F\u030C&apos;
+// &apos;Ǒ&apos;
+</code></pre><p>这两种表示方法，视觉和语义都完全一样，理应作为等同情况处理。但是，JavaScript无法辨别。  </p>
+<pre><code>&apos;\u01D1&apos;===&apos;\u004F\u030C&apos; 
+//false
+</code></pre><p>ES6提供了normalize方法，允许”Unicode正规化”，即将两种方法转为同样的序列。  </p>
+<pre><code>&apos;\u01D1&apos;.normalize() === &apos;\u004F\u030C&apos;.normalize() 
+// true 
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/02/26/future-of-dom/" rel="next" title="也许，DOM 不是答案">
+                <i class="fa fa-chevron-left"></i> 也许，DOM 不是答案
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/08/强类型JavaScript的解决方案/" rel="prev" title="强类型JavaScript的解决方案">
+                强类型JavaScript的解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/02/27/Unicode与JavaScript详解/"
+           data-title="Unicode与JavaScript详解" data-url="http://yoursite.com/2015/02/27/Unicode与JavaScript详解/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode是什么？"><span class="nav-number">1.</span> <span class="nav-text">Unicode是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、UTF-32与UTF-8"><span class="nav-number">2.</span> <span class="nav-text">二、UTF-32与UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16简介"><span class="nav-number">3.</span> <span class="nav-text">UTF-16简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-16的转码公式"><span class="nav-number">4.</span> <span class="nav-text">UTF-16的转码公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript使用哪一种编码？"><span class="nav-number">5.</span> <span class="nav-text">JavaScript使用哪一种编码？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UCS-2编码"><span class="nav-number">6.</span> <span class="nav-text">UCS-2编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript的诞生背景"><span class="nav-number">7.</span> <span class="nav-text">JavaScript的诞生背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript字符函数的局限"><span class="nav-number">8.</span> <span class="nav-text">JavaScript字符函数的局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECMAScript-6"><span class="nav-number">9.</span> <span class="nav-text">ECMAScript 6</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正确识别字符"><span class="nav-number">9.1.</span> <span class="nav-text">正确识别字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#码点表示法"><span class="nav-number">9.2.</span> <span class="nav-text">码点表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串处理函数"><span class="nav-number">9.3.</span> <span class="nav-text">字符串处理函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则表达式"><span class="nav-number">9.4.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unicode正规化"><span class="nav-number">9.5.</span> <span class="nav-text">Unicode正规化</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,940 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="jQuery," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="如何做到 jQuery-free？
+
+jQuery是现在最流行的JavaScript工具库。  
+据统计，目前全世界57.3%的网站使用它。也就是说，10个网站里面，有6个使用jQuery。如果只考察使用工具库的网站，这个比例就会上升到惊人的91.7%。  
+虽然jQuery如此受欢迎，但是它臃肿的体积也让人头痛不已。jQuery 2.0的原始大小为235KB，优化后为81KB；如果是支持IE6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何做到jQuery-free？">
+<meta property="og:url" content="http://yoursite.com/2015/01/16/如何做到jQuery-free？/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="如何做到 jQuery-free？
+
+jQuery是现在最流行的JavaScript工具库。  
+据统计，目前全世界57.3%的网站使用它。也就是说，10个网站里面，有6个使用jQuery。如果只考察使用工具库的网站，这个比例就会上升到惊人的91.7%。  
+虽然jQuery如此受欢迎，但是它臃肿的体积也让人头痛不已。jQuery 2.0的原始大小为235KB，优化后为81KB；如果是支持IE6">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何做到jQuery-free？">
+<meta name="twitter:description" content="如何做到 jQuery-free？
+
+jQuery是现在最流行的JavaScript工具库。  
+据统计，目前全世界57.3%的网站使用它。也就是说，10个网站里面，有6个使用jQuery。如果只考察使用工具库的网站，这个比例就会上升到惊人的91.7%。  
+虽然jQuery如此受欢迎，但是它臃肿的体积也让人头痛不已。jQuery 2.0的原始大小为235KB，优化后为81KB；如果是支持IE6">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/01/16/如何做到jQuery-free？/"/>
+
+  <title> 如何做到jQuery-free？ | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何做到jQuery-free？
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-16T23:44:35+08:00" content="2015-01-16 23:44:35">
+              2015-01-16 23:44:35
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/01/16/如何做到jQuery-free？/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/16/如何做到jQuery-free？/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/05/jquery-free.html" target="_blank" rel="external">如何做到 jQuery-free？</a></p>
+</blockquote>
+<p>jQuery是现在最流行的JavaScript工具库。  </p>
+<p>据统计，目前全世界57.3%的网站使用它。也就是说，10个网站里面，有6个使用jQuery。如果只考察使用工具库的网站，这个比例就会上升到惊人的91.7%。  </p>
+<p>虽然jQuery如此受欢迎，但是它臃肿的体积也让人头痛不已。jQuery 2.0的原始大小为235KB，优化后为81KB；如果是支持IE6、7、8的jQuery 1.8.3，原始大小为261KB，优化后为91KB。  </p>
+<p>这样的体积，即使是宽带环境，完全加载也需要1秒或更长，更不要说移动设备了。这意味着，如果你使用了jQuery，用户至少延迟1秒，才能看到网页效果。考虑到本质上，jQuery只是一个操作DOM的工具，我们不仅要问：如果只是为了几个网页特效，是否有必要动用这么大的库？  </p>
+<p>2006年，jQuery诞生的时候，主要用于消除不同浏览器的差异（主要是IE6），为开发者提供一个简洁的统一接口。相比当时，如今的情况已经发生了很大的变化。IE的市场份额不断下降，以ECMAScript为基础的JavaScript标准语法，正得到越来越广泛的支持。开发者直接使用JavScript标准语法，就能同时在各大浏览器运行，不再需要通过jQuery获取兼容性。<br>下面就探讨如何用JavaScript标准语法，取代jQuery的一些主要功能，做到jQuery-free。  </p>
+<h3 id="选取DOM元素"><a href="#选取DOM元素" class="headerlink" title="选取DOM元素"></a>选取DOM元素</h3><p>jQuery的核心是通过各种选择器，选中DOM元素，可以用querySelectorAll方法模拟这个功能。  </p>
+<pre><code>var $ = document.querySelectorAll.bind(document);
+</code></pre><p>这里需要注意的是，querySelectorAll方法返回的是NodeList对象，它很像数组（有数字索引和length属性），但不是数组，不能使用pop、push等数组特有方法。如果有需要，可以考虑将Nodelist对象转为数组。  </p>
+<pre><code>myList = Array.prototype.slice.call(myNodeList);
+</code></pre><h3 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h3><p>DOM本身就具有很丰富的操作方法，可以取代jQuery提供的操作方法。<br>尾部追加DOM元素。  </p>
+<pre><code>// jQuery写法
+$(parent).append($(child));
+// DOM写法
+parent.appendChild(child)
+</code></pre><p>头部插入DOM元素。  </p>
+<pre><code>// jQuery写法
+$(parent).prepend($(child));
+// DOM写法
+parent.insertBefore(child, parent.childNodes[0])
+</code></pre><p>删除DOM元素。  </p>
+<pre><code>// jQuery写法
+$(child).remove()
+// DOM写法
+child.parentNode.removeChild(child)
+</code></pre><h3 id="事件的监听"><a href="#事件的监听" class="headerlink" title="事件的监听"></a>事件的监听</h3><p>jQuery的on方法，完全可以用addEventListener模拟。  </p>
+<pre><code>Element.prototype.on =     Element.prototype.addEventListener;
+</code></pre><p>为了使用方便，可以在NodeList对象上也部署这个方法。  </p>
+<pre><code>NodeList.prototype.on = function (event, fn) {
+    [][&apos;forEach&apos;].call(this, function (el) {
+        el.on(event, fn);
+    });
+    return this;
+};
+</code></pre><h3 id="事件的触发"><a href="#事件的触发" class="headerlink" title="事件的触发"></a>事件的触发</h3><p>jQuery的trigger方法则需要单独部署，相对复杂一些。  </p>
+<pre><code>Element.prototype.trigger = function (type, data) {
+    var event = document.createEvent(&apos;HTMLEvents&apos;);
+    event.initEvent(type, true, true);
+    event.data = data || {};
+    event.eventName = type;
+    event.target = this;
+    this.dispatchEvent(event);
+    return this;
+};
+</code></pre><p>在NodeList对象上也部署这个方法。  </p>
+<pre><code>NodeList.prototype.trigger = function (event) {
+    [][&apos;forEach&apos;].call(this, function (el) {
+        el[&apos;trigger&apos;](event);
+    });
+    return this;
+};
+</code></pre><h3 id="document-ready"><a href="#document-ready" class="headerlink" title="document.ready"></a>document.ready</h3><p>目前的最佳实践，是将JavaScript脚本文件都放在页面底部加载。这样的话，其实document.ready方法（jQuery简写为$(function)）已经不必要了，因为等到运行的时候，DOM对象已经生成了。  </p>
+<h3 id="attr方法"><a href="#attr方法" class="headerlink" title="attr方法"></a>attr方法</h3><p>jQuery使用attr方法，读写网页元素的属性。  </p>
+<pre><code>$(&quot;#picture&quot;).attr(&quot;src&quot;, &quot;http://url/to/image&quot;);
+</code></pre><p>DOM元素允许直接读取属性值，写法要简洁许多。  </p>
+<pre><code>$(&quot;#picture&quot;).src = &quot;http://url/to/image&quot;;
+</code></pre><p>需要注意，input元素的this.value返回的是输入框中的值，链接元素的this.href返回的是绝对URL。如果需要用到这两个网页元素的属性准确值，可以用this.getAttribute(‘value’)和this.getAttibute(‘href’)。  </p>
+<h3 id="addClass方法"><a href="#addClass方法" class="headerlink" title="addClass方法"></a>addClass方法</h3><p>jQuery的addClass方法，用于为DOM元素添加一个class。  </p>
+<pre><code>$(&apos;body&apos;).addClass(&apos;hasJS&apos;);
+</code></pre><p>DOM元素本身有一个可读写的className属性，可以用来操作class。  </p>
+<pre><code>document.body.className = &apos;hasJS&apos;;
+// or
+document.body.className += &apos; hasJS&apos;;
+</code></pre><p>HTML 5还提供一个classList对象，功能更强大（IE 9不支持）。  </p>
+<pre><code>document.body.classList.add(&apos;hasJS&apos;);
+document.body.classList.remove(&apos;hasJS&apos;);
+document.body.classList.toggle(&apos;hasJS&apos;);
+document.body.classList.contains(&apos;hasJS&apos;);
+</code></pre><h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><p>jQuery的css方法，用来设置网页元素的样式。  </p>
+<pre><code>$(node).css( &quot;color&quot;, &quot;red&quot; );
+</code></pre><p>DOM元素有一个style属性，可以直接操作。  </p>
+<pre><code>element.style.color = &quot;red&quot;;;
+// or
+element.style.cssText += &apos;color:red&apos;;
+</code></pre><h3 id="数据储存"><a href="#数据储存" class="headerlink" title="数据储存"></a>数据储存</h3><p>jQuery对象可以储存数据。  </p>
+<pre><code>$(&quot;body&quot;).data(&quot;foo&quot;, 52);
+</code></pre><p>HTML 5有一个dataset对象，也有类似的功能（IE 10不支持），不过只能保存字符串。  </p>
+<pre><code>element.dataset.user = JSON.stringify(user);
+element.dataset.score = score;
+</code></pre><h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><p>jQuery的Ajax方法，用于异步操作。  </p>
+<pre><code>$.ajax({
+    type: &quot;POST&quot;,
+    url: &quot;some.php&quot;,
+    data: { name: &quot;John&quot;, location: &quot;Boston&quot; }
+}).done(function( msg ) {
+    alert( &quot;Data Saved: &quot; + msg );
+});
+</code></pre><p>我们可以定义一个request函数，模拟Ajax方法。  </p>
+<pre><code>function request(type, url, opts, callback) {
+    var xhr = new XMLHttpRequest();
+    if (typeof opts === &apos;function&apos;) {
+        callback = opts;
+        opts = null;
+    }
+    xhr.open(type, url);
+    var fd = new FormData();
+    if (type === &apos;POST&apos; &amp;&amp; opts) {
+        for (var key in opts) {
+            fd.append(key, JSON.stringify(opts[key]));
+        }
+    }
+    xhr.onload = function () {
+        callback(JSON.parse(xhr.response));
+    };
+    xhr.send(opts ? fd : null);
+}
+</code></pre><p>然后，基于request函数，模拟jQuery的get和post方法。  </p>
+<pre><code>var get = request.bind(this, &apos;GET&apos;);
+var post = request.bind(this, &apos;POST&apos;);
+</code></pre><h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>jQuery的animate方法，用于生成动画效果。  </p>
+<pre><code>$foo.animate(&apos;slow&apos;, { x: &apos;+=10px&apos; })；
+</code></pre><p>jQuery的动画效果，很大部分基于DOM。但是目前，CSS 3的动画远比DOM强大，所以可以把动画效果写进CSS，然后通过操作DOM元素的class，来展示动画。  </p>
+<pre><code>foo.classList.add(&apos;animate&apos;)；
+</code></pre><p>如果需要对动画使用回调函数，CSS 3也定义了相应的事件。  </p>
+<pre><code>el.addEventListener(&quot;webkitTransitionEnd&quot;, transitionEnded);
+el.addEventListener(&quot;transitionend&quot;, transitionEnded);
+</code></pre><h3 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a>替代方案</h3><p>由于jQuery体积过大，替代方案层出不穷。  </p>
+<p>其中，最有名的是zepto.js。它的设计目标是以最小的体积，做到最大兼容jQuery的API。zepto.js 1.0版的原始大小是55KB，优化后是29KB，gzip压缩后为10KB。  </p>
+<p>如果不求最大兼容，只希望模拟jQuery的基本功能，那么，min.js优化后只有200字节，而dolla优化后是1.7KB。  </p>
+<p>此外，jQuery本身采用模块设计，可以只选择使用自己需要的模块。具体做法参见它的<a href="https://github.com/jquery/jquery" target="_blank" rel="external">github网站</a>，或者使用专用的<a href="http://projects.jga.me/jquery-builder/" target="_blank" rel="external">Web界面</a>。  </p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="http://remysharp.com/2013/04/19/i-know-jquery-now-what/" target="_blank" rel="external">Remy Sharp，I know jQuery. Now what?</a>   </li>
+<li><a href="http://h3manth.com/new/blog/2013/power-of-vanilla-js/" target="_blank" rel="external">Hemanth.HM，Power of Vanilla JS</a>  </li>
+<li><a href="http://flippinawesome.org/2013/05/06/5-things-you-should-stop-doing-with-jquery/" target="_blank" rel="external">Burke Holland，5 Things You Should Stop Doing With jQuery</a>  </li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jQuery/" rel="tag">#jQuery</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/11/JavaScript-Source-Map-详解/" rel="next" title="JavaScript Source Map 详解">
+                <i class="fa fa-chevron-left"></i> JavaScript Source Map 详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/17/如何让搜索引擎抓取AJAX内容？/" rel="prev" title="如何让搜索引擎抓取AJAX内容？">
+                如何让搜索引擎抓取AJAX内容？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/01/16/如何做到jQuery-free？/"
+           data-title="如何做到jQuery-free？" data-url="http://yoursite.com/2015/01/16/如何做到jQuery-free？/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#选取DOM元素"><span class="nav-number">1.</span> <span class="nav-text">选取DOM元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM操作"><span class="nav-number">2.</span> <span class="nav-text">DOM操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件的监听"><span class="nav-number">3.</span> <span class="nav-text">事件的监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件的触发"><span class="nav-number">4.</span> <span class="nav-text">事件的触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-ready"><span class="nav-number">5.</span> <span class="nav-text">document.ready</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#attr方法"><span class="nav-number">6.</span> <span class="nav-text">attr方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addClass方法"><span class="nav-number">7.</span> <span class="nav-text">addClass方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS"><span class="nav-number">8.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据储存"><span class="nav-number">9.</span> <span class="nav-text">数据储存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax"><span class="nav-number">10.</span> <span class="nav-text">Ajax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画"><span class="nav-number">11.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代方案"><span class="nav-number">12.</span> <span class="nav-text">替代方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">13.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

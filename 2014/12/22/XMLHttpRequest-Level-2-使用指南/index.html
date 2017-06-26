@@ -1,0 +1,955 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,AJAX," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="XMLHttpRequest Level 2 使用指南
+
+XMLHttpRequest是一个浏览器接口，使得Javascript可以进行HTTP(S)通信。  
+最早，微软在IE 5引进了这个接口。因为它太有用，其他浏览器也模仿部署了，ajax操作因此得以诞生。  
+但是，这个接口一直没有标准化，每家浏览器的实现或多或少有点不同。HTML 5的概念形成后，W3C开始考虑标准化这个接口。2008年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XMLHttpRequest Level 2 使用指南">
+<meta property="og:url" content="http://yoursite.com/2014/12/22/XMLHttpRequest-Level-2-使用指南/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="XMLHttpRequest Level 2 使用指南
+
+XMLHttpRequest是一个浏览器接口，使得Javascript可以进行HTTP(S)通信。  
+最早，微软在IE 5引进了这个接口。因为它太有用，其他浏览器也模仿部署了，ajax操作因此得以诞生。  
+但是，这个接口一直没有标准化，每家浏览器的实现或多或少有点不同。HTML 5的概念形成后，W3C开始考虑标准化这个接口。2008年">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XMLHttpRequest Level 2 使用指南">
+<meta name="twitter:description" content="XMLHttpRequest Level 2 使用指南
+
+XMLHttpRequest是一个浏览器接口，使得Javascript可以进行HTTP(S)通信。  
+最早，微软在IE 5引进了这个接口。因为它太有用，其他浏览器也模仿部署了，ajax操作因此得以诞生。  
+但是，这个接口一直没有标准化，每家浏览器的实现或多或少有点不同。HTML 5的概念形成后，W3C开始考虑标准化这个接口。2008年">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/12/22/XMLHttpRequest-Level-2-使用指南/"/>
+
+  <title> XMLHttpRequest Level 2 使用指南 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                XMLHttpRequest Level 2 使用指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-22T23:09:32+08:00" content="2014-12-22 23:09:32">
+              2014-12-22 23:09:32
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/22/XMLHttpRequest-Level-2-使用指南/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/22/XMLHttpRequest-Level-2-使用指南/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2012/09/xmlhttprequest_level_2.html" target="_blank" rel="external">XMLHttpRequest Level 2 使用指南</a></p>
+</blockquote>
+<p>XMLHttpRequest是一个浏览器接口，使得Javascript可以进行HTTP(S)通信。  </p>
+<p>最早，微软在IE 5引进了这个接口。因为它太有用，其他浏览器也模仿部署了，ajax操作因此得以诞生。  </p>
+<p>但是，这个接口一直没有标准化，每家浏览器的实现或多或少有点不同。HTML 5的概念形成后，W3C开始考虑标准化这个接口。2008年2月，就提出了XMLHttpRequest Level 2 草案。  </p>
+<p>这个XMLHttpRequest的新版本，提出了很多有用的新功能，将大大推动互联网革新。本文就对这个新版本进行详细介绍。  </p>
+<h3 id="老版本的XMLHttpRequest对象"><a href="#老版本的XMLHttpRequest对象" class="headerlink" title="老版本的XMLHttpRequest对象"></a>老版本的XMLHttpRequest对象</h3><p>在介绍新版本之前，我们先回顾一下老版本的用法。  </p>
+<p>首先，新建一个XMLHttpRequest的实例。  </p>
+<pre><code>var xhr = new XMLHttpRequest();
+</code></pre><p>然后，向远程主机发出一个HTTP请求。  </p>
+<pre><code>xhr.open(&apos;GET&apos;, &apos;example.php&apos;);
+xhr.send();
+</code></pre><p>接着，就等待远程主机做出回应。这时需要监控XMLHttpRequest对象的状态变化，指定回调函数。  </p>
+<pre><code>xhr.onreadystatechange = function(){
+    if ( xhr.readyState == 4 &amp;&amp; xhr.status == 200 ) {
+        alert( xhr.responseText );
+    } else {
+        alert( xhr.statusText );
+    }
+};
+</code></pre><p>上面的代码包含了老版本XMLHttpRequest对象的主要属性：</p>
+<ul>
+<li>xhr.readyState：XMLHttpRequest对象的状态，等于4表示数据已经接收完毕。  </li>
+<li>xhr.status：服务器返回的状态码，等于200表示一切正常。  </li>
+<li>xhr.responseText：服务器返回的文本数据  </li>
+<li>xhr.responseXML：服务器返回的XML格式的数据  </li>
+<li>xhr.statusText：服务器返回的状态文本。  </li>
+</ul>
+<h3 id="老版本的缺点"><a href="#老版本的缺点" class="headerlink" title="老版本的缺点"></a>老版本的缺点</h3><p>老版本的XMLHttpRequest对象有以下几个缺点：  </p>
+<ul>
+<li>只支持文本数据的传送，无法用来读取和上传二进制文件。  </li>
+<li>传送和接收数据时，没有进度信息，只能提示有没有完成。  </li>
+<li>受到”同域限制”（Same Origin Policy），只能向同一域名的服务器请求数据。  </li>
+</ul>
+<h3 id="新版本的功能"><a href="#新版本的功能" class="headerlink" title="新版本的功能"></a>新版本的功能</h3><p>新版本的XMLHttpRequest对象，针对老版本的缺点，做出了大幅改进。  </p>
+<ul>
+<li>可以设置HTTP请求的时限。</li>
+<li>可以使用FormData对象管理表单数据。</li>
+<li>可以上传文件。</li>
+<li>可以请求不同域名下的数据（跨域请求）。</li>
+<li>可以获取服务器端的二进制数据。</li>
+<li>可以获得数据传输的进度信息。  </li>
+</ul>
+<p>下面，我就一一介绍这些新功能。  </p>
+<h3 id="HTTP请求的时限"><a href="#HTTP请求的时限" class="headerlink" title="HTTP请求的时限"></a>HTTP请求的时限</h3><p>有时，ajax操作很耗时，而且无法预知要花多少时间。如果网速很慢，用户可能要等很久。  </p>
+<p>新版本的XMLHttpRequest对象，增加了timeout属性，可以设置HTTP请求的时限。  </p>
+<pre><code>xhr.timeout = 3000;
+</code></pre><p>上面的语句，将最长等待时间设为3000毫秒。过了这个时限，就自动停止HTTP请求。与之配套的还有一个timeout事件，用来指定回调函数。  </p>
+<pre><code>xhr.ontimeout = function(event){
+    alert(&apos;请求超时！&apos;);
+}
+</code></pre><p>目前，Opera、Firefox和IE 10支持该属性，IE 8和IE 9的这个属性属于XDomainRequest对象，而Chrome和Safari还不支持。  </p>
+<h3 id="FormData对象"><a href="#FormData对象" class="headerlink" title="FormData对象"></a>FormData对象</h3><p>ajax操作往往用来传递表单数据。为了方便表单处理，HTML 5新增了一个FormData对象，可以模拟表单。  </p>
+<p>首先，新建一个FormData对象。  </p>
+<pre><code>var formData = new FormData();
+</code></pre><p>然后，为它添加表单项。  </p>
+<pre><code>formData.append(&apos;username&apos;, &apos;张三&apos;);
+formData.append(&apos;id&apos;, 123456);
+</code></pre><p>最后，直接传送这个FormData对象。这与提交网页表单的效果，完全一样。  </p>
+<pre><code>xhr.send(formData);
+</code></pre><p>FormData对象也可以用来获取网页表单的值。  </p>
+<pre><code>var form = document.getElementById(&apos;myform&apos;);
+var formData = new FormData(form);
+formData.append(&apos;secret&apos;, &apos;123456&apos;); // 添加一个表单项
+xhr.open(&apos;POST&apos;, form.action);
+xhr.send(formData);  
+</code></pre><h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>新版XMLHttpRequest对象，不仅可以发送文本信息，还可以上传文件。  </p>
+<p>假定files是一个”选择文件”的表单元素（input[type=”file”]），我们将它装入FormData对象。  </p>
+<pre><code>var formData = new FormData();
+for (var i = 0; i &lt; files.length;i++) {
+    formData.append(&apos;files[]&apos;, files[i]);
+}
+</code></pre><p>然后，发送这个FormData对象。  </p>
+<pre><code>xhr.send(formData);
+</code></pre><h3 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a>跨域资源共享（CORS）</h3><p>新版本的XMLHttpRequest对象，可以向不同域名的服务器发出HTTP请求。这叫做”跨域资源共享”（Cross-origin resource sharing，简称CORS）。  </p>
+<p>使用”跨域资源共享”的前提，是浏览器必须支持这个功能，而且服务器端必须同意这种”跨域”。如果能够满足上面的条件，则代码的写法与不跨域的请求完全一样。  </p>
+<pre><code>xhr.open(&apos;GET&apos;, &apos;http://other.server/and/path/to/script&apos;);
+</code></pre><p>目前，除了IE 8和IE 9，主流浏览器都支持CORS，IE 10也将支持这个功能。服务器端的设置，请参考《Server-Side Access Control》。  </p>
+<h3 id="接收二进制数据（方法A：改写MIMEType）"><a href="#接收二进制数据（方法A：改写MIMEType）" class="headerlink" title="接收二进制数据（方法A：改写MIMEType）"></a>接收二进制数据（方法A：改写MIMEType）</h3><p>老版本的XMLHttpRequest对象，只能从服务器取回文本数据（否则它的名字就不用XML起首了），新版则可以取回二进制数据。  </p>
+<p>这里又分成两种做法。较老的做法是改写数据的MIMEType，将服务器返回的二进制数据伪装成文本数据，并且告诉浏览器这是用户自定义的字符集。  </p>
+<pre><code>xhr.overrideMimeType(&quot;text/plain; charset=x-user-defined&quot;);
+</code></pre><p>然后，用responseText属性接收服务器返回的二进制数据。  </p>
+<pre><code>var binStr = xhr.responseText;
+</code></pre><p>由于这时，浏览器把它当做文本数据，所以还必须再一个个字节地还原成二进制数据。  </p>
+<pre><code>for (var i = 0, len = binStr.length; i &lt; len; ++i) {
+    var c = binStr.charCodeAt(i);
+    var byte = c &amp; 0xff;
+}
+</code></pre><p>最后一行的位运算”c &amp; 0xff”，表示在每个字符的两个字节之中，只保留后一个字节，将前一个字节扔掉。原因是浏览器解读字符的时候，会把字符自动解读成Unicode的0xF700-0xF7ff区段。  </p>
+<h3 id="接收二进制数据（方法B：responseType属性）"><a href="#接收二进制数据（方法B：responseType属性）" class="headerlink" title="接收二进制数据（方法B：responseType属性）"></a>接收二进制数据（方法B：responseType属性）</h3><p>从服务器取回二进制数据，较新的方法是使用新增的responseType属性。如果服务器返回文本数据，这个属性的值是”TEXT”，这是默认值。较新的浏览器还支持其他值，也就是说，可以接收其他格式的数据。  </p>
+<p>你可以把responseType设为blob，表示服务器传回的是二进制对象。  </p>
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.open(&apos;GET&apos;, &apos;/path/to/image.png&apos;);
+xhr.responseType = &apos;blob&apos;;
+</code></pre><p>接收数据的时候，用浏览器自带的Blob对象即可。  </p>
+<pre><code>var blob = new Blob([xhr.response], {type: &apos;image/png&apos;});
+</code></pre><p>注意，是读取xhr.response，而不是xhr.responseText。  </p>
+<p>你还可以将responseType设为arraybuffer，把二进制数据装在一个数组里。  </p>
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.open(&apos;GET&apos;, &apos;/path/to/image.png&apos;);
+xhr.responseType = &quot;arraybuffer&quot;;
+</code></pre><p>接收数据的时候，需要遍历这个数组。  </p>
+<pre><code>var arrayBuffer = xhr.response;
+if (arrayBuffer) {
+    var byteArray = new Uint8Array(arrayBuffer);
+    for (var i = 0; i &lt; byteArray.byteLength; i++) {
+        // do something
+    }
+}
+</code></pre><p>更详细的讨论，请看Sending and Receiving Binary Data。  </p>
+<h3 id="进度信息"><a href="#进度信息" class="headerlink" title="进度信息"></a>进度信息</h3><p>新版本的XMLHttpRequest对象，传送数据的时候，有一个progress事件，用来返回进度信息。  </p>
+<p>它分成上传和下载两种情况。下载的progress事件属于XMLHttpRequest对象，上传的progress事件属于XMLHttpRequest.upload对象。  </p>
+<p>我们先定义progress事件的回调函数。  </p>
+<pre><code>xhr.onprogress = updateProgress;
+xhr.upload.onprogress = updateProgress;
+</code></pre><p>然后，在回调函数里面，使用这个事件的一些属性。  </p>
+<pre><code>function updateProgress(event) {
+    if (event.lengthComputable) {
+        var percentComplete = event.loaded / event.total;
+    }
+}
+</code></pre><p>上面的代码中，event.total是需要传输的总字节，event.loaded是已经传输的字节。如果event.lengthComputable不为真，则event.total等于0。  </p>
+<p>与progress事件相关的，还有其他五个事件，可以分别指定回调函数：  </p>
+<ul>
+<li>load事件：传输成功完成。</li>
+<li>abort事件：传输被用户取消。</li>
+<li>error事件：传输中出现错误。</li>
+<li>loadstart事件：传输开始。</li>
+<li>loadEnd事件：传输结束，但是不知道成功还是失败。  </li>
+</ul>
+<h3 id="阅读材料"><a href="#阅读材料" class="headerlink" title="阅读材料"></a>阅读材料</h3><ol>
+<li>Introduction to XMLHttpRequest Level 2： 新功能的综合介绍。</li>
+<li>New Tricks in XMLHttpRequest 2：一些用法的介绍。</li>
+<li>Using XMLHttpRequest：一些高级用法，主要针对Firefox浏览器。</li>
+<li>HTTP Access Control：CORS综述。</li>
+<li>DOM access control using cross-origin resource sharing：CORS的9种HTTP头信息</li>
+<li>Server-Side Access Control：服务器端CORS设置。</li>
+<li>Enable CORS：服务端CORS设置。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/AJAX/" rel="tag">#AJAX</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/22/ssh_port_forwarding/" rel="next" title="SSH原理与运用（二）：远程操作与端口转发">
+                <i class="fa fa-chevron-left"></i> SSH原理与运用（二）：远程操作与端口转发
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/24/Javascript异步编程的4种方法/" rel="prev" title="Javascript异步编程的4种方法">
+                Javascript异步编程的4种方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/12/22/XMLHttpRequest-Level-2-使用指南/"
+           data-title="XMLHttpRequest Level 2 使用指南" data-url="http://yoursite.com/2014/12/22/XMLHttpRequest-Level-2-使用指南/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#老版本的XMLHttpRequest对象"><span class="nav-number">1.</span> <span class="nav-text">老版本的XMLHttpRequest对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老版本的缺点"><span class="nav-number">2.</span> <span class="nav-text">老版本的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新版本的功能"><span class="nav-number">3.</span> <span class="nav-text">新版本的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP请求的时限"><span class="nav-number">4.</span> <span class="nav-text">HTTP请求的时限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FormData对象"><span class="nav-number">5.</span> <span class="nav-text">FormData对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传文件"><span class="nav-number">6.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域资源共享（CORS）"><span class="nav-number">7.</span> <span class="nav-text">跨域资源共享（CORS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收二进制数据（方法A：改写MIMEType）"><span class="nav-number">8.</span> <span class="nav-text">接收二进制数据（方法A：改写MIMEType）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收二进制数据（方法B：responseType属性）"><span class="nav-number">9.</span> <span class="nav-text">接收二进制数据（方法B：responseType属性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进度信息"><span class="nav-number">10.</span> <span class="nav-text">进度信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阅读材料"><span class="nav-number">11.</span> <span class="nav-text">阅读材料</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

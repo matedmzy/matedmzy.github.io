@@ -1,0 +1,850 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="开发者手册," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="TCP/IP模型是互联网的基础。想要理解互联网，就必须理解这个模型。但是，它不好懂，我就从来没有搞懂过。  
+前几天，BetterExplained上有一篇文章，很通俗地解释了这个模型。我读后有一种恍然大悟的感觉，第一次感到自己理解了互联网的总体架构。  
+下面，我按照自己的理解，写一下互联网到底是怎么搭建起来的。说得不对的地方，欢迎指正。  
+什么是TCP/IP模型？TCP/IP模型是一系列网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP/IP模型的一个简单解释">
+<meta property="og:url" content="http://yoursite.com/2014/02/09/tcp-ip_model/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="TCP/IP模型是互联网的基础。想要理解互联网，就必须理解这个模型。但是，它不好懂，我就从来没有搞懂过。  
+前几天，BetterExplained上有一篇文章，很通俗地解释了这个模型。我读后有一种恍然大悟的感觉，第一次感到自己理解了互联网的总体架构。  
+下面，我按照自己的理解，写一下互联网到底是怎么搭建起来的。说得不对的地方，欢迎指正。  
+什么是TCP/IP模型？TCP/IP模型是一系列网络">
+<meta property="og:image" content="http://lh4.ggpht.com/_6p3hNkUNWrQ/ScObKm-azpI/AAAAAAAAA78/52k38xkD9j4/s800/bg2009032002.jpg">
+<meta property="og:image" content="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObKQOp_yI/AAAAAAAAA70/8qHj3eH9SOQ/s800/bg2009032001.jpg">
+<meta property="og:image" content="http://lh4.ggpht.com/_6p3hNkUNWrQ/ScObKqQ2ixI/AAAAAAAAA8E/y_bni9WGzUo/s800/bg2009032003.jpg">
+<meta property="og:image" content="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObKqqEFiI/AAAAAAAAA8M/q7S2Htybp0k/s800/bg2009032004.jpg">
+<meta property="og:image" content="http://lh5.ggpht.com/_6p3hNkUNWrQ/ScObK-x6ZBI/AAAAAAAAA8U/MZnptNO4lHg/s800/bg2009032005.jpg">
+<meta property="og:image" content="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObYMDOWuI/AAAAAAAAA8c/q5xB9qzAfyM/s800/bg2009032006.jpg">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCP/IP模型的一个简单解释">
+<meta name="twitter:description" content="TCP/IP模型是互联网的基础。想要理解互联网，就必须理解这个模型。但是，它不好懂，我就从来没有搞懂过。  
+前几天，BetterExplained上有一篇文章，很通俗地解释了这个模型。我读后有一种恍然大悟的感觉，第一次感到自己理解了互联网的总体架构。  
+下面，我按照自己的理解，写一下互联网到底是怎么搭建起来的。说得不对的地方，欢迎指正。  
+什么是TCP/IP模型？TCP/IP模型是一系列网络">
+<meta name="twitter:image" content="http://lh4.ggpht.com/_6p3hNkUNWrQ/ScObKm-azpI/AAAAAAAAA78/52k38xkD9j4/s800/bg2009032002.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/02/09/tcp-ip_model/"/>
+
+  <title> TCP/IP模型的一个简单解释 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                TCP/IP模型的一个简单解释
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-02-09T22:33:12+08:00" content="2014-02-09 22:33:12">
+              2014-02-09 22:33:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/02/09/tcp-ip_model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/02/09/tcp-ip_model/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="TCP-IP模型是互联网的基础。"><a href="#TCP-IP模型是互联网的基础。" class="headerlink" title="TCP/IP模型是互联网的基础。"></a>TCP/IP模型是互联网的基础。</h3><p>想要理解互联网，就必须理解<a href="http://en.wikipedia.org/wiki/TCP/IP_model" target="_blank" rel="external">这个模型</a>。但是，它不好懂，我就从来没有搞懂过。  </p>
+<p>前几天，<a href="http://betterexplained.com/articles/a-simple-introduction-to-computer-networking/" target="_blank" rel="external">BetterExplained</a>上有一篇文章，很通俗地解释了这个模型。我读后有一种恍然大悟的感觉，第一次感到自己理解了互联网的总体架构。  </p>
+<p>下面，我按照自己的理解，写一下互联网到底是怎么搭建起来的。说得不对的地方，欢迎指正。  </p>
+<h3 id="什么是TCP-IP模型？"><a href="#什么是TCP-IP模型？" class="headerlink" title="什么是TCP/IP模型？"></a>什么是TCP/IP模型？</h3><p>TCP/IP模型是一系列网络协议的总称，这些协议的目的，就是使计算机之间可以进行信息交换。  </p>
+<p>所谓”协议”可以理解成机器之间交谈的语言，每一种协议都有自己的目的。TCP/IP模型一共包括几百种协议，对互联网上交换信息的各个方面都做了规定。  </p>
+<h3 id="TCP-IP模型的四层结构"><a href="#TCP-IP模型的四层结构" class="headerlink" title="TCP/IP模型的四层结构"></a>TCP/IP模型的四层结构</h3><p>这些协议可以大致分成四个层次，上一层的协议都以下一层的协议为基础。就像下面这张图：  </p>
+<p><img src="http://lh4.ggpht.com/_6p3hNkUNWrQ/ScObKm-azpI/AAAAAAAAA78/52k38xkD9j4/s800/bg2009032002.jpg" alt="">  </p>
+<p>从下到上的四层，分别为连接层（Link Layer）、网络层（Internet Layer）、传输层（Transport Layer）、应用层（Application Layer）。  </p>
+<p>可以这样理解它们的作用：  </p>
+<ol>
+<li>连接层负责建立电路连接，是整个网络的物理基础，典型的协议包括以太网、ADSL等等；</li>
+<li>网络层负责分配地址和传送二进制数据，主要协议是IP协议；</li>
+<li>传输层负责传送文本数据，主要协议是TCP协议；</li>
+<li>应用层负责传送各种最终形态的数据，是直接与用户打交道的层，典型协议是HTTP、FTP等。  </li>
+</ol>
+<p>理解这个结构的关键，在于理解科学家在70年代设计互联网的原始目的，就是为了传输文本。所有协议最初都是为了这个目标而设计的，互联网架构的核心就是文本对话。  </p>
+<h3 id="实例：用Telnet建立HTTP对话"><a href="#实例：用Telnet建立HTTP对话" class="headerlink" title="实例：用Telnet建立HTTP对话"></a>实例：用Telnet建立HTTP对话</h3><p>为了观察文本在互联网上是如何传输的，我们做一个小实验。  </p>
+<h4 id="第一步：在”开始”菜单中，点击”运行”命令，输入”telnet-google-com-80”。"><a href="#第一步：在”开始”菜单中，点击”运行”命令，输入”telnet-google-com-80”。" class="headerlink" title="第一步：在”开始”菜单中，点击”运行”命令，输入”telnet google.com 80”。"></a>第一步：在”开始”菜单中，点击”运行”命令，输入”telnet google.com 80”。</h4><p><img src="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObKQOp_yI/AAAAAAAAA70/8qHj3eH9SOQ/s800/bg2009032001.jpg" alt="">  </p>
+<p>telnet命令本身就是一个应用层协议，它的作用是在两台主机间，建立一个TCP连接，也就是打开两台主机间文本传输的一个通道。<br>“telnet google.com 80”表示建立本机与google.com在80端口的一个文本传输通道。所谓”端口”其实是TCP协议的一个参数，用来帮助TCP协议判断对方主机传来的文本，到底使用的是哪一种应用层协议。80端口是HTTP协议的端口，就是我们平时浏览网页的端口。常见端口列表可以参考这里。<br>另外，与Windows 2000和Windows XP不同，Vista系统默认没有安装Telnet客户端，大家可以参考微软公司的安装说明自行安装。如果你使用的是Linux系统，那么可以直接在命令行窗口中，输入上面的命令。</p>
+<h4 id="第二步：打开本地显示。（非Windows系统跳过此步。）"><a href="#第二步：打开本地显示。（非Windows系统跳过此步。）" class="headerlink" title="第二步：打开本地显示。（非Windows系统跳过此步。）"></a>第二步：打开本地显示。（非Windows系统跳过此步。）</h4><p>请按以下步骤操作：在Telnet窗口中按下”Ctrl+]”；然后，输入”set localecho”命令，再连续按下两次回车键。  </p>
+<p><img src="http://lh4.ggpht.com/_6p3hNkUNWrQ/ScObKqQ2ixI/AAAAAAAAA8E/y_bni9WGzUo/s800/bg2009032003.jpg" alt="">  </p>
+<p>好了，这个时候你就可以直接同google.com主机进行对话了。  </p>
+<h4 id="第三步：你可以试着同Google随便说句话，看看有什么反应。"><a href="#第三步：你可以试着同Google随便说句话，看看有什么反应。" class="headerlink" title="第三步：你可以试着同Google随便说句话，看看有什么反应。"></a>第三步：你可以试着同Google随便说句话，看看有什么反应。</h4><p>我输入了”Hello World！”。  </p>
+<p><img src="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObKqqEFiI/AAAAAAAAA8M/q7S2Htybp0k/s800/bg2009032004.jpg" alt="">  </p>
+<p>结果，Google的回答是这样的：  </p>
+<p><img src="http://lh5.ggpht.com/_6p3hNkUNWrQ/ScObK-x6ZBI/AAAAAAAAA8U/MZnptNO4lHg/s800/bg2009032005.jpg" alt="">  </p>
+<p>“400 Bad Request”说明Google看不懂你的发言。这是毫不奇怪的，因为这时你是在TCP文本通道中，进行HTTP对话。所以，你的发言必须遵守HTTP协议，这样Google才能看懂。  </p>
+<h4 id="第四步：输入”GET-HTTP-1-1”，表示向google索要首页根文件，使用的协议是HTTP的1-1版本。"><a href="#第四步：输入”GET-HTTP-1-1”，表示向google索要首页根文件，使用的协议是HTTP的1-1版本。" class="headerlink" title="第四步：输入”GET / HTTP/1.1”，表示向google索要首页根文件，使用的协议是HTTP的1.1版本。"></a>第四步：输入”GET / HTTP/1.1”，表示向google索要首页根文件，使用的协议是HTTP的1.1版本。</h4><p>Google的回应如下：  </p>
+<p><img src="http://lh6.ggpht.com/_6p3hNkUNWrQ/ScObYMDOWuI/AAAAAAAAA8c/q5xB9qzAfyM/s800/bg2009032006.jpg" alt="">  </p>
+<p>“200 OK”表示要求数据成功。在头部信息的下面，就是google在浏览器中显示的首页文件的源代码。  </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面这个例子用的是HTTP协议，如果要使用其他”应用层协议”与主机进行对话，你只要改变端口就行了。比如，”telnet ftp.website.com 21”，表示用ftp协议进行对话。  </p>
+<p>所有这些对话的底层协议，都是TCP协议，因为这是负责文本传输的协议；而TCP协议又必须依靠IP协议，进行二进制数据的传输；而二进制数据的传输，离不开最底层负责网络连接的物理协议。  </p>
+<p>所以，通过这样四层的网络架构，就实现了整个互联网的通信。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发者手册/" rel="tag">#开发者手册</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/01/07/html_email/" rel="next" title="HTML Email 编写指南">
+                <i class="fa fa-chevron-left"></i> HTML Email 编写指南
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/07/javascript_this/" rel="prev" title="深入浅出 JavaScript 中的 this">
+                深入浅出 JavaScript 中的 this <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/02/09/tcp-ip_model/"
+           data-title="TCP/IP模型的一个简单解释" data-url="http://yoursite.com/2014/02/09/tcp-ip_model/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP模型是互联网的基础。"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP模型是互联网的基础。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是TCP-IP模型？"><span class="nav-number">2.</span> <span class="nav-text">什么是TCP/IP模型？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP模型的四层结构"><span class="nav-number">3.</span> <span class="nav-text">TCP/IP模型的四层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：用Telnet建立HTTP对话"><span class="nav-number">4.</span> <span class="nav-text">实例：用Telnet建立HTTP对话</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：在”开始”菜单中，点击”运行”命令，输入”telnet-google-com-80”。"><span class="nav-number">4.1.</span> <span class="nav-text">第一步：在”开始”菜单中，点击”运行”命令，输入”telnet google.com 80”。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步：打开本地显示。（非Windows系统跳过此步。）"><span class="nav-number">4.2.</span> <span class="nav-text">第二步：打开本地显示。（非Windows系统跳过此步。）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步：你可以试着同Google随便说句话，看看有什么反应。"><span class="nav-number">4.3.</span> <span class="nav-text">第三步：你可以试着同Google随便说句话，看看有什么反应。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四步：输入”GET-HTTP-1-1”，表示向google索要首页根文件，使用的协议是HTTP的1-1版本。"><span class="nav-number">4.4.</span> <span class="nav-text">第四步：输入”GET / HTTP/1.1”，表示向google索要首页根文件，使用的协议是HTTP的1.1版本。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

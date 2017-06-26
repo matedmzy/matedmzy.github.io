@@ -1,0 +1,1533 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,vuejs," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="过渡状态Vue 的过渡系统提供了非常多简单的方法设置进入、离开和列表的动效。那么对于数据元素本身的动效呢，比如：  
+
+数字和运算
+颜色的显示
+SVG 节点的位置
+元素的大小和其他的属性 
+
+所有的原始数字都被事先存储起来，可以直接转换到数字。做到这一步，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。
+状态动画 与 watcher通过 watcher 我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js——进阶(二)">
+<meta property="og:url" content="http://yoursite.com/2017/01/25/vuejs-advanced-2/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="过渡状态Vue 的过渡系统提供了非常多简单的方法设置进入、离开和列表的动效。那么对于数据元素本身的动效呢，比如：  
+
+数字和运算
+颜色的显示
+SVG 节点的位置
+元素的大小和其他的属性 
+
+所有的原始数字都被事先存储起来，可以直接转换到数字。做到这一步，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。
+状态动画 与 watcher通过 watcher 我们">
+<meta property="og:image" content="http://cn.vuejs.org/images/vue-component.png">
+<meta property="og:image" content="http://cn.vuejs.org/images/vue-component-with-preprocessors.png">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js——进阶(二)">
+<meta name="twitter:description" content="过渡状态Vue 的过渡系统提供了非常多简单的方法设置进入、离开和列表的动效。那么对于数据元素本身的动效呢，比如：  
+
+数字和运算
+颜色的显示
+SVG 节点的位置
+元素的大小和其他的属性 
+
+所有的原始数字都被事先存储起来，可以直接转换到数字。做到这一步，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。
+状态动画 与 watcher通过 watcher 我们">
+<meta name="twitter:image" content="http://cn.vuejs.org/images/vue-component.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/25/vuejs-advanced-2/"/>
+
+  <title> Vue.js——进阶(二) | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vue.js——进阶(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-25T01:13:27+08:00" content="2017-01-25 01:13:27">
+              2017-01-25 01:13:27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/25/vuejs-advanced-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/25/vuejs-advanced-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external"></a></p>
+</blockquote>
+<h2 id="过渡状态"><a href="#过渡状态" class="headerlink" title="过渡状态"></a>过渡状态</h2><p>Vue 的过渡系统提供了非常多简单的方法设置进入、离开和列表的动效。那么对于数据元素本身的动效呢，比如：  </p>
+<ul>
+<li>数字和运算</li>
+<li>颜色的显示</li>
+<li>SVG 节点的位置</li>
+<li>元素的大小和其他的属性 </li>
+</ul>
+<p>所有的原始数字都被事先存储起来，可以直接转换到数字。做到这一步，我们就可以结合 Vue 的响应式和组件系统，使用第三方库来实现切换元素的过渡状态。</p>
+<h3 id="状态动画-与-watcher"><a href="#状态动画-与-watcher" class="headerlink" title="状态动画 与 watcher"></a>状态动画 与 watcher</h3><p>通过 watcher 我们能监听到任何数值属性的数值更新。可能听起来很抽象，所以让我们先来看看使用Tweenjs一个例子：</p>
+<pre><code>&lt;script src=&quot;https://unpkg.com/tween.js@16.3.4&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;animated-number-demo&quot;&gt;
+  &lt;input v-model.number=&quot;number&quot; type=&quot;number&quot; step=&quot;20&quot;&gt;
+  &lt;p&gt;{{ animatedNumber }}&lt;/p&gt;
+&lt;/div&gt;
+new Vue({
+  el: &apos;#animated-number-demo&apos;,
+  data: {
+    number: 0,
+    animatedNumber: 0
+  },
+  watch: {
+    number: function(newValue, oldValue) {
+      var vm = this
+      function animate (time) {
+        requestAnimationFrame(animate)
+        TWEEN.update(time)
+      }
+      new TWEEN.Tween({ tweeningNumber: oldValue })
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .to({ tweeningNumber: newValue }, 500)
+        .onUpdate(function () {
+          vm.animatedNumber = this.tweeningNumber.toFixed(0)
+        })
+        .start()
+      animate()
+    }
+  }
+})
+</code></pre><h2 id="Render-函数"><a href="#Render-函数" class="headerlink" title="Render 函数"></a>Render 函数</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>Vue 推荐使用在绝大多数情况下使用 template 来创建你的 HTML。然而在一些场景中，你真的需要 JavaScript 的完全编程的能力，这就是 render 函数，它比 template 更接近编译器。  </p>
+<pre><code>&lt;h1&gt;
+  &lt;a name=&quot;hello-world&quot; href=&quot;#hello-world&quot;&gt;
+    Hello world!
+  &lt;/a&gt;
+&lt;/h1&gt;
+</code></pre><p>在 HTML 层， 我们决定这样定义组件接口：</p>
+<pre><code>&lt;anchored-heading :level=&quot;1&quot;&gt;Hello world!&lt;/anchored-heading&gt;
+</code></pre><p>当我们开始写一个通过 level prop 动态生成heading 标签的组件，你可很快能想到这样实现：</p>
+<pre><code>&lt;script type=&quot;text/x-template&quot; id=&quot;anchored-heading-template&quot;&gt;
+  &lt;div&gt;
+    &lt;h1 v-if=&quot;level === 1&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h1&gt;
+    &lt;h2 v-if=&quot;level === 2&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h2&gt;
+    &lt;h3 v-if=&quot;level === 3&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h3&gt;
+    &lt;h4 v-if=&quot;level === 4&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h4&gt;
+    &lt;h5 v-if=&quot;level === 5&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h5&gt;
+    &lt;h6 v-if=&quot;level === 6&quot;&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/h6&gt;
+  &lt;/div&gt;
+&lt;/script&gt;
+Vue.component(&apos;anchored-heading&apos;, {
+  template: &apos;#anchored-heading-template&apos;,
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+</code></pre><p>在这种场景中使用 template 并不是最好的选择：首先代码冗长，为了在不同级别的标题中插入锚点元素，我们需要重复地使用 <slot></slot>。其次由于组件必须有根节点，标题和锚点元素被包裹在了一个无用的 div 中。</p>
+<p>虽然模板在大多数组件中都非常好用，但是在这里它就不是很简洁的了。那么，我们来尝试使用 render 函数重写上面的例子：</p>
+<pre><code>Vue.component(&apos;anchored-heading&apos;, {
+  render: function (createElement) {
+    return createElement(
+      &apos;h&apos; + this.level,   // tag name 标签名称
+      this.$slots.default // 子组件中的阵列
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+</code></pre><p>简单清晰很多！简单来说，这样代码精简很多，但是需要非常熟悉 Vue 的实例属性。在这个例子中，你需要知道当你不使用 slot 属性向组件中传递内容时，比如 anchored-heading 中的 Hello world!, 这些子元素被存储在组件实例中的 <code>$slots.default</code>中。如果你还不了解， 在深入 render 函数之前推荐阅读 instance properties API。</p>
+<h3 id="createElement-参数"><a href="#createElement-参数" class="headerlink" title="createElement 参数"></a>createElement 参数</h3><p>第二件你需要熟悉的是如何在 createElement 函数中生成模板。这里是 createElement 接受的参数：</p>
+<pre><code>// @returns {VNode}
+createElement(
+  // {String | Object | Function}
+  // 一个 HTML 标签，组件选项，或一个函数
+  // 必须 Return 上述其中一个
+  &apos;div&apos;,
+  // {Object}
+  // 一个对应属性的数据对象
+  // 您可以在 template 中使用.可选项.
+  {
+    // (下一章，将详细说明相关细节)
+  },
+  // {String | Array}
+  // 子节点(VNodes). 可选项.
+  [
+    createElement(&apos;h1&apos;, &apos;hello world&apos;),
+    createElement(MyComponent, {
+      props: {
+        someProp: &apos;foo&apos;
+      }
+    }),
+    &apos;bar&apos;
+  ]
+)
+</code></pre><h4 id="完整数据对象"><a href="#完整数据对象" class="headerlink" title="完整数据对象"></a>完整数据对象</h4><p>有一件事要注意：在 templates 中，v-bind:class 和 v-bind:style ，会有特别的处理，他们在 VNode 数据对象中，为最高级配置。  </p>
+<pre><code>{
+  // 和`v-bind:class`一样的 API
+  &apos;class&apos;: {
+    foo: true,
+    bar: false
+  },
+  // 和`v-bind:style`一样的 API
+  style: {
+    color: &apos;red&apos;,
+    fontSize: &apos;14px&apos;
+  },
+  // 正常的 HTML 特性
+  attrs: {
+    id: &apos;foo&apos;
+  },
+  // 组件 props
+  props: {
+    myProp: &apos;bar&apos;
+  },
+  // DOM 属性
+  domProps: {
+    innerHTML: &apos;baz&apos;
+  },
+  // 事件监听器基于 &quot;on&quot;
+  // 所以不再支持如 v-on:keyup.enter 修饰器
+  // 需要手动匹配 keyCode。
+  on: {
+    click: this.clickHandler
+  },
+  // 仅对于组件，用于监听原生事件，而不是组件使用 vm.$emit 触发的事件。
+  nativeOn: {
+    click: this.nativeClickHandler
+  },
+  // 自定义指令. 注意事项：不能对绑定的旧值设值
+  // Vue 会为您持续追踨
+  directives: [
+    {
+      name: &apos;my-custom-directive&apos;,
+      value: &apos;2&apos;
+      expression: &apos;1 + 1&apos;,
+      arg: &apos;foo&apos;,
+      modifiers: {
+        bar: true
+      }
+    }
+  ],
+  // Scoped slots in the form of
+  // { name: props =&gt; VNode | Array&lt;VNode&gt; }
+  scopedSlots: {
+    default: props =&gt; h(&apos;span&apos;, props.text)
+  },
+  // 如果子组件有定义 slot 的名称
+  slot: &apos;name-of-slot&apos;
+  // 其他特殊顶层属性
+  key: &apos;myKey&apos;,
+  ref: &apos;myRef&apos;
+}
+</code></pre><h4 id="完整示例"><a href="#完整示例" class="headerlink" title="完整示例"></a>完整示例</h4><p>有了这方面的知识，我们现在可以完成我们最开始想实现的组件：</p>
+<pre><code>var getChildrenTextContent = function (children) {
+  return children.map(function (node) {
+    return node.children
+      ? getChildrenTextContent(node.children)
+      : node.text
+  }).join(&apos;&apos;)
+}
+Vue.component(&apos;anchored-heading&apos;, {
+  render: function (createElement) {
+    // create kebabCase id
+    var headingId = getChildrenTextContent(this.$slots.default)
+      .toLowerCase()
+      .replace(/\W+/g, &apos;-&apos;)
+      .replace(/(^\-|\-$)/g, &apos;&apos;)
+    return createElement(
+      &apos;h&apos; + this.level,
+      [
+        createElement(&apos;a&apos;, {
+          attrs: {
+            name: headingId,
+            href: &apos;#&apos; + headingId
+          }
+        }, this.$slots.default)
+      ]
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+</code></pre><h4 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h4><p>VNodes 必须唯一  </p>
+<p>所有组件树中的 VNodes 必须唯一。这意味着，下面的 render function 是无效的：</p>
+<pre><code>render: function (createElement) {
+  var myParagraphVNode = createElement(&apos;p&apos;, &apos;hi&apos;)
+  return createElement(&apos;div&apos;, [
+    // Yikes - duplicate VNodes!
+    myParagraphVNode, myParagraphVNode
+  ])
+}
+</code></pre><p>如果你真的需要重复很多次的元素/组件，你可以使用工厂函数来实现。例如，下面这个例子 render 函数完美有效地渲染了 20 个重复的段落：  </p>
+<pre><code>render: function (createElement) {
+  return createElement(&apos;div&apos;,
+    Array.apply(null, { length: 20 }).map(function () {
+      return createElement(&apos;p&apos;, &apos;hi&apos;)
+    })
+  )
+}
+</code></pre><h3 id="使用-JavaScript-代替模板功能"><a href="#使用-JavaScript-代替模板功能" class="headerlink" title="使用 JavaScript 代替模板功能"></a>使用 JavaScript 代替模板功能</h3><h4 id="v-if-and-v-for"><a href="#v-if-and-v-for" class="headerlink" title="v-if and v-for"></a>v-if and v-for</h4><p>无论什么都可以使用原生的 JavaScript 来实现，Vue 的 render 函数不会提供专用的 API。比如， template 中的 v-if 和 v-for:</p>
+<pre><code>&lt;ul v-if=&quot;items.length&quot;&gt;
+  &lt;li v-for=&quot;item in items&quot;&gt;{{ item.name }}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p v-else&gt;No items found.&lt;/p&gt;
+这些都会在 render 函数中被 JavaScript 的 if/else 和 map 重写：
+render: function (createElement) {
+  if (this.items.length) {
+    return createElement(&apos;ul&apos;, this.items.map(function (item) {
+      return createElement(&apos;li&apos;, item.name)
+    }))
+  } else {
+    return createElement(&apos;p&apos;, &apos;No items found.&apos;)
+  }
+}
+</code></pre><h4 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h4><p>There is no direct v-model counterpart in render functions - you will have to implement the logic yourself:</p>
+<pre><code>render: function (createElement) {
+  var self = this
+  return createElement(&apos;input&apos;, {
+    domProps: {
+      value: self.value
+    },
+    on: {
+      input: function (event) {
+        self.value = event.target.value
+      }
+    }
+  })
+}
+</code></pre><p>This is the cost of going lower-level, but it also gives you much more control over the interaction details compared to v-model.  </p>
+<h4 id="Event-amp-Key-Modifiers"><a href="#Event-amp-Key-Modifiers" class="headerlink" title="Event &amp; Key Modifiers"></a>Event &amp; Key Modifiers</h4><p>For the .capture and .once event modifiers, Vue offers prefixes that can be used with on:</p>
+<table>
+<thead>
+<tr>
+<th>Modifier(s)</th>
+<th>Prefix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.capture</td>
+<td>!</td>
+</tr>
+<tr>
+<td>.once</td>
+<td>~</td>
+</tr>
+<tr>
+<td>.capture.once or.once.capture</td>
+<td>~!  </td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<pre><code>on: {
+  &apos;!click&apos;: this.doThisInCapturingMode,
+  &apos;~keyup&apos;: this.doThisOnce,
+  `~!mouseover`: this.doThisOnceInCapturingMode
+}
+</code></pre><p>For all other event and key modifiers, no proprietary prefix is necessary, because you can simply use event methods in the handler:  </p>
+<table>
+<thead>
+<tr>
+<th>Modifier(s)</th>
+<th>Equivalent in Handler</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.stop</td>
+<td>event.stopPropagation()</td>
+</tr>
+<tr>
+<td>.prevent</td>
+<td>event.preventDefault()</td>
+</tr>
+<tr>
+<td>.self</td>
+<td>if (event.target !== event.currentTarget) return</td>
+</tr>
+<tr>
+<td>Keys:.enter, .13</td>
+<td>if (event.keyCode !== 13) return (change 13 to another key code for other key modifiers)</td>
+</tr>
+<tr>
+<td>Modifiers Keys: .ctrl, .alt, .shift, .meta</td>
+<td>if (!event.ctrlKey) return (change ctrlKey to altKey, shiftKey, or metaKey, respectively)</td>
+</tr>
+</tbody>
+</table>
+<p>Here’s an example with all of these modifiers used together:</p>
+<pre><code>on: {
+  keyup: function (event) {
+    // Abort if the element emitting the event is not
+    // the element the event is bound to
+    if (event.target !== event.currentTarget) return
+    // Abort if the key that went up is not the enter
+    // key (13) and the shift key was not held down
+    // at the same time
+    if (!event.shiftKey || event.keyCode !== 13) return
+    // Stop event propagation
+    event.stopPropagation()
+    // Prevent the default keyup handler for this element
+    event.preventDefault()
+    // ...
+  }
+}
+</code></pre><h4 id="Slots"><a href="#Slots" class="headerlink" title="Slots"></a>Slots</h4><p>You can access static slot contents as Arrays of VNodes from <code>this.$slots</code>:</p>
+<pre><code>render: function (createElement) {
+  // &lt;div&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/div&gt;
+  return createElement(&apos;div&apos;, this.$slots.default)
+}
+</code></pre><p>And access scoped slots as functions that return VNodes from <code>this.$scopedSlots</code>:</p>
+<pre><code>render: function (createElement) {
+  // &lt;div&gt;&lt;slot :text=&quot;msg&quot;&gt;&lt;/slot&gt;&lt;/div&gt;
+  return createElement(&apos;div&apos;, [
+    this.$scopedSlots.default({
+      text: this.msg
+    })
+  ])
+}
+</code></pre><p>To pass scoped slots to a child component using render functions, use the scopedSlots field in VNode data:</p>
+<pre><code>render (createElement) {
+  return createElement(&apos;div&apos;, [
+    createElement(&apos;child&apos;, {
+      // pass scopedSlots in the data object
+      // in the form of { name: props =&gt; VNode | Array&lt;VNode&gt; }
+      scopedSlots: {
+        default: function (props) {
+          return createElement(&apos;span&apos;, props.text)
+        }
+      }
+    })
+  ])
+}
+</code></pre><h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>如果你写了很多 render 函数，可能会觉得痛苦：</p>
+<pre><code>createElement(
+  &apos;anchored-heading&apos;, {
+    props: {
+      level: 1
+    }
+  }, [
+    createElement(&apos;span&apos;, &apos;Hello&apos;),
+    &apos; world!&apos;
+  ]
+)
+</code></pre><p>特别是模板如此简单的情况下：</p>
+<pre><code>&lt;anchored-heading :level=&quot;1&quot;&gt;
+  &lt;span&gt;Hello&lt;/span&gt; world!
+&lt;/anchored-heading&gt;
+</code></pre><p>这就是会有一个 Babel plugin 插件，用于在 Vue 中使用 JSX 语法的原因，它可以让我们回到于更接近模板的语法上。</p>
+<pre><code>import AnchoredHeading from &apos;./AnchoredHeading.vue&apos;
+new Vue({
+  el: &apos;#demo&apos;,
+  render (h) {
+    return (
+      &lt;AnchoredHeading level={1}&gt;
+        &lt;span&gt;Hello&lt;/span&gt; world!
+      &lt;/AnchoredHeading&gt;
+    )
+  }
+})
+</code></pre><p>将 h 作为 createElement 的别名是 Vue 生态系统中的一个通用惯例，实际上也是 JSX 所要求的，如果在作用域中 h 失去作用， 在应用中会触发报错。  </p>
+<p>更多关于 JSX 映射到 JavaScript，阅读 使用文档。  </p>
+<h3 id="函数化组件"><a href="#函数化组件" class="headerlink" title="函数化组件"></a>函数化组件</h3><p>之前创建的锚点标题组件是比较简单，没有管理或者监听任何传递给他的状态，也没有生命周期方法。它只是一个接收参数的函数。  </p>
+<p>在这个例子中，我们标记组件为 functional， 这意味它是无状态（没有 data），无实例（没有 this 上下文）。  </p>
+<p>一个 函数化组件 就像这样：</p>
+<pre><code>Vue.component(&apos;my-component&apos;, {
+  functional: true,
+  // 为了弥补缺少的实例
+  // 提供第二个参数作为上下文
+  render: function (createElement, context) {
+    // ...
+  },
+  // Props 可选
+  props: {
+    // ...
+  }
+})
+</code></pre><p>组件需要的一切都是通过上下文传递，包括：</p>
+<ul>
+<li>props: 提供props 的对象</li>
+<li>children: VNode 子节点的数组</li>
+<li>slots: slots 对象</li>
+<li>data: 传递给组件的 data 对象</li>
+<li>parent: 对父组件的引用</li>
+</ul>
+<p>在添加 functional: true 之后，锚点标题组件的 render 函数之间简单更新增加 context 参数，this.$slots.default 更新为 context.children，之后this.level 更新为 context.props.level。  </p>
+<p>函数化组件只是一个函数，所以渲染开销也低很多。但同样它也有完整的组件封装，你需要知道这些， 比如：  </p>
+<ul>
+<li>程序化地在多个组件中选择一个</li>
+<li>在将 children, props, data 传递给子组件之前操作它们。</li>
+</ul>
+<p>下面是一个依赖传入 props 的值的 smart-list 组件例子，它能代表更多具体的组件：</p>
+<pre><code>var EmptyList = { /* ... */ }
+var TableList = { /* ... */ }
+var OrderedList = { /* ... */ }
+var UnorderedList = { /* ... */ }
+Vue.component(&apos;smart-list&apos;, {
+  functional: true,
+  render: function (createElement, context) {
+    function appropriateListComponent () {
+      var items = context.props.items
+      if (items.length === 0)           return EmptyList
+      if (typeof items[0] === &apos;object&apos;) return TableList
+      if (context.props.isOrdered)      return OrderedList
+      return UnorderedList
+    }
+    return createElement(
+      appropriateListComponent(),
+      context.data,
+      context.children
+    )
+  },
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    isOrdered: Boolean
+  }
+})
+</code></pre><h4 id="slots-和-children-对比"><a href="#slots-和-children-对比" class="headerlink" title="slots() 和 children 对比"></a>slots() 和 children 对比</h4><p>你可能想知道为什么同时需要 slots() 和 children。<br>slots().default 不是和 children 类似的吗？在一些场景中，是这样，但是如果是函数式组件和下面这样的 children 呢？</p>
+<pre><code>&lt;my-functional-component&gt;
+  &lt;p slot=&quot;foo&quot;&gt;
+    first
+  &lt;/p&gt;
+  &lt;p&gt;second&lt;/p&gt;
+&lt;/my-functional-component&gt;
+</code></pre><p>对于这个组件，children 会给你两个段落标签，而 slots().default 只会传递第二个匿名段落标签，slots().foo 会传递第一个具名段落标签。同时拥有 children 和 slots() ，因此你可以选择让组件通过 slot() 系统分发或者简单的通过 children 接收，让其他组件去处理。</p>
+<h3 id="模板编译"><a href="#模板编译" class="headerlink" title="模板编译"></a>模板编译</h3><p>你可能有兴趣知道，Vue 的模板实际是编译成了 render 函数。这是一个实现细节，通常不需要关心，但如果你想看看模板的功能是怎样被编译的，你会发现会非常有趣。</p>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>除了默认设置的核心指令( v-model 和 v-show ),Vue 也允许注册自定义指令。注意，在 Vue2.0 里面，代码复用的主要形式和抽象是组件——然而，有的情况下,你仍然需要对纯 DOM 元素进行底层操作,这时候就会用到自定义指令。下面这个例子将聚焦一个 input 元素，像这样：  </p>
+<p>当页面加载时，元素将获得焦点。事实上，你访问后还没点击任何内容，input 就获得了焦点。现在让我们完善这个指令：  </p>
+<pre><code>// 注册一个全局自定义指令 v-focus
+Vue.directive(&apos;focus&apos;, {
+  // 当绑定元素插入到 DOM 中。
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+也可以注册局部指令，组件中接受一个 directives 的选项：
+directives: {
+  focus: {
+    // 指令的定义---
+  }
+}
+</code></pre><p>然后你可以在模板中任何元素上使用新的 v-focus 属性：</p>
+<pre><code>&lt;input v-focus&gt;
+</code></pre><h3 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h3><p>指令定义函数提供了几个钩子函数（可选）：</p>
+<ul>
+<li>bind: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。</li>
+<li>inserted: 被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document 中）。</li>
+<li>update: 被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）。</li>
+<li>componentUpdated: 被绑定元素所在模板完成一次更新周期时调用。<br>unbind: 只调用一次， 指令与元素解绑时调用。</li>
+</ul>
+<p>接下来我们来看一下钩子函数的参数 (包括 el，binding，vnode，oldVnode) 。</p>
+<h3 id="钩子函数参数"><a href="#钩子函数参数" class="headerlink" title="钩子函数参数"></a>钩子函数参数</h3><p>钩子函数被赋予了以下参数：</p>
+<ul>
+<li>el: 指令所绑定的元素，可以用来直接操作 DOM 。</li>
+<li>binding: 一个对象，包含以下属性：</li>
+<li>name: 指令名，不包括 v- 前缀。</li>
+<li>value: 指令的绑定值， 例如： v-my-directive=”1 + 1”, value 的值是 2。</li>
+<li>oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。</li>
+<li>expression: 绑定值的字符串形式。 例如 v-my-directive=”1 + 1” ， expression 的值是 “1 + 1”。</li>
+<li>arg: 传给指令的参数。例如 v-my-directive:foo， arg 的值是 “foo”。</li>
+<li>modifiers: 一个包含修饰符的对象。 例如： v-my-directive.foo.bar, 修饰符对象 modifiers 的值是 { foo: true, bar: true }。</li>
+<li>vnode: Vue 编译生成的虚拟节点，查阅 VNode API 了解更多详情。</li>
+<li>oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。</li>
+</ul>
+<p>除了 el 之外，其它参数都应该是只读的，尽量不要修改他们。如果需要在钩子之间共享数据，建议通过元素的 dataset 来进行。  </p>
+<p>一个使用了这些参数的自定义钩子样例：</p>
+<pre><code>&lt;div id=&quot;hook-arguments-example&quot; v-demo:hello.a.b=&quot;message&quot;&gt;&lt;/div&gt;
+Vue.directive(&apos;demo&apos;, {
+  bind: function (el, binding, vnode) {
+    var s = JSON.stringify
+    el.innerHTML =
+      &apos;name: &apos;       + s(binding.name) + &apos;&lt;br&gt;&apos; +
+      &apos;value: &apos;      + s(binding.value) + &apos;&lt;br&gt;&apos; +
+      &apos;expression: &apos; + s(binding.expression) + &apos;&lt;br&gt;&apos; +
+      &apos;argument: &apos;   + s(binding.arg) + &apos;&lt;br&gt;&apos; +
+      &apos;modifiers: &apos;  + s(binding.modifiers) + &apos;&lt;br&gt;&apos; +
+      &apos;vnode keys: &apos; + Object.keys(vnode).join(&apos;, &apos;)
+  }
+})
+new Vue({
+  el: &apos;#hook-arguments-example&apos;,
+  data: {
+    message: &apos;hello!&apos;
+  }
+})
+name: &quot;demo&quot;
+value: &quot;hello!&quot;
+expression: &quot;message&quot;
+argument: &quot;hello&quot;
+modifiers: {&quot;a&quot;:true,&quot;b&quot;:true}
+vnode keys: tag, data, children, text, elm, ns, context, functionalContext, key, componentOptions, child, parent, raw, isStatic, isRootInsert, isComment, isCloned, isOnce
+</code></pre><h3 id="函数简写"><a href="#函数简写" class="headerlink" title="函数简写"></a>函数简写</h3><p>大多数情况下，我们可能想在 bind 和 update 钩子上做重复动作，并且不想关心其它的钩子函数。可以这样写:</p>
+<pre><code>Vue.directive(&apos;color-swatch&apos;, function (el, binding) {
+  el.style.backgroundColor = binding.value
+})
+</code></pre><h3 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h3><p>如果指令需要多个值，可以传入一个 JavaScript 对象字面量。记住，指令函数能够接受所有合法类型的 Javascript 表达式。</p>
+<pre><code>&lt;div v-demo=&quot;{ color: &apos;white&apos;, text: &apos;hello!&apos; }&quot;&gt;&lt;/div&gt;
+Vue.directive(&apos;demo&apos;, function (el, binding) {
+  console.log(binding.value.color) // =&gt; &quot;white&quot;
+  console.log(binding.value.text)  // =&gt; &quot;hello!&quot;
+})
+</code></pre><h2 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h2><h3 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h3><p>混合是一种灵活的分布式复用 Vue 组件的方式。混合对象可以包含任意组件选项。以组件使用混合对象时，所有混合对象的选项将被混入该组件本身的选项。  </p>
+<p>例子：</p>
+<pre><code>// 定义一个混合对象
+var myMixin = {
+  created: function () {
+    this.hello()
+  },
+  methods: {
+    hello: function () {
+      console.log(&apos;hello from mixin!&apos;)
+    }
+  }
+}
+// 定义一个使用混合对象的组件
+var Component = Vue.extend({
+  mixins: [myMixin]
+})
+var component = new Component() // -&gt; &quot;hello from mixin!&quot;
+</code></pre><h3 id="选项合并"><a href="#选项合并" class="headerlink" title="选项合并"></a>选项合并</h3><p>当组件和混合对象含有同名选项时，这些选项将以恰当的方式混合。比如，同名钩子函数将混合为一个数组，因此都将被调用。另外，混合对象的 钩子将在组件自身钩子 之前 调用 ：</p>
+<pre><code>var mixin = {
+  created: function () {
+    console.log(&apos;混合对象的钩子被调用&apos;)
+  }
+}
+new Vue({
+  mixins: [mixin],
+  created: function () {
+    console.log(&apos;组件钩子被调用&apos;)
+  }
+})
+// -&gt; &quot;混合对象的钩子被调用&quot;
+// -&gt; &quot;组件钩子被调用&quot;
+</code></pre><p>值为对象的选项，例如 methods, components 和 directives，将被混合为同一个对象。 两个对象键名冲突时，取组件对象的键值对。</p>
+<pre><code>var mixin = {
+  methods: {
+    foo: function () {
+      console.log(&apos;foo&apos;)
+    },
+    conflicting: function () {
+      console.log(&apos;from mixin&apos;)
+    }
+  }
+}
+var vm = new Vue({
+  mixins: [mixin],
+  methods: {
+    bar: function () {
+      console.log(&apos;bar&apos;)
+    },
+    conflicting: function () {
+      console.log(&apos;from self&apos;)
+    }
+  }
+})
+vm.foo() // -&gt; &quot;foo&quot;
+vm.bar() // -&gt; &quot;bar&quot;
+vm.conflicting() // -&gt; &quot;from self&quot;
+</code></pre><p>注意： Vue.extend() 也使用同样的策略进行合并。</p>
+<h3 id="全局混合"><a href="#全局混合" class="headerlink" title="全局混合"></a>全局混合</h3><p>也可以全局注册混合对象。 注意使用！ 一旦使用全局混合对象，将会影响到 所有 之后创建的 Vue 实例。使用恰当时，可以为自定义对象注入处理逻辑。</p>
+<pre><code>// 为自定义的选项 &apos;myOption&apos; 注入一个处理器。 
+Vue.mixin({
+  created: function () {
+    var myOption = this.$options.myOption
+    if (myOption) {
+      console.log(myOption)
+    }
+  }
+})
+new Vue({
+  myOption: &apos;hello!&apos;
+})
+// -&gt; &quot;hello!&quot;
+</code></pre><p>谨慎使用全局混合对象，因为会影响到每个单独创建的 Vue 实例（包括第三方模板）。大多数情况下，只应当应用于自定义选项，就像上面示例一样。 也可以将其用作 Plugins 以避免产生重复应用</p>
+<h3 id="自定义选项混合策略"><a href="#自定义选项混合策略" class="headerlink" title="自定义选项混合策略"></a>自定义选项混合策略</h3><p>自定义选项将使用默认策略，即简单地覆盖已有值。 如果想让自定义选项以自定义逻辑混合，可以向 Vue.config.optionMergeStrategies 添加一个函数：</p>
+<pre><code>Vue.config.optionMergeStrategies.myOption = function (toVal, fromVal) {
+  // return mergedVal
+}
+</code></pre><p>对于大多数对象选项，可以使用 methods 的合并策略:</p>
+<pre><code>var strategies = Vue.config.optionMergeStrategies
+strategies.myOption = strategies.methods
+</code></pre><p>更多高级的例子可以在 Vuex 1.x的混合策略里找到:</p>
+<pre><code>const merge = Vue.config.optionMergeStrategies.computed
+Vue.config.optionMergeStrategies.vuex = function (toVal, fromVal) {
+  if (!toVal) return fromVal
+  if (!fromVal) return toVal
+  return {
+    getters: merge(toVal.getters, fromVal.getters),
+    state: merge(toVal.state, fromVal.state),
+    actions: merge(toVal.actions, fromVal.actions)
+  }
+}
+</code></pre><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="开发插件"><a href="#开发插件" class="headerlink" title="开发插件"></a>开发插件</h3><p>插件通常会为Vue添加全局功能。插件的范围没有限制——一般有下面几种：  </p>
+<ul>
+<li>添加全局方法或者属性，如: vue-element</li>
+<li>添加全局资源：指令/过滤器/过渡等，如 vue-touch</li>
+<li>通过全局 mixin方法添加一些组件选项，如: vuex</li>
+<li>添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现。</li>
+<li>一个库，提供自己的 API，同时提供上面提到的一个或多个功能，如 vue-router</li>
+</ul>
+<p>Vue.js 的插件应当有一个公开方法 install 。这个方法的第一个参数是 Vue 构造器 , 第二个参数是一个可选的选项对象:</p>
+<pre><code>MyPlugin.install = function (Vue, options) {
+  // 1. 添加全局方法或属性
+  Vue.myGlobalMethod = function () {
+    // 逻辑...
+  }
+  // 2. 添加全局资源
+  Vue.directive(&apos;my-directive&apos;, {
+    bind (el, binding, vnode, oldVnode) {
+      // 逻辑...
+    }
+    ...
+  })
+  // 3. 注入组件
+  Vue.mixin({
+    created: function () {
+      // 逻辑...
+    }
+    ...
+  })
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function (options) {
+    // 逻辑...
+  }
+}
+</code></pre><h3 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h3><p>通过全局方法 Vue.use() 使用插件:</p>
+<pre><code>// 调用 `MyPlugin.install(Vue)`
+Vue.use(MyPlugin)
+</code></pre><p>也可以传入一个选项对象:</p>
+<pre><code>Vue.use(MyPlugin, { someOption: true })
+</code></pre><p>Vue.use 会自动阻止注册相同插件多次，届时只会注册一次该插件。<br>一些插件，如 vue-router 如果 Vue 是全局变量则自动调用 Vue.use() 。不过在模块环境中应当始终显式调用 Vue.use() :</p>
+<pre><code>// 通过 Browserify 或 Webpack 使用 CommonJS 兼容模块
+var Vue = require(&apos;vue&apos;)
+var VueRouter = require(&apos;vue-router&apos;)
+// 不要忘了调用此方法
+Vue.use(VueRouter)
+</code></pre><p>awesome-vue 集合了来自社区贡献的数以千计的插件和库。</p>
+<h2 id="单文件组件"><a href="#单文件组件" class="headerlink" title="单文件组件"></a>单文件组件</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>在很多Vue项目中，我们使用 Vue.component 来定义全局组件，紧接着用 new Vue({ el: ‘#container ‘}) 在每个页面内指定一个容器元素。  </p>
+<ul>
+<li>全局定义(Global definitions) 强制要求每个 component 中的命名不得重复</li>
+<li>字符串模板(String templates) 缺乏语法高亮，在 HTML 有多行的时候，需要用到丑陋的 \</li>
+<li>不支持CSS(No CSS support) 意味着当 HTML 和 JavaScript 组件化时，CSS 明显被遗漏</li>
+<li>没有构建步骤(No build step) 限制只能使用 HTML 和 ES5 JavaScript, 而不能使用预处理器，如 Pug (formerly Jade) 和 Babel</li>
+</ul>
+<p>文件扩展名为 .vue 的 single-file components(单文件组件) 为以上所有问题提供了解决方法，并且还可以使用 Webpack 或 Browserify 等构建工具。  </p>
+<p>这是一个文件名为 Hello.vue 的简单实例：  </p>
+<p><img src="http://cn.vuejs.org/images/vue-component.png" alt="">  </p>
+<p>现在我们获得：  </p>
+<ul>
+<li>完整语法高亮</li>
+<li>CommonJS 模块</li>
+<li>组件化的 CSS</li>
+</ul>
+<p>正如我们说过的，我们可以使用预处理器来构建简洁和功能更丰富的组件，比如 Jade，Babel (with ES2015 modules)，和 Stylus。  </p>
+<p><img src="http://cn.vuejs.org/images/vue-component-with-preprocessors.png" alt="">  </p>
+<p>这些特定的语言只是例子，你可以只是简单地使用 Buble，TypeScript，SCSS，PostCSS - 或者其他任何能够帮助你提高生产力的预处理器。  </p>
+<h3 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h3><h4 id="针对刚接触-JavaScript-模块开发系统的用户"><a href="#针对刚接触-JavaScript-模块开发系统的用户" class="headerlink" title="针对刚接触 JavaScript 模块开发系统的用户"></a>针对刚接触 JavaScript 模块开发系统的用户</h4><p>有了 .vue 组件，我们就进入了高级 JavaScirpt 应用领域。如果你没有准备好的话，意味着还需要学会使用一些附加的工具：</p>
+<ul>
+<li>Node Package Manager (NPM): 阅读 Getting Started guide 直到 10: Uninstalling global packages章节.</li>
+<li>Modern JavaScript with ES2015/16: 阅读 Babel 的 Learn ES2015 guide. 你不需要立刻记住每一个方法，但是你可以保留这个页面以便后期参考。</li>
+</ul>
+<p>在你花一些时日了解这些资源之后，我们建议你参考 webpack-simple 。只要遵循指示，你就能很快的运行一个用到 .vue 组件，ES2015 和 热重载( hot-reloading ) 的Vue项目!  </p>
+<p>这个模板使用 Webpack，一个能将多个模块打包成最终应用的模块打包工具。 这个视频 介绍了Webpack的更多相关信息。 学习了这些基础知识后， 你可能想看看 这个在 Egghead.io上的 高级 Webpack 课程.<br>在 Webpack中，每个模块被打包到 bundle 之前都由一个相应的 “loader” 来转换，Vue 也提供 vue-loader 插件来执行 .vue 单文件组件 的转换. 这个 webpack-simple 模板已经为你准备好了所有的东西，但是如果你想了解更多关于 .vue 组件和 Webpack 如何一起运转的信息，你可以阅读 vue-loader 的文档。  </p>
+<h4 id="针对高级用户"><a href="#针对高级用户" class="headerlink" title="针对高级用户"></a>针对高级用户</h4><p>无论你更钟情 Webpack 或是 Browserify，我们为简单的和更复杂的项目都提供了一些文档模板。我们建议浏览 github.com/vuejs-templates，找到你需要的部分，然后参考 README 中的说明，使用 vue-cli 工具生成新的项目。  </p>
+<p>模板中使用 Webpack ，一个模块加载器加载多个模块然后构建成最终应用。为了进一步了解 Webpack, 可以看 官方介绍视频。如果你有基础，可以看 在 Egghead.io 上的 Webpack 进阶教程。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/vuejs/" rel="tag">#vuejs</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/24/vuejs-advanced/" rel="next" title="Vue.js——进阶(一)">
+                <i class="fa fa-chevron-left"></i> Vue.js——进阶(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/25/vuejs-advanced-3/" rel="prev" title="Vue.js——进阶(三)">
+                Vue.js——进阶(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/25/vuejs-advanced-2/"
+           data-title="Vue.js——进阶(二)" data-url="http://yoursite.com/2017/01/25/vuejs-advanced-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#过渡状态"><span class="nav-number">1.</span> <span class="nav-text">过渡状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#状态动画-与-watcher"><span class="nav-number">1.1.</span> <span class="nav-text">状态动画 与 watcher</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Render-函数"><span class="nav-number">2.</span> <span class="nav-text">Render 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createElement-参数"><span class="nav-number">2.2.</span> <span class="nav-text">createElement 参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#完整数据对象"><span class="nav-number">2.2.1.</span> <span class="nav-text">完整数据对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整示例"><span class="nav-number">2.2.2.</span> <span class="nav-text">完整示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#约束"><span class="nav-number">2.2.3.</span> <span class="nav-text">约束</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-JavaScript-代替模板功能"><span class="nav-number">2.3.</span> <span class="nav-text">使用 JavaScript 代替模板功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#v-if-and-v-for"><span class="nav-number">2.3.1.</span> <span class="nav-text">v-if and v-for</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-model"><span class="nav-number">2.3.2.</span> <span class="nav-text">v-model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Event-amp-Key-Modifiers"><span class="nav-number">2.3.3.</span> <span class="nav-text">Event & Key Modifiers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slots"><span class="nav-number">2.3.4.</span> <span class="nav-text">Slots</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX"><span class="nav-number">2.4.</span> <span class="nav-text">JSX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数化组件"><span class="nav-number">2.5.</span> <span class="nav-text">函数化组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#slots-和-children-对比"><span class="nav-number">2.5.1.</span> <span class="nav-text">slots() 和 children 对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板编译"><span class="nav-number">2.6.</span> <span class="nav-text">模板编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义指令"><span class="nav-number">3.</span> <span class="nav-text">自定义指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#钩子函数"><span class="nav-number">3.2.</span> <span class="nav-text">钩子函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#钩子函数参数"><span class="nav-number">3.3.</span> <span class="nav-text">钩子函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数简写"><span class="nav-number">3.4.</span> <span class="nav-text">函数简写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象字面量"><span class="nav-number">3.5.</span> <span class="nav-text">对象字面量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合"><span class="nav-number">4.</span> <span class="nav-text">混合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础-1"><span class="nav-number">4.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项合并"><span class="nav-number">4.2.</span> <span class="nav-text">选项合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局混合"><span class="nav-number">4.3.</span> <span class="nav-text">全局混合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义选项混合策略"><span class="nav-number">4.4.</span> <span class="nav-text">自定义选项混合策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">5.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发插件"><span class="nav-number">5.1.</span> <span class="nav-text">开发插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用插件"><span class="nav-number">5.2.</span> <span class="nav-text">使用插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单文件组件"><span class="nav-number">6.</span> <span class="nav-text">单文件组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#起步"><span class="nav-number">6.2.</span> <span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#针对刚接触-JavaScript-模块开发系统的用户"><span class="nav-number">6.2.1.</span> <span class="nav-text">针对刚接触 JavaScript 模块开发系统的用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#针对高级用户"><span class="nav-number">6.2.2.</span> <span class="nav-text">针对高级用户</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

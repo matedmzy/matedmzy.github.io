@@ -1,0 +1,1218 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,ES2015," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="SIMD
+
+概述SIMD（发音/sim-dee/）是“Single Instruction/Multiple Data”的缩写，意为“单指令，多数据”。它是JavaScript操作CPU对应指令的接口，你可以看做这是一种不同的运算执行模式。与它相对的是SISD（“Single Instruction/Single Data”），即“单指令，单数据”。  
+SIMD的含义是使用一个指令，完成多个数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES2015——23.SIMD">
+<meta property="og:url" content="http://yoursite.com/2016/12/15/ES2015-23_simd/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="SIMD
+
+概述SIMD（发音/sim-dee/）是“Single Instruction/Multiple Data”的缩写，意为“单指令，多数据”。它是JavaScript操作CPU对应指令的接口，你可以看做这是一种不同的运算执行模式。与它相对的是SISD（“Single Instruction/Single Data”），即“单指令，单数据”。  
+SIMD的含义是使用一个指令，完成多个数">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES2015——23.SIMD">
+<meta name="twitter:description" content="SIMD
+
+概述SIMD（发音/sim-dee/）是“Single Instruction/Multiple Data”的缩写，意为“单指令，多数据”。它是JavaScript操作CPU对应指令的接口，你可以看做这是一种不同的运算执行模式。与它相对的是SISD（“Single Instruction/Single Data”），即“单指令，单数据”。  
+SIMD的含义是使用一个指令，完成多个数">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/15/ES2015-23_simd/"/>
+
+  <title> ES2015——23.SIMD | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ES2015——23.SIMD
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-15T11:37:18+08:00" content="2016-12-15 11:37:18">
+              2016-12-15 11:37:18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/15/ES2015-23_simd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/15/ES2015-23_simd/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://es6.ruanyifeng.com/#docs/simd" target="_blank" rel="external">SIMD</a></p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>SIMD（发音/sim-dee/）是“Single Instruction/Multiple Data”的缩写，意为“单指令，多数据”。它是JavaScript操作CPU对应指令的接口，你可以看做这是一种不同的运算执行模式。与它相对的是SISD（“Single Instruction/Single Data”），即“单指令，单数据”。  </p>
+<p>SIMD的含义是使用一个指令，完成多个数据的运算；SISD的含义是使用一个指令，完成单个数据的运算，这是JavaScript的默认运算模式。显而易见，SIMD的执行效率要高于SISD，所以被广泛用于3D图形运算、物理模拟等运算量超大的项目之中。  </p>
+<p>为了理解SIMD，请看下面的例子。</p>
+<pre><code>var a = [1, 2, 3, 4];
+var b = [5, 6, 7, 8];
+var c = [];
+
+c[0] = a[0] + b[0];
+c[1] = a[1] + b[1];
+c[2] = a[2] + b[2];
+c[3] = a[3] + b[3];
+c // Array[6, 8, 10, 12]
+</code></pre><p>上面代码中，数组a和b的对应成员相加，结果放入数组c。它的运算模式是依次处理每个数组成员，一共有四个数组成员，所以需要运算4次。  </p>
+<p>如果采用SIMD模式，只要运算一次就够了。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 4);
+var b = SIMD.Float32x4(5, 6, 7, 8);
+var c = SIMD.Float32x4.add(a, b); // Float32x4[6, 8, 10, 12]
+</code></pre><p>上面代码之中，数组a和b的四个成员的各自相加，只用一条指令就完成了。因此，速度比上一种写法提高了4倍。  </p>
+<p>一次SIMD运算，可以处理多个数据，这些数据被称为“通道”（lane）。上面代码中，一次运算了四个数据，因此就是四个通道。  </p>
+<p>SIMD通常用于矢量运算。</p>
+<pre><code>v + w    = 〈v1, …, vn〉+ 〈w1, …, wn〉
+      = 〈v1+w1, …, vn+wn〉
+</code></pre><p>上面代码中，v和w是两个多元矢量。它们的加运算，在SIMD下是一个指令、而不是n个指令完成的，这就大大提高了效率。这对于3D动画、图像处理、信号处理、数值处理、加密等运算是非常重要的。比如，Canvas的getImageData()会将图像文件读成一个二进制数组，SIMD就很适合对于这种数组的处理。  </p>
+<p>总得来说，SIMD是数据并行处理（parallelism）的一种手段，可以加速一些运算密集型操作的速度。</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>SIMD提供12种数据类型，总长度都是128个二进制位。</p>
+<ul>
+<li>Float32x4：四个32位浮点数</li>
+<li>Float64x2：两个64位浮点数</li>
+<li>Int32x4：四个32位整数</li>
+<li>Int16x8：八个16位整数</li>
+<li>Int8x16：十六个8位整数</li>
+<li>Uint32x4：四个无符号的32位整数</li>
+<li>Uint16x8：八个无符号的16位整数</li>
+<li>Uint8x16：十六个无符号的8位整数</li>
+<li>Bool32x4：四个32位布尔值</li>
+<li>Bool16x8：八个16位布尔值</li>
+<li>Bool8x16：十六个8位布尔值</li>
+<li>Bool64x2：两个64位布尔值</li>
+</ul>
+<p>每种数据类型被x符号分隔成两部分，后面的部分表示通道数，前面的部分表示每个通道的宽度和类型。比如，Float32x4就表示这个值有4个通道，每个通道是一个32位浮点数。  </p>
+<p>每个通道之中，可以放置四种数据。</p>
+<ul>
+<li>浮点数（float，比如1.0）</li>
+<li>带符号的整数（Int，比如-1）</li>
+<li>无符号的整数（Uint，比如1）</li>
+<li>布尔值（Bool，包含true和false两种值）</li>
+</ul>
+<p>每种SIMD的数据类型都是一个函数方法，可以传入参数，生成对应的值。</p>
+<pre><code>var a = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+</code></pre><p>上面代码中，变量a就是一个128位、包含四个32位浮点数（即四个通道）的值。  </p>
+<p>注意，这些数据类型方法都不是构造函数，前面不能加new，否则会报错。</p>
+<pre><code>var v = new SIMD.Float32x4(0, 1, 2, 3);
+// TypeError: SIMD.Float32x4 is not a constructor
+</code></pre><h3 id="静态方法：数学运算"><a href="#静态方法：数学运算" class="headerlink" title="静态方法：数学运算"></a>静态方法：数学运算</h3><p>每种数据类型都有一系列运算符，支持基本的数学运算。</p>
+<h4 id="SIMD-type-abs-，SIMD-type-neg"><a href="#SIMD-type-abs-，SIMD-type-neg" class="headerlink" title="SIMD.%type%.abs()，SIMD.%type%.neg()"></a>SIMD.%type%.abs()，SIMD.%type%.neg()</h4><p>abs方法接受一个SIMD值作为参数，将它的每个通道都转成绝对值，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 0, NaN);
+SIMD.Float32x4.abs(a)
+// Float32x4[1, 2, 0, NaN]
+</code></pre><p>neg方法接受一个SIMD值作为参数，将它的每个通道都转成负值，作为一个新的SIMD值返回。  </p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 3, 0);
+SIMD.Float32x4.neg(a)
+// Float32x4[1, 2, -3, -0]
+
+var b = SIMD.Float64x2(NaN, Infinity);
+SIMD.Float64x2.neg(b)
+// Float64x2[NaN, -Infinity]
+</code></pre><h4 id="SIMD-type-add-，SIMD-type-addSaturate"><a href="#SIMD-type-add-，SIMD-type-addSaturate" class="headerlink" title="SIMD.%type%.add()，SIMD.%type%.addSaturate()"></a>SIMD.%type%.add()，SIMD.%type%.addSaturate()</h4><p>add方法接受两个SIMD值作为参数，将它们的每个通道相加，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var b = SIMD.Float32x4(5.0, 10.0, 15.0, 20.0);
+var c = SIMD.Float32x4.add(a, b);
+</code></pre><p>上面代码中，经过加法运算，新的SIMD值为(6.0, 12.0, 18.0. 24.0)。  </p>
+<p>addSaturate方法跟add方法的作用相同，都是两个通道相加，但是溢出的处理不一致。对于add方法，如果两个值相加发生溢出，溢出的二进制位会被丢弃; addSaturate方法则是返回该数据类型的最大值。  </p>
+<pre><code>var a = SIMD.Uint16x8(65533, 65534, 65535, 65535, 1, 1, 1, 1);
+var b = SIMD.Uint16x8(1, 1, 1, 5000, 1, 1, 1, 1);
+SIMD.Uint16x8.addSaturate(a, b);
+// Uint16x8[65534, 65535, 65535, 65535, 2, 2, 2, 2]
+
+var c = SIMD.Int16x8(32765, 32766, 32767, 32767, 1, 1, 1, 1);
+var d = SIMD.Int16x8(1, 1, 1, 5000, 1, 1, 1, 1);
+SIMD.Int16x8.addSaturate(c, d);
+// Int16x8[32766, 32767, 32767, 32767, 2, 2, 2, 2]
+</code></pre><p>上面代码中，Uint16的最大值是65535，Int16的最大值是32767。一旦发生溢出，就返回这两个值。  </p>
+<p>注意，Uint32x4和Int32x4这两种数据类型没有addSaturate方法。</p>
+<h4 id="SIMD-type-sub-，SIMD-type-subSaturate"><a href="#SIMD-type-sub-，SIMD-type-subSaturate" class="headerlink" title="SIMD.%type%.sub()，SIMD.%type%.subSaturate()"></a>SIMD.%type%.sub()，SIMD.%type%.subSaturate()</h4><p>sub方法接受两个SIMD值作为参数，将它们的每个通道相减，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 3, 4);
+var b = SIMD.Float32x4(3, 3, 3, 3);
+SIMD.Float32x4.sub(a, b)
+// Float32x4[-4, -5, 0, 1]
+</code></pre><p>subSaturate方法跟sub方法的作用相同，都是两个通道相减，但是溢出的处理不一致。对于sub方法，如果两个值相减发生溢出，溢出的二进制位会被丢弃; subSaturate方法则是返回该数据类型的最小值。</p>
+<pre><code>var a = SIMD.Uint16x8(5, 1, 1, 1, 1, 1, 1, 1);
+var b = SIMD.Uint16x8(10, 1, 1, 1, 1, 1, 1, 1);
+SIMD.Uint16x8.subSaturate(a, b)
+// Uint16x8[0, 0, 0, 0, 0, 0, 0, 0]
+
+var c = SIMD.Int16x8(-100, 0, 0, 0, 0, 0, 0, 0);
+var d = SIMD.Int16x8(32767, 0, 0, 0, 0, 0, 0, 0);
+SIMD.Int16x8.subSaturate(c, d)
+// Int16x8[-32768, 0, 0, 0, 0, 0, 0, 0, 0]
+</code></pre><p>上面代码中，Uint16的最小值是0，subSaturate的最小值是-32678。一旦运算发生溢出，就返回最小值。</p>
+<h4 id="SIMD-type-mul-，SIMD-type-div-，SIMD-type-sqrt"><a href="#SIMD-type-mul-，SIMD-type-div-，SIMD-type-sqrt" class="headerlink" title="SIMD.%type%.mul()，SIMD.%type%.div()，SIMD.%type%.sqrt()"></a>SIMD.%type%.mul()，SIMD.%type%.div()，SIMD.%type%.sqrt()</h4><p>mul方法接受两个SIMD值作为参数，将它们的每个通道相乘，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 3, 4);
+var b = SIMD.Float32x4(3, 3, 3, 3);
+SIMD.Float32x4.mul(a, b)
+// Float32x4[-3, -6, 9, 12]
+</code></pre><p>div方法接受两个SIMD值作为参数，将它们的每个通道相除，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(2, 2, 2, 2);
+var b = SIMD.Float32x4(4, 4, 4, 4);
+SIMD.Float32x4.div(a, b)
+// Float32x4[0.5, 0.5, 0.5, 0.5]
+</code></pre><p>sqrt方法接受一个SIMD值作为参数，求出每个通道的平方根，作为一个新的SIMD值返回。</p>
+<pre><code>var b = SIMD.Float64x2(4, 8);
+SIMD.Float64x2.sqrt(b)
+// Float64x2[2, 2.8284271247461903]
+</code></pre><h4 id="SIMD-FloatType-reciprocalApproximation-，SIMD-type-reciprocalSqrtApproximation"><a href="#SIMD-FloatType-reciprocalApproximation-，SIMD-type-reciprocalSqrtApproximation" class="headerlink" title="SIMD.%FloatType%.reciprocalApproximation()，SIMD.%type%.reciprocalSqrtApproximation()"></a>SIMD.%FloatType%.reciprocalApproximation()，SIMD.%type%.reciprocalSqrtApproximation()</h4><p>reciprocalApproximation方法接受一个SIMD值作为参数，求出每个通道的倒数（1 / x），作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 4);
+SIMD.Float32x4.reciprocalApproximation(a);
+// Float32x4[1, 0.5, 0.3333333432674408, 0.25]
+reciprocalSqrtApproximation方法接受一个SIMD值作为参数，求出每个通道的平方根的倒数（1 / (x^0.5)），作为一个新的SIMD值返回。
+
+var a = SIMD.Float32x4(1, 2, 3, 4);
+SIMD.Float32x4.reciprocalSqrtApproximation(a)
+// Float32x4[1, 0.7071067690849304, 0.5773502588272095, 0.5]
+</code></pre><p>注意，只有浮点数的数据类型才有这两个方法。</p>
+<h4 id="SIMD-IntegerType-shiftLeftByScalar"><a href="#SIMD-IntegerType-shiftLeftByScalar" class="headerlink" title="SIMD.%IntegerType%.shiftLeftByScalar()"></a>SIMD.%IntegerType%.shiftLeftByScalar()</h4><p>shiftLeftByScalar方法接受一个SIMD值作为参数，然后将每个通道的值左移指定的位数，作为一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, 8);
+SIMD.Int32x4.shiftLeftByScalar(a, 1);
+// Int32x4[2, 4, 8, 16]
+</code></pre><p>如果左移后，新的值超出了当前数据类型的位数，溢出的部分会被丢弃。</p>
+<pre><code>var ix4 = SIMD.Int32x4(1, 2, 3, 4);
+var jx4 = SIMD.Int32x4.shiftLeftByScalar(ix4, 32);
+// Int32x4[0, 0, 0, 0]
+</code></pre><p>注意，只有整数的数据类型才有这个方法。</p>
+<h4 id="SIMD-IntegerType-shiftRightByScalar"><a href="#SIMD-IntegerType-shiftRightByScalar" class="headerlink" title="SIMD.%IntegerType%.shiftRightByScalar()"></a>SIMD.%IntegerType%.shiftRightByScalar()</h4><p>shiftRightByScalar方法接受一个SIMD值作为参数，然后将每个通道的值右移指定的位数，返回一个新的SIMD值。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, -8);
+SIMD.Int32x4.shiftRightByScalar(a, 1);
+// Int32x4[0, 1, 2, -4]
+</code></pre><p>如果原来通道的值是带符号的值，则符号位保持不变，不受右移影响。如果是不带符号位的值，则右移后头部会补0。</p>
+<pre><code>var a = SIMD.Uint32x4(1, 2, 4, -8);
+SIMD.Uint32x4.shiftRightByScalar(a, 1);
+// Uint32x4[0, 1, 2, 2147483644]
+</code></pre><p>上面代码中，-8右移一位变成了2147483644，是因为对于32位无符号整数来说，-8的二进制形式是11111111111111111111111111111000，右移一位就变成了01111111111111111111111111111100，相当于2147483644。  </p>
+<p>注意，只有整数的数据类型才有这个方法。</p>
+<h3 id="静态方法：通道处理"><a href="#静态方法：通道处理" class="headerlink" title="静态方法：通道处理"></a>静态方法：通道处理</h3><h4 id="SIMD-type-check"><a href="#SIMD-type-check" class="headerlink" title="SIMD.%type%.check()"></a>SIMD.%type%.check()</h4><p>check方法用于检查一个值是否为当前类型的SIMD值。如果是的，就返回这个值，否则就报错。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 9);
+
+SIMD.Float32x4.check(a);
+// Float32x4[1, 2, 3, 9]
+
+SIMD.Float32x4.check([1,2,3,4]) // 报错
+SIMD.Int32x4.check(a) // 报错
+SIMD.Int32x4.check(&apos;hello world&apos;) // 报错
+</code></pre><h4 id="SIMD-type-extractLane-，SIMD-type-replaceLane"><a href="#SIMD-type-extractLane-，SIMD-type-replaceLane" class="headerlink" title="SIMD.%type%.extractLane()，SIMD.%type%.replaceLane()"></a>SIMD.%type%.extractLane()，SIMD.%type%.replaceLane()</h4><p>extractLane方法用于返回给定通道的值。它接受两个参数，分别是SIMD值和通道编号。</p>
+<pre><code>var t = SIMD.Float32x4(1, 2, 3, 4);
+SIMD.Float32x4.extractLane(t, 2) // 3
+</code></pre><p>replaceLane方法用于替换指定通道的值，并返回一个新的SIMD值。它接受三个参数，分别是原来的SIMD值、通道编号和新的通道值。</p>
+<pre><code>var t = SIMD.Float32x4(1, 2, 3, 4);
+SIMD.Float32x4.replaceLane(t, 2, 42)
+// Float32x4[1, 2, 42, 4]
+</code></pre><h4 id="SIMD-type-load"><a href="#SIMD-type-load" class="headerlink" title="SIMD.%type%.load()"></a>SIMD.%type%.load()</h4><p>load方法用于从二进制数组读入数据，生成一个新的SIMD值。</p>
+<pre><code>var a = new Int32Array([1,2,3,4,5,6,7,8]);
+SIMD.Int32x4.load(a, 0);
+// Int32x4[1, 2, 3, 4]
+
+var b = new Int32Array([1,2,3,4,5,6,7,8]);
+SIMD.Int32x4.load(a, 2);
+// Int32x4[3, 4, 5, 6]
+</code></pre><p>load方法接受两个参数：一个二进制数组和开始读取的位置（从0开始）。如果位置不合法（比如-1或者超出二进制数组的大小），就会抛出一个错误。  </p>
+<p>这个方法还有三个变种load1()、load2()、load3()，表示从指定位置开始，只加载一个通道、二个通道、三个通道的值。</p>
+<pre><code>// 格式
+SIMD.Int32x4.load(tarray, index)
+SIMD.Int32x4.load1(tarray, index)
+SIMD.Int32x4.load2(tarray, index)
+SIMD.Int32x4.load3(tarray, index)
+
+// 实例
+var a = new Int32Array([1,2,3,4,5,6,7,8]);
+SIMD.Int32x4.load1(a, 0);
+// Int32x4[1, 0, 0, 0]
+SIMD.Int32x4.load2(a, 0);
+// Int32x4[1, 2, 0, 0]
+SIMD.Int32x4.load3(a, 0);
+// Int32x4[1, 2, 3,0]
+</code></pre><h4 id="SIMD-type-store"><a href="#SIMD-type-store" class="headerlink" title="SIMD.%type%.store()"></a>SIMD.%type%.store()</h4><p>store方法用于将一个SIMD值，写入一个二进制数组。它接受三个参数，分别是二进制数组、开始写入的数组位置、SIMD值。它返回写入值以后的二进制数组。</p>
+<pre><code>var t1 = new Int32Array(8);
+var v1 = SIMD.Int32x4(1, 2, 3, 4);
+SIMD.Int32x4.store(t1, 0, v1)
+// Int32Array[1, 2, 3, 4, 0, 0, 0, 0]
+
+var t2 = new Int32Array(8);
+var v2 = SIMD.Int32x4(1, 2, 3, 4);
+SIMD.Int32x4.store(t2, 2, v2)
+// Int32Array[0, 0, 1, 2, 3, 4, 0, 0]
+</code></pre><p>上面代码中，t1是一个二进制数组，v1是一个SIMD值，只有四个通道。所以写入t1以后，只有前四个位置有值，后四个位置都是0。而t2是从2号位置开始写入，所以前两个位置和后两个位置都是0。  </p>
+<p>这个方法还有三个变种store1()、store2()和store3()，表示只写入一个通道、二个通道和三个通道的值。</p>
+<pre><code>var tarray = new Int32Array(8);
+var value = SIMD.Int32x4(1, 2, 3, 4);
+SIMD.Int32x4.store1(tarray, 0, value);
+// Int32Array[1, 0, 0, 0, 0, 0, 0, 0]
+</code></pre><h4 id="SIMD-type-splat"><a href="#SIMD-type-splat" class="headerlink" title="SIMD.%type%.splat()"></a>SIMD.%type%.splat()</h4><p>splat方法返回一个新的SIMD值，该值的所有通道都会设成同一个预先给定的值。</p>
+<pre><code>SIMD.Float32x4.splat(3);
+// Float32x4[3, 3, 3, 3]
+SIMD.Float64x2.splat(3);
+// Float64x2[3, 3]
+</code></pre><p>如果省略参数，所有整数型的SIMD值都会设定0，浮点型的SIMD值都会设成NaN。</p>
+<h4 id="SIMD-type-swizzle"><a href="#SIMD-type-swizzle" class="headerlink" title="SIMD.%type%.swizzle()"></a>SIMD.%type%.swizzle()</h4><p>swizzle方法返回一个新的SIMD值，重新排列原有的SIMD值的通道顺序。</p>
+<pre><code>var t = SIMD.Float32x4(1, 2, 3, 4);
+SIMD.Float32x4.swizzle(t, 1, 2, 0, 3);
+// Float32x4[2,3,1,4]
+</code></pre><p>上面代码中，swizzle方法的第一个参数是原有的SIMD值，后面的参数对应将要返回的SIMD值的四个通道。它的意思是新的SIMD的四个通道，依次是原来SIMD值的1号通道、2号通道、0号通道、3号通道。由于SIMD值最多可以有16个通道，所以swizzle方法除了第一个参数以外，最多还可以接受16个参数。  </p>
+<p>下面是另一个例子。</p>
+<pre><code>var a = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+// Float32x4[1.0, 2.0, 3.0, 4.0]
+
+var b = SIMD.Float32x4.swizzle(a, 0, 0, 1, 1);
+// Float32x4[1.0, 1.0, 2.0, 2.0]
+
+var c = SIMD.Float32x4.swizzle(a, 3, 3, 3, 3);
+// Float32x4[4.0, 4.0, 4.0, 4.0]
+
+var d = SIMD.Float32x4.swizzle(a, 3, 2, 1, 0);
+// Float32x4[4.0, 3.0, 2.0, 1.0]
+</code></pre><h4 id="SIMD-type-shuffle"><a href="#SIMD-type-shuffle" class="headerlink" title="SIMD.%type%.shuffle()"></a>SIMD.%type%.shuffle()</h4><p>shuffle方法从两个SIMD值之中取出指定通道，返回一个新的SIMD值。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 4);
+var b = SIMD.Float32x4(5, 6, 7, 8);
+
+SIMD.Float32x4.shuffle(a, b, 1, 5, 7, 2);
+// Float32x4[2, 6, 8, 3]
+</code></pre><p>上面代码中，a和b一共有8个通道，依次编号为0到7。shuffle根据编号，取出相应的通道，返回一个新的SIMD值。</p>
+<h3 id="静态方法：比较运算"><a href="#静态方法：比较运算" class="headerlink" title="静态方法：比较运算"></a>静态方法：比较运算</h3><h4 id="SIMD-type-equal-，SIMD-type-notEqual"><a href="#SIMD-type-equal-，SIMD-type-notEqual" class="headerlink" title="SIMD.%type%.equal()，SIMD.%type%.notEqual()"></a>SIMD.%type%.equal()，SIMD.%type%.notEqual()</h4><p>equal方法用来比较两个SIMD值a和b的每一个通道，根据两者是否精确相等（a === b），得到一个布尔值。最后，所有通道的比较结果，组成一个新的SIMD值，作为掩码返回。notEqual方法则是比较两个通道是否不相等（a !== b）。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 9);
+var b = SIMD.Float32x4(1, 4, 7, 9);
+
+SIMD.Float32x4.equal(a,b)
+// Bool32x4[true, false, false, true]
+
+SIMD.Float32x4.notEqual(a,b);
+// Bool32x4[false, true, true, false]
+</code></pre><h4 id="SIMD-type-greaterThan-，SIMD-type-greaterThanOrEqual"><a href="#SIMD-type-greaterThan-，SIMD-type-greaterThanOrEqual" class="headerlink" title="SIMD.%type%.greaterThan()，SIMD.%type%.greaterThanOrEqual()"></a>SIMD.%type%.greaterThan()，SIMD.%type%.greaterThanOrEqual()</h4><p>greatThan方法用来比较两个SIMD值a和b的每一个通道，如果在该通道中，a较大就得到true，否则得到false。最后，所有通道的比较结果，组成一个新的SIMD值，作为掩码返回。greaterThanOrEqual则是比较a是否大于等于b。</p>
+<pre><code>var a = SIMD.Float32x4(1, 6, 3, 11);
+var b = SIMD.Float32x4(1, 4, 7, 9);
+
+SIMD.Float32x4.greaterThan(a, b)
+// Bool32x4[false, true, false, true]
+
+SIMD.Float32x4.greaterThanOrEqual(a, b)
+// Bool32x4[true, true, false, true]
+</code></pre><h4 id="SIMD-type-lessThan-，SIMD-type-lessThanOrEqual"><a href="#SIMD-type-lessThan-，SIMD-type-lessThanOrEqual" class="headerlink" title="SIMD.%type%.lessThan()，SIMD.%type%.lessThanOrEqual()"></a>SIMD.%type%.lessThan()，SIMD.%type%.lessThanOrEqual()</h4><p>lessThan方法用来比较两个SIMD值a和b的每一个通道，如果在该通道中，a较小就得到true，否则得到false。最后，所有通道的比较结果，会组成一个新的SIMD值，作为掩码返回。lessThanOrEqual方法则是比较a是否等于b。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 11);
+var b = SIMD.Float32x4(1, 4, 7, 9);
+
+SIMD.Float32x4.lessThan(a, b)
+// Bool32x4[false, true, true, false]
+
+SIMD.Float32x4.lessThanOrEqual(a, b)
+// Bool32x4[true, true, true, false]
+</code></pre><h4 id="SIMD-type-select"><a href="#SIMD-type-select" class="headerlink" title="SIMD.%type%.select()"></a>SIMD.%type%.select()</h4><p>select方法通过掩码生成一个新的SIMD值。它接受三个参数，分别是掩码和两个SIMD值。</p>
+<pre><code>var a = SIMD.Float32x4(1, 2, 3, 4);
+var b = SIMD.Float32x4(5, 6, 7, 8);
+
+var mask = SIMD.Bool32x4(true, false, false, true);
+
+SIMD.Float32x4.select(mask, a, b);
+// Float32x4[1, 6, 7, 4]
+</code></pre><p>上面代码中，select方法接受掩码和两个SIMD值作为参数。当某个通道对应的掩码为true时，会选择第一个SIMD值的对应通道，否则选择第二个SIMD值的对应通道。  </p>
+<p>这个方法通常与比较运算符结合使用。</p>
+<pre><code>var a = SIMD.Float32x4(0, 12, 3, 4);
+var b = SIMD.Float32x4(0, 6, 7, 50);
+
+var mask = SIMD.Float32x4.lessThan(a,b);
+// Bool32x4[false, false, true, true]
+
+var result = SIMD.Float32x4.select(mask, a, b);
+// Float32x4[0, 6, 3, 4]
+</code></pre><p>上面代码中，先通过lessThan方法生成一个掩码，然后通过select方法生成一个由每个通道的较小值组成的新的SIMD值。</p>
+<h4 id="SIMD-BooleanType-allTrue-，SIMD-BooleanType-anyTrue"><a href="#SIMD-BooleanType-allTrue-，SIMD-BooleanType-anyTrue" class="headerlink" title="SIMD.%BooleanType%.allTrue()，SIMD.%BooleanType%.anyTrue()"></a>SIMD.%BooleanType%.allTrue()，SIMD.%BooleanType%.anyTrue()</h4><p>allTrue方法接受一个SIMD值作为参数，然后返回一个布尔值，表示该SIMD值的所有通道是否都为true。</p>
+<pre><code>var a = SIMD.Bool32x4(true, true, true, true);
+var b = SIMD.Bool32x4(true, false, true, true);
+
+SIMD.Bool32x4.allTrue(a); // true
+SIMD.Bool32x4.allTrue(b); // false
+</code></pre><p>anyTrue方法则是只要有一个通道为true，就返回true，否则返回false。</p>
+<pre><code>var a = SIMD.Bool32x4(false, false, false, false);
+var b = SIMD.Bool32x4(false, false, true, false);
+
+SIMD.Bool32x4.anyTrue(a); // false
+SIMD.Bool32x4.anyTrue(b); // true
+</code></pre><p>注意，只有四种布尔值数据类型（Bool32x4、Bool16x8、Bool8x16、Bool64x2）才有这两个方法。  </p>
+<p>这两个方法通常与比较运算符结合使用。</p>
+<pre><code>var ax4    = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+var bx4    = SIMD.Float32x4(0.0, 6.0, 7.0, 8.0);
+var ix4    = SIMD.Float32x4.lessThan(ax4, bx4);
+var b1     = SIMD.Int32x4.allTrue(ix4); // false
+var b2     = SIMD.Int32x4.anyTrue(ix4); // true
+</code></pre><h4 id="SIMD-type-min-，SIMD-type-minNum"><a href="#SIMD-type-min-，SIMD-type-minNum" class="headerlink" title="SIMD.%type%.min()，SIMD.%type%.minNum()"></a>SIMD.%type%.min()，SIMD.%type%.minNum()</h4><p>min方法接受两个SIMD值作为参数，将两者的对应通道的较小值，组成一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 3, 5.2);
+var b = SIMD.Float32x4(0, -4, 6, 5.5);
+SIMD.Float32x4.min(a, b);
+// Float32x4[-1, -4, 3, 5.2]
+</code></pre><p>如果有一个通道的值是NaN，则会优先返回NaN。</p>
+<pre><code>var c = SIMD.Float64x2(NaN, Infinity)
+var d = SIMD.Float64x2(1337, 42);
+SIMD.Float64x2.min(c, d);
+// Float64x2[NaN, 42]
+</code></pre><p>minNum方法与min的作用一模一样，唯一的区别是如果有一个通道的值是NaN，则会优先返回另一个通道的值。</p>
+<pre><code>var ax4 = SIMD.Float32x4(1.0, 2.0, NaN, NaN);
+var bx4 = SIMD.Float32x4(2.0, 1.0, 3.0, NaN);
+var cx4 = SIMD.Float32x4.min(ax4, bx4);
+// Float32x4[1.0, 1.0, NaN, NaN]
+var dx4 = SIMD.Float32x4.minNum(ax4, bx4);
+// Float32x4[1.0, 1.0, 3.0, NaN]
+</code></pre><h4 id="SIMD-type-max-，SIMD-type-maxNum"><a href="#SIMD-type-max-，SIMD-type-maxNum" class="headerlink" title="SIMD.%type%.max()，SIMD.%type%.maxNum()"></a>SIMD.%type%.max()，SIMD.%type%.maxNum()</h4><p>max方法接受两个SIMD值作为参数，将两者的对应通道的较大值，组成一个新的SIMD值返回。</p>
+<pre><code>var a = SIMD.Float32x4(-1, -2, 3, 5.2);
+var b = SIMD.Float32x4(0, -4, 6, 5.5);
+SIMD.Float32x4.max(a, b);
+// Float32x4[0, -2, 6, 5.5]
+</code></pre><p>如果有一个通道的值是NaN，则会优先返回NaN。</p>
+<pre><code>var c = SIMD.Float64x2(NaN, Infinity)
+var d = SIMD.Float64x2(1337, 42);
+SIMD.Float64x2.max(c, d)
+// Float64x2[NaN, Infinity]
+</code></pre><p>maxNum方法与max的作用一模一样，唯一的区别是如果有一个通道的值是NaN，则会优先返回另一个通道的值。</p>
+<pre><code>var c = SIMD.Float64x2(NaN, Infinity)
+var d = SIMD.Float64x2(1337, 42);
+SIMD.Float64x2.maxNum(c, d)
+// Float64x2[1337, Infinity]
+</code></pre><h3 id="静态方法：位运算"><a href="#静态方法：位运算" class="headerlink" title="静态方法：位运算"></a>静态方法：位运算</h3><h4 id="SIMD-type-and-，SIMD-type-or-，SIMD-type-xor-，SIMD-type-not"><a href="#SIMD-type-and-，SIMD-type-or-，SIMD-type-xor-，SIMD-type-not" class="headerlink" title="SIMD.%type%.and()，SIMD.%type%.or()，SIMD.%type%.xor()，SIMD.%type%.not()"></a>SIMD.%type%.and()，SIMD.%type%.or()，SIMD.%type%.xor()，SIMD.%type%.not()</h4><p>and方法接受两个SIMD值作为参数，返回两者对应的通道进行二进制AND运算（&amp;）后得到的新的SIMD值。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, 8);
+var b = SIMD.Int32x4(5, 5, 5, 5);
+SIMD.Int32x4.and(a, b)
+// Int32x4[1, 0, 4, 0]
+</code></pre><p>上面代码中，以通道0为例，1的二进制形式是0001，5的二进制形式是01001，所以进行AND运算以后，得到0001。  </p>
+<p>or方法接受两个SIMD值作为参数，返回两者对应的通道进行二进制OR运算（|）后得到的新的SIMD值。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, 8);
+var b = SIMD.Int32x4(5, 5, 5, 5);
+SIMD.Int32x4.or(a, b)
+// Int32x4[5, 7, 5, 13]
+</code></pre><p>xor方法接受两个SIMD值作为参数，返回两者对应的通道进行二进制”异或“运算（^）后得到的新的SIMD值。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, 8);
+var b = SIMD.Int32x4(5, 5, 5, 5);
+SIMD.Int32x4.xor(a, b)
+// Int32x4[4, 7, 1, 13]
+</code></pre><p>not方法接受一个SIMD值作为参数，返回每个通道进行二进制”否“运算（~）后得到的新的SIMD值。</p>
+<pre><code>var a = SIMD.Int32x4(1, 2, 4, 8);
+SIMD.Int32x4.not(a)
+// Int32x4[-2, -3, -5, -9]
+</code></pre><p>上面代码中，1的否运算之所以得到-2，是因为在计算机内部，负数采用”2的补码“这种形式进行表示。也就是说，整数n的负数形式-n，是对每一个二进制位取反以后，再加上1。因此，直接取反就相当于负数形式再减去1，比如1的负数形式是-1，再减去1，就得到了-2。</p>
+<h3 id="静态方法：数据类型转换"><a href="#静态方法：数据类型转换" class="headerlink" title="静态方法：数据类型转换"></a>静态方法：数据类型转换</h3><p>SIMD提供以下方法，用来将一种数据类型转为另一种数据类型。</p>
+<ul>
+<li>SIMD.%type%.fromFloat32x4()</li>
+<li>SIMD.%type%.fromFloat32x4Bits()</li>
+<li>SIMD.%type%.fromFloat64x2Bits()</li>
+<li>SIMD.%type%.fromInt32x4()</li>
+<li>SIMD.%type%.fromInt32x4Bits()</li>
+<li>SIMD.%type%.fromInt16x8Bits()</li>
+<li>SIMD.%type%.fromInt8x16Bits()</li>
+<li>SIMD.%type%.fromUint32x4()</li>
+<li>SIMD.%type%.fromUint32x4Bits()</li>
+<li>SIMD.%type%.fromUint16x8Bits()</li>
+<li>SIMD.%type%.fromUint8x16Bits()</li>
+</ul>
+<p>带有Bits后缀的方法，会原封不动地将二进制位拷贝到新的数据类型；不带后缀的方法，则会进行数据类型转换。</p>
+<pre><code>var t = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+SIMD.Int32x4.fromFloat32x4(t);
+// Int32x4[1, 2, 3, 4]
+
+SIMD.Int32x4.fromFloat32x4Bits(t);
+// Int32x4[1065353216, 1073741824, 1077936128, 1082130432]
+</code></pre><p>上面代码中，fromFloat32x4是将浮点数转为整数，然后存入新的数据类型；fromFloat32x4Bits则是将二进制位原封不动地拷贝进入新的数据类型，然后进行解读。  </p>
+<p>Bits后缀的方法，还可以用于通道数目不对等的拷贝。</p>
+<pre><code>var t = SIMD.Float32x4(1.0, 2.0, 3.0, 4.0);
+SIMD.Int16x8.fromFloat32x4Bits(t);
+// Int16x8[0, 16256, 0, 16384, 0, 16448, 0, 16512]
+</code></pre><p>上面代码中，原始SIMD值t是4通道的，而目标值是8通道的。  </p>
+<p>如果数据转换时，原通道的数据大小，超过了目标通道的最大宽度，就会报错。</p>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><h4 id="SIMD-type-prototype-toString"><a href="#SIMD-type-prototype-toString" class="headerlink" title="SIMD.%type%.prototype.toString()"></a>SIMD.%type%.prototype.toString()</h4><p>toString方法返回一个SIMD值的字符串形式。</p>
+<pre><code>var a = SIMD.Float32x4(11, 22, 33, 44);
+a.toString() // &quot;SIMD.Float32x4(11, 22, 33, 44)&quot;
+</code></pre><h3 id="实例：求平均值"><a href="#实例：求平均值" class="headerlink" title="实例：求平均值"></a>实例：求平均值</h3><p>正常模式下，计算n个值的平均值，需要运算n次。</p>
+<pre><code>function average(list) {
+  var n = list.length;
+  var sum = 0.0;
+  for (var i = 0; i &lt; n; i++) {
+    sum += list[i];
+  }
+  return sum / n;
+}
+</code></pre><p>使用SIMD，可以将计算次数减少到n次的四分之一。</p>
+<pre><code>function average(list) {
+  var n = list.length;
+  var sum = SIMD.Float32x4.splat(0.0);
+  for (var i = 0; i &lt; n; i += 4) {
+    sum = SIMD.Float32x4.add(
+      sum,
+      SIMD.Float32x4.load(list, i)
+    );
+  }
+  var total = SIMD.Float32x4.extractLane(sum, 0) +
+              SIMD.Float32x4.extractLane(sum, 1) +
+              SIMD.Float32x4.extractLane(sum, 2) +
+              SIMD.Float32x4.extractLane(sum, 3);
+  return total / n;
+}
+</code></pre><p>上面代码先是每隔四位，将所有的值读入一个SIMD，然后立刻累加。然后，得到累加值四个通道的总和，再除以n就可以了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/ES2015/" rel="tag">#ES2015</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/15/ES2015-22_arraybuffer/" rel="next" title="ES2015——22.二进制数组">
+                <i class="fa fa-chevron-left"></i> ES2015——22.二进制数组
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/04/vuejs-1/" rel="prev" title="Vue.js——1.介绍">
+                Vue.js——1.介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/15/ES2015-23_simd/"
+           data-title="ES2015——23.SIMD" data-url="http://yoursite.com/2016/12/15/ES2015-23_simd/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法：数学运算"><span class="nav-number">3.</span> <span class="nav-text">静态方法：数学运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-abs-，SIMD-type-neg"><span class="nav-number">3.1.</span> <span class="nav-text">SIMD.%type%.abs()，SIMD.%type%.neg()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-add-，SIMD-type-addSaturate"><span class="nav-number">3.2.</span> <span class="nav-text">SIMD.%type%.add()，SIMD.%type%.addSaturate()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-sub-，SIMD-type-subSaturate"><span class="nav-number">3.3.</span> <span class="nav-text">SIMD.%type%.sub()，SIMD.%type%.subSaturate()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-mul-，SIMD-type-div-，SIMD-type-sqrt"><span class="nav-number">3.4.</span> <span class="nav-text">SIMD.%type%.mul()，SIMD.%type%.div()，SIMD.%type%.sqrt()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-FloatType-reciprocalApproximation-，SIMD-type-reciprocalSqrtApproximation"><span class="nav-number">3.5.</span> <span class="nav-text">SIMD.%FloatType%.reciprocalApproximation()，SIMD.%type%.reciprocalSqrtApproximation()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-IntegerType-shiftLeftByScalar"><span class="nav-number">3.6.</span> <span class="nav-text">SIMD.%IntegerType%.shiftLeftByScalar()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-IntegerType-shiftRightByScalar"><span class="nav-number">3.7.</span> <span class="nav-text">SIMD.%IntegerType%.shiftRightByScalar()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法：通道处理"><span class="nav-number">4.</span> <span class="nav-text">静态方法：通道处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-check"><span class="nav-number">4.1.</span> <span class="nav-text">SIMD.%type%.check()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-extractLane-，SIMD-type-replaceLane"><span class="nav-number">4.2.</span> <span class="nav-text">SIMD.%type%.extractLane()，SIMD.%type%.replaceLane()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-load"><span class="nav-number">4.3.</span> <span class="nav-text">SIMD.%type%.load()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-store"><span class="nav-number">4.4.</span> <span class="nav-text">SIMD.%type%.store()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-splat"><span class="nav-number">4.5.</span> <span class="nav-text">SIMD.%type%.splat()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-swizzle"><span class="nav-number">4.6.</span> <span class="nav-text">SIMD.%type%.swizzle()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-shuffle"><span class="nav-number">4.7.</span> <span class="nav-text">SIMD.%type%.shuffle()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法：比较运算"><span class="nav-number">5.</span> <span class="nav-text">静态方法：比较运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-equal-，SIMD-type-notEqual"><span class="nav-number">5.1.</span> <span class="nav-text">SIMD.%type%.equal()，SIMD.%type%.notEqual()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-greaterThan-，SIMD-type-greaterThanOrEqual"><span class="nav-number">5.2.</span> <span class="nav-text">SIMD.%type%.greaterThan()，SIMD.%type%.greaterThanOrEqual()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-lessThan-，SIMD-type-lessThanOrEqual"><span class="nav-number">5.3.</span> <span class="nav-text">SIMD.%type%.lessThan()，SIMD.%type%.lessThanOrEqual()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-select"><span class="nav-number">5.4.</span> <span class="nav-text">SIMD.%type%.select()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-BooleanType-allTrue-，SIMD-BooleanType-anyTrue"><span class="nav-number">5.5.</span> <span class="nav-text">SIMD.%BooleanType%.allTrue()，SIMD.%BooleanType%.anyTrue()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-min-，SIMD-type-minNum"><span class="nav-number">5.6.</span> <span class="nav-text">SIMD.%type%.min()，SIMD.%type%.minNum()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-max-，SIMD-type-maxNum"><span class="nav-number">5.7.</span> <span class="nav-text">SIMD.%type%.max()，SIMD.%type%.maxNum()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法：位运算"><span class="nav-number">6.</span> <span class="nav-text">静态方法：位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-and-，SIMD-type-or-，SIMD-type-xor-，SIMD-type-not"><span class="nav-number">6.1.</span> <span class="nav-text">SIMD.%type%.and()，SIMD.%type%.or()，SIMD.%type%.xor()，SIMD.%type%.not()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态方法：数据类型转换"><span class="nav-number">7.</span> <span class="nav-text">静态方法：数据类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法"><span class="nav-number">8.</span> <span class="nav-text">实例方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SIMD-type-prototype-toString"><span class="nav-number">8.1.</span> <span class="nav-text">SIMD.%type%.prototype.toString()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：求平均值"><span class="nav-number">9.</span> <span class="nav-text">实例：求平均值</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1202 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,vuejs," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="生产环境部署删除警告为了减少文件大小，Vue 精简独立版本已经删除了所有警告，但是当你使用 Webpack 或 Browserify 等工具时，你需要一些额外的配置实现这点。
+Webpack使用 Webpack 的 DefinePlugin 来指定生产环境，以便在压缩时可以让 UglifyJS 自动删除代码块内的警告语句。例如配置：
+var webpack = require(&amp;apos;w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js——进阶(三)">
+<meta property="og:url" content="http://yoursite.com/2017/01/25/vuejs-advanced-3/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="生产环境部署删除警告为了减少文件大小，Vue 精简独立版本已经删除了所有警告，但是当你使用 Webpack 或 Browserify 等工具时，你需要一些额外的配置实现这点。
+Webpack使用 Webpack 的 DefinePlugin 来指定生产环境，以便在压缩时可以让 UglifyJS 自动删除代码块内的警告语句。例如配置：
+var webpack = require(&amp;apos;w">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js——进阶(三)">
+<meta name="twitter:description" content="生产环境部署删除警告为了减少文件大小，Vue 精简独立版本已经删除了所有警告，但是当你使用 Webpack 或 Browserify 等工具时，你需要一些额外的配置实现这点。
+Webpack使用 Webpack 的 DefinePlugin 来指定生产环境，以便在压缩时可以让 UglifyJS 自动删除代码块内的警告语句。例如配置：
+var webpack = require(&amp;apos;w">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/25/vuejs-advanced-3/"/>
+
+  <title> Vue.js——进阶(三) | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vue.js——进阶(三)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-25T22:01:22+08:00" content="2017-01-25 22:01:22">
+              2017-01-25 22:01:22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/25/vuejs-advanced-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/25/vuejs-advanced-3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external"></a></p>
+</blockquote>
+<h2 id="生产环境部署"><a href="#生产环境部署" class="headerlink" title="生产环境部署"></a>生产环境部署</h2><h3 id="删除警告"><a href="#删除警告" class="headerlink" title="删除警告"></a>删除警告</h3><p>为了减少文件大小，Vue 精简独立版本已经删除了所有警告，但是当你使用 Webpack 或 Browserify 等工具时，你需要一些额外的配置实现这点。</p>
+<h4 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h4><p>使用 Webpack 的 DefinePlugin 来指定生产环境，以便在压缩时可以让 UglifyJS 自动删除代码块内的警告语句。例如配置：</p>
+<pre><code>var webpack = require(&apos;webpack&apos;)
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    new webpack.DefinePlugin({
+      &apos;process.env&apos;: {
+        NODE_ENV: &apos;&quot;production&quot;&apos;
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
+}
+</code></pre><h4 id="Browserify"><a href="#Browserify" class="headerlink" title="Browserify"></a>Browserify</h4><p>运行打包命令，设置 NODE_ENV 为 “production”。等于告诉 vueify 避免引入热重载和开发相关代码。  </p>
+<p>使用一个全局 envify 转换你的 bundle 文件。这可以精简掉包含在 Vue 源码中所有环境变量条件相关代码块内的警告语句。例如：</p>
+<pre><code>NODE_ENV=production browserify -g envify -e main.js | uglifyjs -c -m &gt; build.js
+</code></pre><p>使用 vueify 中包含的 extract-css 插件，提取样式到单独的css文件。  </p>
+<pre><code>NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o build.css ] -e main.js | uglifyjs -c -m &gt; build.js
+</code></pre><h3 id="跟踪运行时错误"><a href="#跟踪运行时错误" class="headerlink" title="跟踪运行时错误"></a>跟踪运行时错误</h3><p>如果在组件渲染时出现运行错误，错误将会被传递至全局 Vue.config.errorHandler 配置函数（如果已设置）。利用这个钩子函数和错误跟踪服务（如 Sentry，它为 Vue 提供官方集成），可能是个不错的主意。</p>
+<h3 id="提取-CSS"><a href="#提取-CSS" class="headerlink" title="提取 CSS"></a>提取 CSS</h3><p>使用单文件组件时，<code>&lt;style&gt;</code> 标签在开发运行过程中会被动态实时注入。在生产环境中，你可能需要从所有组件中提取样式到单独的 CSS 文件中。有关如何实现的详细信息，请查阅 vue-loader 和 vueify 相应文档。<br>vue-cli 已经配置好了官方的 webpack 模板。</p>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h3 id="官方路由"><a href="#官方路由" class="headerlink" title="官方路由"></a>官方路由</h3><p>对于大多数单页面应用，都推荐使用官方支持的vue-router库。更多细节可以看vue-router文档。  </p>
+<h3 id="从零开始简单的路由"><a href="#从零开始简单的路由" class="headerlink" title="从零开始简单的路由"></a>从零开始简单的路由</h3><p>如果只需要非常简单的路由而不需要引入整个路由库，可以动态渲染一个页面级的组件像这样：</p>
+<pre><code>const NotFound = { template: &apos;&lt;p&gt;Page not found&lt;/p&gt;&apos; }
+const Home = { template: &apos;&lt;p&gt;home page&lt;/p&gt;&apos; }
+const About = { template: &apos;&lt;p&gt;about page&lt;/p&gt;&apos; }
+const routes = {
+  &apos;/&apos;: Home,
+  &apos;/about&apos;: About
+}
+new Vue({
+  el: &apos;#app&apos;,
+  data: {
+    currentRoute: window.location.pathname
+  },
+  computed: {
+    ViewComponent () {
+      return routes[this.currentRoute] || NotFound
+    }
+  },
+  render (h) { return h(this.ViewComponent) }
+})
+</code></pre><p>结合HTML5 History API，你可以建立一个非常基本但功能齐全的客户端路由器。可以直接看实例应用</p>
+<h3 id="整合第三方路由"><a href="#整合第三方路由" class="headerlink" title="整合第三方路由"></a>整合第三方路由</h3><p>如果有非常喜欢的第三方路由，如Page.js或者 Director, 整合很简单。 这有个用了Page.js的复杂示例 。</p>
+<h2 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h2><h3 id="类-Flux-状态管理的官方实现"><a href="#类-Flux-状态管理的官方实现" class="headerlink" title="类 Flux 状态管理的官方实现"></a>类 Flux 状态管理的官方实现</h3><p>由于多个状态分散的跨越在许多组件和交互间各个角落，大型应用复杂度也经常逐渐增长。为了解决这个问题，Vue 提供 vuex： 我们有受到 Elm 启发的状态管理库。vuex 甚至集成到 vue-devtools，无需配置即可访问时光旅行。  </p>
+<h4 id="React-的开发者请参考以下信息"><a href="#React-的开发者请参考以下信息" class="headerlink" title="React 的开发者请参考以下信息"></a>React 的开发者请参考以下信息</h4><p>如果你是来自 React 的开发者，你可能会对 vuex 和 redux 间的差异表示关注，redux 是 React 生态环境中最流行的 Flux 实现。Redux 事实上无法感知视图层，所以它能够轻松的通过一些简单绑定和Vue一起使用。vuex区别在于它是一个专门为 vue 应用所设计。这使得它能够更好地和vue进行整合，同时提供简洁的API和改善过的开发体验。  </p>
+<h3 id="简单状态管理起步使用"><a href="#简单状态管理起步使用" class="headerlink" title="简单状态管理起步使用"></a>简单状态管理起步使用</h3><p>经常被忽略的是，Vue 应用中原始 数据 对象的实际来源 - 当访问数据对象时，一个 Vue 实例只是简单的代理访问。所以，如果你有一处需要被多个实例间共享的状态，可以简单地通过维护一份数据来实现共享：</p>
+<pre><code>const sourceOfTruth = {}
+const vmA = new Vue({
+  data: sourceOfTruth
+})
+const vmB = new Vue({
+  data: sourceOfTruth
+})
+</code></pre><p>现在当 sourceOfTruth 发生变化，vmA 和 vmB 都将自动的更新引用它们的视图。子组件们的每个实例也会通过 this.$root.$data 去访问。现在我们有了唯一的实际来源，但是，调试将会变为噩梦。任何时间，我们应用中的任何部分，在任何数据改变后，都不会留下变更过的记录。  </p>
+<p>为了解决这个问题，我们采用一个简单的 store 模式：</p>
+<pre><code>var store = {
+  debug: true,
+  state: {
+    message: &apos;Hello!&apos;
+  },
+  setMessageAction (newValue) {
+    this.debug &amp;&amp; console.log(&apos;setMessageAction triggered with&apos;, newValue)
+    this.state.message = newValue
+  },
+  clearMessageAction () {
+    this.debug &amp;&amp; console.log(&apos;clearMessageAction triggered&apos;)
+    this.state.message = &apos;clearMessageAction triggered&apos;
+  }
+}
+</code></pre><p>需要注意，所有 store 中 state 的改变，都放置在 store 自身的 action 中去管理。这种集中式状态管理能够被更容易地理解哪种类型的 mutation 将会发生，以及它们是如何被触发。当错误出现时，我们现在也会有一个 log 记录 bug 之前发生了什么。  </p>
+<p>此外，每个实例/组件仍然可以拥有和管理自己的私有状态：</p>
+<pre><code>var vmA = new Vue({
+  data: {
+    privateState: {},
+    sharedState: store.state
+  }
+})
+var vmB = new Vue({
+  data: {
+    privateState: {},
+    sharedState: store.state
+  }
+})
+</code></pre><p>状态管理  </p>
+<p>重要的是，注意你不应该在 action 中 替换原始的状态对象 - 组件和 store 需要引用同一个共享对象，mutation 才能够被观察  </p>
+<p>接着我们继续延伸约定，组件不允许直接修改属于 store 实例的 state，而应执行 action 来分发 (dispatch) 事件通知 store 去改变，我们最终达成了 Flux 架构。这样约定的好处是，我们能够记录所有 store 中发生的 state 改变，同时实现能做到记录变更 (mutation) 、保存状态快照、历史回滚/时光旅行的先进的调试工具。<br>说了一圈其实又回到了vuex ，如果你已经读到这儿，或许可以去尝试一下！</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><h3 id="配置和工具"><a href="#配置和工具" class="headerlink" title="配置和工具"></a>配置和工具</h3><p>任何兼容基于模块的构建系统都可以正常使用，但如果你需要一个具体的建议，可以使用 Karma 进行自动化测试。它有很多社区版的插件，包括对 Webpack 和 Browserify 的支持。更多详细的安装步骤，请参考各项目的安装文档，通过这些 Karma 配置的例子可以快速帮助你上手（Webpack 配置，Browserify 配置）。  </p>
+<h3 id="简单的断言"><a href="#简单的断言" class="headerlink" title="简单的断言"></a>简单的断言</h3><p>在测试的代码结构方面，你不必为了可测试在你的组件中做任何特殊的操作。只要导出原始设置就可以了：</p>
+<pre><code>&lt;template&gt;
+  &lt;span&gt;{{ message }}&lt;/span&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  export default {
+    data () {
+      return {
+        message: &apos;hello!&apos;
+      }
+    },
+    created () {
+      this.message = &apos;bye!&apos;
+    }
+  }
+&lt;/script&gt;
+</code></pre><p>当测试的组件时，所要做的就是导入对象和 Vue 然后使用许多常见的断言：</p>
+<pre><code>// 导入 Vue.js 和组件，进行测试
+import Vue from &apos;vue&apos;
+import MyComponent from &apos;path/to/MyComponent.vue&apos;
+// 这里是一些 Jasmine 2.0 的测试，你也可以使用你喜欢的任何断言库或测试工具。
+describe(&apos;MyComponent&apos;, () =&gt; {
+  // 检查原始组件选项
+  it(&apos;has a created hook&apos;, () =&gt; {
+    expect(typeof MyComponent.created).toBe(&apos;function&apos;)
+  })
+  // 评估原始组件选项中的函数的结果
+  it(&apos;sets the correct default data&apos;, () =&gt; {
+    expect(typeof MyComponent.data).toBe(&apos;function&apos;)
+    const defaultData = MyComponent.data()
+    expect(defaultData.message).toBe(&apos;hello!&apos;)
+  })
+  // 检查mount中的组件实例
+  it(&apos;correctly sets the message when created&apos;, () =&gt; {
+    const vm = new Vue(MyComponent).$mount()
+    expect(vm.message).toBe(&apos;bye!&apos;)
+  })
+  // 创建一个实例并检查渲染输出
+  it(&apos;renders the correct message&apos;, () =&gt; {
+    const Ctor = Vue.extend(MyComponent)
+    const vm = new Ctor().$mount()
+    expect(vm.$el.textContent).toBe(&apos;bye!&apos;)
+  })
+})
+</code></pre><h3 id="编写可被测试的组件"><a href="#编写可被测试的组件" class="headerlink" title="编写可被测试的组件"></a>编写可被测试的组件</h3><p>很多组件的渲染输出由它的 props 决定。事实上，如果一个组件的渲染输出完全取决于它的 props，那么它会让测试变得简单，就好像断言不同参数的纯函数的返回值。看下面这个例子:</p>
+<pre><code>&lt;template&gt;
+  &lt;p&gt;{{ msg }}&lt;/p&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  export default {
+    props: [&apos;msg&apos;]
+  }
+&lt;/script&gt;
+</code></pre><p>你可以在不同的 props 中，通过 propsData 选项断言它的渲染输出:</p>
+<pre><code>import Vue from &apos;vue&apos;
+import MyComponent from &apos;./MyComponent.vue&apos;
+// 挂载元素并返回已渲染的文本的工具函数 
+function getRenderedText (Component, propsData) {
+  const Ctor = Vue.extend(Component)
+  const vm = new Ctor({ propsData }).$mount()
+  return vm.$el.textContent
+}
+describe(&apos;MyComponent&apos;, () =&gt; {
+  it(&apos;render correctly with different props&apos;, () =&gt; {
+    expect(getRenderedText(MyComponent, {
+      msg: &apos;Hello&apos;
+    })).toBe(&apos;Hello&apos;)
+    expect(getRenderedText(MyComponent, {
+      msg: &apos;Bye&apos;
+    })).toBe(&apos;Bye&apos;)
+  })
+})
+</code></pre><h3 id="断言异步更新"><a href="#断言异步更新" class="headerlink" title="断言异步更新"></a>断言异步更新</h3><p>由于 Vue 进行 异步更新DOM 的情况，一些依赖DOM更新结果的断言必须在 Vue.nextTick 回调中进行：</p>
+<pre><code>// 在状态更新后检查生成的 HTML
+it(&apos;updates the rendered message when vm.message updates&apos;, done =&gt; {
+  const vm = new Vue(MyComponent).$mount()
+  vm.message = &apos;foo&apos;
+  // 在状态改变后和断言 DOM 更新前等待一刻
+  Vue.nextTick(() =&gt; {
+    expect(vm.$el.textContent).toBe(&apos;foo&apos;)
+    done()
+  })
+})
+</code></pre><p>我们计划做一个通用的测试工具集，让不同策略的渲染输出（例如忽略子组件的基本渲染）和断言变得更简单。</p>
+<h2 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h2><h3 id="需要服务端渲染（SSR）吗？"><a href="#需要服务端渲染（SSR）吗？" class="headerlink" title="需要服务端渲染（SSR）吗？"></a>需要服务端渲染（SSR）吗？</h3><p>在开始服务端渲染前，我们先看看它能给我们带来什么，以及什么时候需要用它。  </p>
+<h4 id="SEO（搜索引擎优化）"><a href="#SEO（搜索引擎优化）" class="headerlink" title="SEO（搜索引擎优化）"></a>SEO（搜索引擎优化）</h4><p>谷歌和Bing可以很好地索引同步的JavaScript应用。同步在这里是个关键词。如果应用启动时有一个加载动画，然后内容通过ajax获取，那爬虫不会等待他们加载完成。  </p>
+<p>这意味着在异步获取内容的页面上很需要进行搜索引擎优化的时候，服务端渲染就很重要。  </p>
+<h4 id="客户端的网络比较慢"><a href="#客户端的网络比较慢" class="headerlink" title="客户端的网络比较慢"></a>客户端的网络比较慢</h4><p>用户可能在网络比较慢的情况下从远处访问网站 - 或者通过比较差的带宽。 这些情况下，尽量减少页面请求数量，来保证用户尽快看到基本的内容。  </p>
+<p>可以用 Webpack的代码拆分 避免强制用户下载整个单页面应用，但是，这样也远没有下载个单独的预先渲染过的HTML文件性能高。</p>
+<h4 id="客户端运行在老的-或者直接没有-JavaScript引擎上"><a href="#客户端运行在老的-或者直接没有-JavaScript引擎上" class="headerlink" title="客户端运行在老的(或者直接没有)JavaScript引擎上"></a>客户端运行在老的(或者直接没有)JavaScript引擎上</h4><p>对于世界上的一些地区人，可能只能用1998年产的电脑访问互联网的方式使用计算机。而Vue只能运行在IE9以上的浏览器，你可以也想为那些老式浏览器提供基础内容 - 或者是在命令行中使用 Lynx的时髦的黑客。</p>
+<h4 id="服务端渲染-对比-预渲染-Prerendering"><a href="#服务端渲染-对比-预渲染-Prerendering" class="headerlink" title="服务端渲染 对比 预渲染(Prerendering)"></a>服务端渲染 对比 预渲染(Prerendering)</h4><p>如果你只是用服务端渲染来改善一个少数的营销页面（如 首页，关于，联系 等等）的SEO，那你可以用预渲染替换。预渲染不像服务器渲染那样即时编译HTML,预渲染只是在构建时为了特定的路由生成特定的几个静态页面。其优势是预渲染的设置更加简单，可以保持前端是一个完整的静态站。<br>你用webpack可以很简单地通过prerender-spa-plugin来添加预渲染，它被广泛地用在Vue应用上 - 事实上，创建者也是Vue核心团队成员之一。</p>
+<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>准备在行动中体验服务端渲染吧。服务端渲染(即SSR)听起来很复杂，不过一个简单的Node脚本只需要3步就可以实现这个功能:</p>
+<pre><code>// 步骤 1:创建一个Vue实例
+var Vue = require(&apos;vue&apos;)
+var app = new Vue({
+  render: function (h) {
+    return h(&apos;p&apos;, &apos;hello world&apos;)
+  }
+})
+// 步骤 2: 创建一个渲染器
+var renderer = require(&apos;vue-server-renderer&apos;).createRenderer()
+// 步骤 3: 将 Vue实例 渲染成 HTML
+renderer.renderToString(app, function (error, html) {
+  if (error) throw error
+  console.log(html)
+  // =&gt; &lt;p server-rendered=&quot;true&quot;&gt;hello world&lt;/p&gt;
+})
+</code></pre><p>这并不困难。当然这个示例比大部分应用都简单。我们不必担心：</p>
+<ul>
+<li>一个Web服务器</li>
+<li>流式响应</li>
+<li>组件缓存</li>
+<li>构建过程</li>
+<li>路由</li>
+<li>Vuex状态管理</li>
+</ul>
+<p>这个指南的其余部分，我们将探讨这些功能怎样运作。一旦你理解了基础，我们会提供更多细节和进一步的示例来帮助你解决意外情况。</p>
+<h3 id="通过Express-Web服务器实现简单的服务端渲染"><a href="#通过Express-Web服务器实现简单的服务端渲染" class="headerlink" title="通过Express Web服务器实现简单的服务端渲染"></a>通过Express Web服务器实现简单的服务端渲染</h3><p>如果没有一个Web服务器，很难说是服务端渲染，所以我们来补充它。我们将构建一个非常简单的服务端渲染应用，只用ES5，也不带其他构建步骤或Vue插件。  </p>
+<p>启动一个应用告诉用户他们在一个页面上花了多少时间。  </p>
+<pre><code>new Vue({
+  template: &apos;&lt;div&gt;你已经在这花了 {{ counter }} 秒。&lt;/div&gt;&apos;,
+  data: {
+    counter: 0
+  },
+  created: function () {
+    var vm = this
+    setInterval(function () {
+      vm.counter += 1
+    }, 1000)
+  }
+})
+</code></pre><p>为了适应服务端渲染，我们需要进行一些修改，让它可以在浏览器和Node中<br>渲染：  </p>
+<p>在浏览器中，将我们的应用实例添加到全局上下文（ window）上,我们可以安装它。  </p>
+<p>在Node中，导出一个工厂函数让我们可以为每个请求创建应用实例。  </p>
+<p>实现这个需要一点模板：</p>
+<pre><code>// assets/app.js
+(function () { &apos;use strict&apos;
+  var createApp = function () {
+    // ---------------------
+    // 开始常用的应用代码
+    // ---------------------
+    // 主要的Vue实例必须返回，并且有一个根节点在id &quot;app&quot;上，这样客户端可以加载它。
+    return new Vue({
+      template: &apos;&lt;div id=&quot;app&quot;&gt;你已经在这花了 {{ counter }} 秒。&lt;/div&gt;&apos;,
+      data: {
+        counter: 0
+      },
+      created: function () {
+        var vm = this
+        setInterval(function () {
+          vm.counter += 1
+        }, 1000)
+      }
+    })
+    // -------------------
+    // 结束常用的应用代码
+    // -------------------
+  }
+  if (typeof module !== &apos;undefined&apos; &amp;&amp; module.exports) {
+    module.exports = createApp
+  } else {
+    this.app = createApp()
+  }
+}).call(this)
+</code></pre><p>现在有了应用代码，接着加一个 html文件。</p>
+<pre><code>&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My Vue App&lt;/title&gt;
+  &lt;script src=&quot;/assets/vue.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+  &lt;script src=&quot;/assets/app.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;app.$mount(&apos;#app&apos;)&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>主要引用assets文件夹中我们先前创建的app.js，以及vue.js文件，我们就有了一个可以运行的单页面应用  </p>
+<p>然后为了实现服务端渲染，在服务端需要加一个步骤。</p>
+<pre><code>// server.js
+&apos;use strict&apos;
+var fs = require(&apos;fs&apos;)
+var path = require(&apos;path&apos;)
+// 定义全局的Vue为了服务端的app.js
+global.Vue = require(&apos;vue&apos;)
+// 获取HTML布局
+var layout = fs.readFileSync(&apos;./index.html&apos;, &apos;utf8&apos;)
+// 创建一个渲染器
+var renderer = require(&apos;vue-server-renderer&apos;).createRenderer()
+// 创建一个Express服务器
+var express = require(&apos;express&apos;)
+var server = express()
+// 部署静态文件夹为 &quot;assets&quot;文件夹
+server.use(&apos;/assets&apos;, express.static(
+  path.resolve(__dirname, &apos;assets&apos;)
+))
+// 处理所有的Get请求
+server.get(&apos;*&apos;, function (request, response) {
+  // 渲染我们的Vue应用为一个字符串
+  renderer.renderToString(
+    // 创建一个应用实例
+    require(&apos;./assets/app&apos;)(),
+    // 处理渲染结果
+    function (error, html) {
+      // 如果渲染时发生了错误
+      if (error) {
+        // 打印错误到控制台
+        console.error(error)
+        // 告诉客户端错误
+        return response
+          .status(500)
+          .send(&apos;Server Error&apos;)
+      }
+      // 发送布局和HTML文件
+      response.send(layout.replace(&apos;&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;&apos;, html))
+    }
+  )
+})
+// 监听5000端口
+server.listen(5000, function (error) {
+  if (error) throw error
+  console.log(&apos;Server is running at localhost:5000&apos;)
+})
+</code></pre><p>这样就完成了。整个示例，克隆下来深度实验。一旦它在本地运行时，你可以通过在页面右击选择页面资源（或类似操作）确认服务选渲染真的运行了。可以在body中看到：</p>
+<pre><code>&lt;div id=&quot;app&quot; server-rendered=&quot;true&quot;&gt;You have been here for 0 seconds&amp;period;&lt;/div&gt;
+</code></pre><p>代替:</p>
+<pre><code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+</code></pre><h3 id="流式响应"><a href="#流式响应" class="headerlink" title="流式响应"></a>流式响应</h3><p>Vue还支持流式渲染，优先选择适用于支持流的Web服务器。允许HTML一边生成一边写入相应流，而不是在最后一次全部写入。其结果是请求服务速度更快，没有缺点！  </p>
+<p>为了使上一节应用代码适用流式渲染，可以简单的替换 server.get(‘*’,…)为下面的代码： </p>
+<pre><code>// 拆分布局成两段HTML
+var layoutSections = layout.split(&apos;&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;&apos;)
+var preAppHTML = layoutSections[0]
+var postAppHTML = layoutSections[1]
+// 处理所有的Get请求
+server.get(&apos;*&apos;, function (request, response) {
+  // 渲染我们的Vue实例作为流
+  var stream = renderer.renderToStream(require(&apos;./assets/app&apos;)())
+  // 将预先的HTML写入响应
+  response.write(preAppHTML)
+  // 每当新的块被渲染
+  stream.on(&apos;data&apos;, function (chunk) {
+    // 将块写入响应
+    response.write(chunk)
+  })
+  // 当所有的块被渲染完成
+  stream.on(&apos;end&apos;, function () {
+    // 将post-app HTML写入响应
+    response.end(postAppHTML)
+  })
+  // 当渲染时发生错误
+  stream.on(&apos;error&apos;, function (error) {
+    // 打印错误到控制台
+    console.error(error)
+    // 告诉客服端发生了错误
+    return response
+      .status(500)
+      .send(&apos;Server Error&apos;)
+  })
+})
+</code></pre><p>这不比之前的版本复杂，甚至这对你来说都不是个新概念。我们做了：</p>
+<ul>
+<li>建立流</li>
+<li>在应用响应前写入HTML</li>
+<li>在可获得时将应用HTML写入响应</li>
+<li>在响应最后写入HTML</li>
+<li>处理任何错误</li>
+</ul>
+<h3 id="组件缓存"><a href="#组件缓存" class="headerlink" title="组件缓存"></a>组件缓存</h3><p>Vue的服务端渲染默认非常快，但是你可以通过缓存渲染好的组件进一步提高性能。这被认为是一种先进的功能，但是，如果缓存了错误的组件（或者正确的组件带有错误的内容）将导致应用渲染出错。特别注意：  </p>
+<p>不应该缓存组件包含子组件依赖全局状态（例如来自vuex的状态）。如果这么做，子组件（事实上是整个子树）也会被缓存。所以要特别注意带有slots片段或者子组件的情况。  </p>
+<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><p>在警告情况之外的，我们可以用下面的方法缓存组件。  </p>
+<p>首先，你需要提供给渲染器一个 缓存对象。这有个简单的示例使用 lru-cache</p>
+<pre><code>var createRenderer = require(&apos;vue-server-renderer&apos;).createRenderer
+var lru = require(&apos;lru-cache&apos;)
+var renderer = createRenderer({
+  cache: lru(1000)
+})
+</code></pre><p>这将缓存高达1000个独立的渲染。对于更进一步缓存到内容中的配置，看lru-cache设置  </p>
+<p>然后对于你想缓存的组件，你可以为他们提供：  </p>
+<ul>
+<li>一个唯一的名字</li>
+<li>一个 serverCacheKey函数，返回一个唯一的组件作用域</li>
+</ul>
+<p>例如:</p>
+<pre><code>Vue.component({
+  name: &apos;list-item&apos;,
+  template: &apos;&lt;li&gt;{{ item.name }}&lt;/li&gt;&apos;,
+  props: [&apos;item&apos;],
+  serverCacheKey: function (props) {
+    return props.item.type + &apos;::&apos; + props.item.id
+  }
+})
+</code></pre><h4 id="缓存的理想组件"><a href="#缓存的理想组件" class="headerlink" title="缓存的理想组件"></a>缓存的理想组件</h4><p>任何纯组件可以被安全缓存 - 这是保证给任何组件传递一样的数据产生相同的HTML。这些场景的例子包括：  </p>
+<ul>
+<li>静态的组件 (例如 总是尝试一样的HTML,所以 serverCacheKey 函数可以被返回 true)</li>
+<li>列表组件（当有大量列表，缓存他们可以改善性能）</li>
+<li>通用UI组件 (例如 buttons, alerts, 等等 - 至少他们通过props获取数据而不是 slots或者子组件)</li>
+</ul>
+<h3 id="构建过程，路由，和Vuex状态管理"><a href="#构建过程，路由，和Vuex状态管理" class="headerlink" title="构建过程，路由，和Vuex状态管理"></a>构建过程，路由，和Vuex状态管理</h3><p>现在，应该理解服务端渲染背后的基本概念了。但是，构建过程、路由、Vuex每一个都有自己的注意事项。  </p>
+<p>要真正掌握复杂应用下的服务端渲染，我们推荐深度熟悉以下资源：<br>vue-server-renderer 文档:更多细节在这里，和更多先进的主题一起的文档。 例如 preventing cross-request contamination 和 添加独立的服务构建  </p>
+<p>vue-hackernews-2.0: 明确整合了 所有主要的Vue库和概念在单个应用中</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/vuejs/" rel="tag">#vuejs</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/25/vuejs-advanced-2/" rel="next" title="Vue.js——进阶(二)">
+                <i class="fa fa-chevron-left"></i> Vue.js——进阶(二)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/25/vuejs-advanced-3/"
+           data-title="Vue.js——进阶(三)" data-url="http://yoursite.com/2017/01/25/vuejs-advanced-3/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生产环境部署"><span class="nav-number">1.</span> <span class="nav-text">生产环境部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除警告"><span class="nav-number">1.1.</span> <span class="nav-text">删除警告</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Webpack"><span class="nav-number">1.1.1.</span> <span class="nav-text">Webpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Browserify"><span class="nav-number">1.1.2.</span> <span class="nav-text">Browserify</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跟踪运行时错误"><span class="nav-number">1.2.</span> <span class="nav-text">跟踪运行时错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提取-CSS"><span class="nav-number">1.3.</span> <span class="nav-text">提取 CSS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由"><span class="nav-number">2.</span> <span class="nav-text">路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方路由"><span class="nav-number">2.1.</span> <span class="nav-text">官方路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从零开始简单的路由"><span class="nav-number">2.2.</span> <span class="nav-text">从零开始简单的路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整合第三方路由"><span class="nav-number">2.3.</span> <span class="nav-text">整合第三方路由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态管理"><span class="nav-number">3.</span> <span class="nav-text">状态管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类-Flux-状态管理的官方实现"><span class="nav-number">3.1.</span> <span class="nav-text">类 Flux 状态管理的官方实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-的开发者请参考以下信息"><span class="nav-number">3.1.1.</span> <span class="nav-text">React 的开发者请参考以下信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单状态管理起步使用"><span class="nav-number">3.2.</span> <span class="nav-text">简单状态管理起步使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">4.</span> <span class="nav-text">单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置和工具"><span class="nav-number">4.1.</span> <span class="nav-text">配置和工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单的断言"><span class="nav-number">4.2.</span> <span class="nav-text">简单的断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写可被测试的组件"><span class="nav-number">4.3.</span> <span class="nav-text">编写可被测试的组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#断言异步更新"><span class="nav-number">4.4.</span> <span class="nav-text">断言异步更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端渲染"><span class="nav-number">5.</span> <span class="nav-text">服务端渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需要服务端渲染（SSR）吗？"><span class="nav-number">5.1.</span> <span class="nav-text">需要服务端渲染（SSR）吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SEO（搜索引擎优化）"><span class="nav-number">5.1.1.</span> <span class="nav-text">SEO（搜索引擎优化）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端的网络比较慢"><span class="nav-number">5.1.2.</span> <span class="nav-text">客户端的网络比较慢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端运行在老的-或者直接没有-JavaScript引擎上"><span class="nav-number">5.1.3.</span> <span class="nav-text">客户端运行在老的(或者直接没有)JavaScript引擎上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端渲染-对比-预渲染-Prerendering"><span class="nav-number">5.1.4.</span> <span class="nav-text">服务端渲染 对比 预渲染(Prerendering)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-World"><span class="nav-number">5.2.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Express-Web服务器实现简单的服务端渲染"><span class="nav-number">5.3.</span> <span class="nav-text">通过Express Web服务器实现简单的服务端渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流式响应"><span class="nav-number">5.4.</span> <span class="nav-text">流式响应</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件缓存"><span class="nav-number">5.5.</span> <span class="nav-text">组件缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置"><span class="nav-number">5.5.1.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存的理想组件"><span class="nav-number">5.5.2.</span> <span class="nav-text">缓存的理想组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建过程，路由，和Vuex状态管理"><span class="nav-number">5.6.</span> <span class="nav-text">构建过程，路由，和Vuex状态管理</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

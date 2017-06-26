@@ -1,0 +1,1350 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,ES2015," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Symbol
+
+概述ES5的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是ES6引入Symbol的原因。  
+ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是Ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES2015——10. Symbol">
+<meta property="og:url" content="http://yoursite.com/2016/12/13/ES2015-10_symbol/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="Symbol
+
+概述ES5的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是ES6引入Symbol的原因。  
+ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是Ja">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES2015——10. Symbol">
+<meta name="twitter:description" content="Symbol
+
+概述ES5的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是ES6引入Symbol的原因。  
+ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是Ja">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/13/ES2015-10_symbol/"/>
+
+  <title> ES2015——10. Symbol | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ES2015——10. Symbol
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-13T14:28:23+08:00" content="2016-12-13 14:28:23">
+              2016-12-13 14:28:23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/13/ES2015-10_symbol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/13/ES2015-10_symbol/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://es6.ruanyifeng.com/#docs/symbol" target="_blank" rel="external">Symbol</a></p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>ES5的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是ES6引入Symbol的原因。  </p>
+<p>ES6引入了一种新的原始数据类型Symbol，表示独一无二的值。它是JavaScript语言的第七种数据类型，前六种是：Undefined、Null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）。  </p>
+<p>Symbol值通过Symbol函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增的Symbol类型。凡是属性名属于Symbol类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。</p>
+<pre><code>let s = Symbol();
+
+typeof s
+// &quot;symbol&quot;
+</code></pre><p>上面代码中，变量s就是一个独一无二的值。typeof运算符的结果，表明变量s是Symbol数据类型，而不是字符串之类的其他类型。  </p>
+<p>注意，Symbol函数前不能使用new命令，否则会报错。这是因为生成的Symbol是一个原始类型的值，不是对象。也就是说，由于Symbol值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。  </p>
+<p>Symbol函数可以接受一个字符串作为参数，表示对Symbol实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</p>
+<pre><code>var s1 = Symbol(&apos;foo&apos;);
+var s2 = Symbol(&apos;bar&apos;);
+
+s1 // Symbol(foo)
+s2 // Symbol(bar)
+
+s1.toString() // &quot;Symbol(foo)&quot;
+s2.toString() // &quot;Symbol(bar)&quot;
+</code></pre><p>上面代码中，s1和s2是两个Symbol值。如果不加参数，它们在控制台的输出都是Symbol()，不利于区分。有了参数以后，就等于为它们加上了描述，输出的时候就能够分清，到底是哪一个值。  </p>
+<p>如果 Symbol 的参数是一个对象，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。</p>
+<pre><code>const obj = {
+  toString() {
+    return &apos;abc&apos;;
+  }
+};
+const sym = Symbol(obj);
+sym // Symbol(abc)
+</code></pre><p>注意，Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的。</p>
+<pre><code>// 没有参数的情况
+var s1 = Symbol();
+var s2 = Symbol();
+
+s1 === s2 // false
+
+// 有参数的情况
+var s1 = Symbol(&apos;foo&apos;);
+var s2 = Symbol(&apos;foo&apos;);
+
+s1 === s2 // false
+</code></pre><p>上面代码中，s1和s2都是Symbol函数的返回值，而且参数相同，但是它们是不相等的。  </p>
+<p>Symbol值不能与其他类型的值进行运算，会报错。</p>
+<pre><code>var sym = Symbol(&apos;My symbol&apos;);
+
+&quot;your symbol is &quot; + sym
+// TypeError: can&apos;t convert symbol to string
+`your symbol is ${sym}`
+// TypeError: can&apos;t convert symbol to string
+但是，Symbol值可以显式转为字符串。
+
+var sym = Symbol(&apos;My symbol&apos;);
+
+String(sym) // &apos;Symbol(My symbol)&apos;
+sym.toString() // &apos;Symbol(My symbol)&apos;
+</code></pre><p>另外，Symbol值也可以转为布尔值，但是不能转为数值。</p>
+<pre><code>var sym = Symbol();
+Boolean(sym) // true
+!sym  // false
+
+if (sym) {
+  // ...
+}
+
+Number(sym) // TypeError
+sym + 2 // TypeError
+</code></pre><h3 id="作为属性名的Symbol"><a href="#作为属性名的Symbol" class="headerlink" title="作为属性名的Symbol"></a>作为属性名的Symbol</h3><p>由于每一个Symbol值都是不相等的，这意味着Symbol值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性。这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
+<pre><code>var mySymbol = Symbol();
+
+// 第一种写法
+var a = {};
+a[mySymbol] = &apos;Hello!&apos;;
+
+// 第二种写法
+var a = {
+  [mySymbol]: &apos;Hello!&apos;
+};
+
+// 第三种写法
+var a = {};
+Object.defineProperty(a, mySymbol, { value: &apos;Hello!&apos; });
+
+// 以上写法都得到同样结果
+a[mySymbol] // &quot;Hello!&quot;
+</code></pre><p>上面代码通过方括号结构和Object.defineProperty，将对象的属性名指定为一个Symbol值。  </p>
+<p>注意，Symbol值作为对象属性名时，不能用点运算符。</p>
+<pre><code>var mySymbol = Symbol();
+var a = {};
+
+a.mySymbol = &apos;Hello!&apos;;
+a[mySymbol] // undefined
+a[&apos;mySymbol&apos;] // &quot;Hello!&quot;
+</code></pre><p>上面代码中，因为点运算符后面总是字符串，所以不会读取mySymbol作为标识名所指代的那个值，导致a的属性名实际上是一个字符串，而不是一个Symbol值。  </p>
+<p>同理，在对象的内部，使用Symbol值定义属性时，Symbol值必须放在方括号之中。</p>
+<pre><code>let s = Symbol();
+
+let obj = {
+  [s]: function (arg) { ... }
+};
+
+obj[s](123);
+</code></pre><p>上面代码中，如果s不放在方括号中，该属性的键名就是字符串s，而不是s所代表的那个Symbol值。  </p>
+<p>采用增强的对象写法，上面代码的obj对象可以写得更简洁一些。</p>
+<pre><code>let obj = {
+  [s](arg) { ... }
+};
+</code></pre><p>Symbol类型还可以用于定义一组常量，保证这组常量的值都是不相等的。</p>
+<pre><code>log.levels = {
+  DEBUG: Symbol(&apos;debug&apos;),
+  INFO: Symbol(&apos;info&apos;),
+  WARN: Symbol(&apos;warn&apos;)
+};
+log(log.levels.DEBUG, &apos;debug message&apos;);
+log(log.levels.INFO, &apos;info message&apos;);
+</code></pre><p>下面是另外一个例子。</p>
+<pre><code>const COLOR_RED    = Symbol();
+const COLOR_GREEN  = Symbol();
+
+function getComplement(color) {
+  switch (color) {
+    case COLOR_RED:
+      return COLOR_GREEN;
+    case COLOR_GREEN:
+      return COLOR_RED;
+    default:
+      throw new Error(&apos;Undefined color&apos;);
+    }
+}
+</code></pre><p>常量使用Symbol值最大的好处，就是其他任何值都不可能有相同的值了，因此可以保证上面的switch语句会按设计的方式工作。  </p>
+<p>还有一点需要注意，Symbol值作为属性名时，该属性还是公开属性，不是私有属性。</p>
+<h3 id="实例：消除魔术字符串"><a href="#实例：消除魔术字符串" class="headerlink" title="实例：消除魔术字符串"></a>实例：消除魔术字符串</h3><p>魔术字符串指的是，在代码之中多次出现、与代码形成强耦合的某一个具体的字符串或者数值。风格良好的代码，应该尽量消除魔术字符串，该由含义清晰的变量代替。</p>
+<pre><code>function getArea(shape, options) {
+  var area = 0;
+
+  switch (shape) {
+    case &apos;Triangle&apos;: // 魔术字符串
+      area = .5 * options.width * options.height;
+      break;
+    /* ... more code ... */
+  }
+
+  return area;
+}
+
+getArea(&apos;Triangle&apos;, { width: 100, height: 100 }); // 魔术字符串
+</code></pre><p>上面代码中，字符串“Triangle”就是一个魔术字符串。它多次出现，与代码形成“强耦合”，不利于将来的修改和维护。  </p>
+<p>常用的消除魔术字符串的方法，就是把它写成一个变量。</p>
+<pre><code>var shapeType = {
+  triangle: &apos;Triangle&apos;
+};
+
+function getArea(shape, options) {
+  var area = 0;
+  switch (shape) {
+    case shapeType.triangle:
+      area = .5 * options.width * options.height;
+      break;
+  }
+  return area;
+}
+
+getArea(shapeType.triangle, { width: 100, height: 100 });
+</code></pre><p>上面代码中，我们把“Triangle”写成shapeType对象的triangle属性，这样就消除了强耦合。  </p>
+<p>如果仔细分析，可以发现shapeType.triangle等于哪个值并不重要，只要确保不会跟其他shapeType属性的值冲突即可。因此，这里就很适合改用Symbol值。</p>
+<pre><code>const shapeType = {
+  triangle: Symbol()
+};
+</code></pre><p>上面代码中，除了将shapeType.triangle的值设为一个Symbol，其他地方都不用修改。</p>
+<h3 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h3><p>Symbol 作为属性名，该属性不会出现在for…in、for…of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。但是，它也不是私有属性，有一个Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。  </p>
+<p>Object.getOwnPropertySymbols方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。</p>
+<pre><code>var obj = {};
+var a = Symbol(&apos;a&apos;);
+var b = Symbol(&apos;b&apos;);
+
+obj[a] = &apos;Hello&apos;;
+obj[b] = &apos;World&apos;;
+
+var objectSymbols = Object.getOwnPropertySymbols(obj);
+
+objectSymbols
+// [Symbol(a), Symbol(b)]
+</code></pre><p>下面是另一个例子，Object.getOwnPropertySymbols方法与for…in循环、Object.getOwnPropertyNames方法进行对比的例子。</p>
+<pre><code>var obj = {};
+
+var foo = Symbol(&quot;foo&quot;);
+
+Object.defineProperty(obj, foo, {
+  value: &quot;foobar&quot;,
+});
+
+for (var i in obj) {
+  console.log(i); // 无输出
+}
+
+Object.getOwnPropertyNames(obj)
+// []
+
+Object.getOwnPropertySymbols(obj)
+// [Symbol(foo)]
+</code></pre><p>上面代码中，使用Object.getOwnPropertyNames方法得不到Symbol属性名，需要使用Object.getOwnPropertySymbols方法。  </p>
+<p>另一个新的API，Reflect.ownKeys方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。</p>
+<pre><code>let obj = {
+  [Symbol(&apos;my_key&apos;)]: 1,
+  enum: 2,
+  nonEnum: 3
+};
+
+Reflect.ownKeys(obj)
+// [Symbol(my_key), &apos;enum&apos;, &apos;nonEnum&apos;]
+</code></pre><p>由于以 Symbol 值作为名称的属性，不会被常规方法遍历得到。我们可以利用这个特性，为对象定义一些非私有的、但又希望只用于内部的方法。</p>
+<pre><code>var size = Symbol(&apos;size&apos;);
+
+class Collection {
+  constructor() {
+    this[size] = 0;
+  }
+
+  add(item) {
+    this[this[size]] = item;
+    this[size]++;
+  }
+
+  static sizeOf(instance) {
+    return instance[size];
+  }
+}
+
+var x = new Collection();
+Collection.sizeOf(x) // 0
+
+x.add(&apos;foo&apos;);
+Collection.sizeOf(x) // 1
+
+Object.keys(x) // [&apos;0&apos;]
+Object.getOwnPropertyNames(x) // [&apos;0&apos;]
+Object.getOwnPropertySymbols(x) // [Symbol(size)]
+</code></pre><p>上面代码中，对象x的size属性是一个 Symbol 值，所以Object.keys(x)、Object.getOwnPropertyNames(x)都无法获取它。这就造成了一种非私有的内部方法的效果。</p>
+<h3 id="Symbol-for-，Symbol-keyFor"><a href="#Symbol-for-，Symbol-keyFor" class="headerlink" title="Symbol.for()，Symbol.keyFor()"></a>Symbol.for()，Symbol.keyFor()</h3><p>有时，我们希望重新使用同一个Symbol值，Symbol.for方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的Symbol值。如果有，就返回这个Symbol值，否则就新建并返回一个以该字符串为名称的Symbol值。</p>
+<pre><code>var s1 = Symbol.for(&apos;foo&apos;);
+var s2 = Symbol.for(&apos;foo&apos;);
+
+s1 === s2 // true
+</code></pre><p>上面代码中，s1和s2都是 Symbol 值，但是它们都是同样参数的Symbol.for方法生成的，所以实际上是同一个值。  </p>
+<p>Symbol.for()与Symbol()这两种写法，都会生成新的Symbol。它们的区别是，前者会被登记在全局环境中供搜索，后者不会。Symbol.for()不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的key是否已经存在，如果不存在才会新建一个值。比如，如果你调用Symbol.for(“cat”)30次，每次都会返回同一个 Symbol 值，但是调用Symbol(“cat”)30次，会返回30个不同的Symbol值。</p>
+<pre><code>Symbol.for(&quot;bar&quot;) === Symbol.for(&quot;bar&quot;)
+// true
+
+Symbol(&quot;bar&quot;) === Symbol(&quot;bar&quot;)
+// false
+</code></pre><p>上面代码中，由于Symbol()写法没有登记机制，所以每次调用都会返回一个不同的值。  </p>
+<p>Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。</p>
+<pre><code>var s1 = Symbol.for(&quot;foo&quot;);
+Symbol.keyFor(s1) // &quot;foo&quot;
+
+var s2 = Symbol(&quot;foo&quot;);
+Symbol.keyFor(s2) // undefined
+</code></pre><p>上面代码中，变量s2属于未登记的Symbol值，所以返回undefined。  </p>
+<p>需要注意的是，Symbol.for为Symbol值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。</p>
+<pre><code>iframe = document.createElement(&apos;iframe&apos;);
+iframe.src = String(window.location);
+document.body.appendChild(iframe);
+
+iframe.contentWindow.Symbol.for(&apos;foo&apos;) === Symbol.for(&apos;foo&apos;)
+// true
+</code></pre><p>上面代码中，iframe 窗口生成的 Symbol 值，可以在主页面得到。</p>
+<h3 id="实例：模块的-Singleton-模式"><a href="#实例：模块的-Singleton-模式" class="headerlink" title="实例：模块的 Singleton 模式"></a>实例：模块的 Singleton 模式</h3><p>Singleton模式指的是调用一个类，任何时候返回的都是同一个实例。  </p>
+<p>对于Node来说，模块文件可以看成是一个类。怎么保证每次执行这个模块文件，返回的都是同一个实例呢？  </p>
+<p>很容易想到，可以把实例放到顶层对象global。</p>
+<pre><code>// mod.js
+function A() {
+  this.foo = &apos;hello&apos;;
+}
+
+if (!global._foo) {
+  global._foo = new A();
+}
+
+module.exports = global._foo;
+</code></pre><p>然后，加载上面的mod.js。</p>
+<pre><code>var a = require(&apos;./mod.js&apos;);
+console.log(a.foo);
+</code></pre><p>上面代码中，变量a任何时候加载的都是A的同一个实例。  </p>
+<p>但是，这里有一个问题，全局变量global._foo是可写的，任何文件都可以修改。</p>
+<pre><code>var a = require(&apos;./mod.js&apos;);
+global._foo = 123;
+</code></pre><p>上面的代码，会使得别的脚本加载mod.js都失真。  </p>
+<p>为了防止这种情况出现，我们就可以使用Symbol。</p>
+<pre><code>// mod.js
+const FOO_KEY = Symbol.for(&apos;foo&apos;);
+
+function A() {
+  this.foo = &apos;hello&apos;;
+}
+
+if (!global[FOO_KEY]) {
+  global[FOO_KEY] = new A();
+}
+
+module.exports = global[FOO_KEY];
+</code></pre><p>上面代码中，可以保证global[FOO_KEY]不会被无意间覆盖，但还是可以被改写。</p>
+<pre><code>var a = require(&apos;./mod.js&apos;);
+global[Symbol.for(&apos;foo&apos;)] = 123;
+</code></pre><p>如果键名使用Symbol方法生成，那么外部将无法引用这个值，当然也就无法改写。</p>
+<pre><code>// mod.js
+const FOO_KEY = Symbol(&apos;foo&apos;);
+
+// 后面代码相同 ……
+</code></pre><p>上面代码将导致其他脚本都无法引用FOO_KEY。但这样也有一个问题，就是如果多次执行这个脚本，每次得到的FOO_KEY都是不一样的。虽然Node会将脚本的执行结果缓存，一般情况下，不会多次执行同一个脚本，但是用户可以手动清除缓存，所以也不是完全可靠。</p>
+<h3 id="内置的Symbol值"><a href="#内置的Symbol值" class="headerlink" title="内置的Symbol值"></a>内置的Symbol值</h3><p>除了定义自己使用的Symbol值以外，ES6还提供了11个内置的Symbol值，指向语言内部使用的方法。</p>
+<h4 id="Symbol-hasInstance"><a href="#Symbol-hasInstance" class="headerlink" title="Symbol.hasInstance"></a>Symbol.hasInstance</h4><p>对象的Symbol.hasInstance属性，指向一个内部方法。当其他对象使用instanceof运算符，判断是否为该对象的实例时，会调用这个方法。比如，foo instanceof Foo在语言内部，实际调用的是Foo<a href="foo">Symbol.hasInstance</a>。</p>
+<pre><code>class MyClass {
+  [Symbol.hasInstance](foo) {
+    return foo instanceof Array;
+  }
+}
+
+[1, 2, 3] instanceof new MyClass() // true
+</code></pre><p>上面代码中，MyClass是一个类，new MyClass()会返回一个实例。该实例的Symbol.hasInstance方法，会在进行instanceof运算时自动调用，判断左侧的运算子是否为Array的实例。  </p>
+<p>下面是另一个例子。</p>
+<pre><code>class Even {
+  static [Symbol.hasInstance](obj) {
+    return Number(obj) % 2 === 0;
+  }
+}
+
+1 instanceof Even // false
+2 instanceof Even // true
+12345 instanceof Even // false
+</code></pre><h4 id="Symbol-isConcatSpreadable"><a href="#Symbol-isConcatSpreadable" class="headerlink" title="Symbol.isConcatSpreadable"></a>Symbol.isConcatSpreadable</h4><p>对象的Symbol.isConcatSpreadable属性等于一个布尔值，表示该对象使用Array.prototype.concat()时，是否可以展开。</p>
+<pre><code>let arr1 = [&apos;c&apos;, &apos;d&apos;];
+[&apos;a&apos;, &apos;b&apos;].concat(arr1, &apos;e&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]
+arr1[Symbol.isConcatSpreadable] // undefined
+
+let arr2 = [&apos;c&apos;, &apos;d&apos;];
+arr2[Symbol.isConcatSpreadable] = false;
+[&apos;a&apos;, &apos;b&apos;].concat(arr2, &apos;e&apos;) // [&apos;a&apos;, &apos;b&apos;, [&apos;c&apos;,&apos;d&apos;], &apos;e&apos;]
+</code></pre><p>上面代码说明，数组的默认行为是可以展开。  Symbol.isConcatSpreadable属性等于true或undefined，都有这个效果。  </p>
+<p>类似数组的对象也可以展开，但它的Symbol.isConcatSpreadable属性默认为false，必须手动打开。</p>
+<pre><code>let obj = {length: 2, 0: &apos;c&apos;, 1: &apos;d&apos;};
+[&apos;a&apos;, &apos;b&apos;].concat(obj, &apos;e&apos;) // [&apos;a&apos;, &apos;b&apos;, obj, &apos;e&apos;]
+
+obj[Symbol.isConcatSpreadable] = true;
+[&apos;a&apos;, &apos;b&apos;].concat(obj, &apos;e&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]
+</code></pre><p>对于一个类来说，Symbol.isConcatSpreadable属性必须写成实例的属性。</p>
+<pre><code>class A1 extends Array {
+  constructor(args) {
+    super(args);
+    this[Symbol.isConcatSpreadable] = true;
+  }
+}
+class A2 extends Array {
+  constructor(args) {
+    super(args);
+    this[Symbol.isConcatSpreadable] = false;
+  }
+}
+let a1 = new A1();
+a1[0] = 3;
+a1[1] = 4;
+let a2 = new A2();
+a2[0] = 5;
+a2[1] = 6;
+[1, 2].concat(a1).concat(a2)
+// [1, 2, 3, 4, [5, 6]]
+</code></pre><p>上面代码中，类A1是可展开的，类A2是不可展开的，所以使用concat时有不一样的结果。  </p>
+<h4 id="Symbol-species"><a href="#Symbol-species" class="headerlink" title="Symbol.species"></a>Symbol.species</h4><p>对象的Symbol.species属性，指向一个方法。该对象作为构造函数创造实例时，会调用这个方法。即如果this.constructor[Symbol.species]存在，就会使用这个属性作为构造函数，来创造新的实例对象。  </p>
+<p>Symbol.species属性默认的读取器如下。</p>
+<pre><code>static get [Symbol.species]() {
+  return this;
+}
+</code></pre><h4 id="Symbol-match"><a href="#Symbol-match" class="headerlink" title="Symbol.match"></a>Symbol.match</h4><p>对象的Symbol.match属性，指向一个函数。当执行str.match(myObject)时，如果该属性存在，会调用它，返回该方法的返回值。</p>
+<pre><code>String.prototype.match(regexp)
+// 等同于
+regexp[Symbol.match](this)
+
+class MyMatcher {
+  [Symbol.match](string) {
+    return &apos;hello world&apos;.indexOf(string);
+  }
+}
+
+&apos;e&apos;.match(new MyMatcher()) // 1
+</code></pre><h4 id="Symbol-replace"><a href="#Symbol-replace" class="headerlink" title="Symbol.replace"></a>Symbol.replace</h4><p>对象的Symbol.replace属性，指向一个方法，当该对象被String.prototype.replace方法调用时，会返回该方法的返回值。</p>
+<pre><code>String.prototype.replace(searchValue, replaceValue)
+// 等同于
+searchValue[Symbol.replace](this, replaceValue)
+下面是一个例子。
+
+const x = {};
+x[Symbol.replace] = (...s) =&gt; console.log(s);
+
+&apos;Hello&apos;.replace(x, &apos;World&apos;) // [&quot;Hello&quot;, &quot;World&quot;]
+</code></pre><p>Symbol.replace方法会收到两个参数，第一个参数是replace方法正在作用的对象，上面例子是Hello，第二个参数是替换后的值，上面例子是World。</p>
+<h4 id="Symbol-search"><a href="#Symbol-search" class="headerlink" title="Symbol.search"></a>Symbol.search</h4><p>对象的Symbol.search属性，指向一个方法，当该对象被String.prototype.search方法调用时，会返回该方法的返回值。</p>
+<pre><code>String.prototype.search(regexp)
+// 等同于
+regexp[Symbol.search](this)
+
+class MySearch {
+  constructor(value) {
+    this.value = value;
+  }
+  [Symbol.search](string) {
+    return string.indexOf(this.value);
+  }
+}
+&apos;foobar&apos;.search(new MySearch(&apos;foo&apos;)) // 0
+</code></pre><h4 id="Symbol-split"><a href="#Symbol-split" class="headerlink" title="Symbol.split"></a>Symbol.split</h4><p>对象的Symbol.split属性，指向一个方法，当该对象被String.prototype.split方法调用时，会返回该方法的返回值。</p>
+<pre><code>String.prototype.split(separator, limit)
+// 等同于
+separator[Symbol.split](this, limit)
+</code></pre><h4 id="Symbol-iterator"><a href="#Symbol-iterator" class="headerlink" title="Symbol.iterator"></a>Symbol.iterator</h4><p>对象的Symbol.iterator属性，指向该对象的默认遍历器方法。</p>
+<pre><code>var myIterable = {};
+myIterable[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+
+[...myIterable] // [1, 2, 3]
+</code></pre><p>对象进行for…of循环时，会调用Symbol.iterator方法，返回该对象的默认遍历器，详细介绍参见《Iterator和for…of循环》一章。</p>
+<pre><code>class Collection {
+  *[Symbol.iterator]() {
+    let i = 0;
+    while(this[i] !== undefined) {
+      yield this[i];
+      ++i;
+    }
+  }
+}
+
+let myCollection = new Collection();
+myCollection[0] = 1;
+myCollection[1] = 2;
+
+for(let value of myCollection) {
+  console.log(value);
+}
+// 1
+// 2
+</code></pre><h4 id="Symbol-toPrimitive"><a href="#Symbol-toPrimitive" class="headerlink" title="Symbol.toPrimitive"></a>Symbol.toPrimitive</h4><p>对象的Symbol.toPrimitive属性，指向一个方法。该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值。  </p>
+<p>Symbol.toPrimitive被调用时，会接受一个字符串参数，表示当前运算的模式，一共有三种模式。  </p>
+<ul>
+<li>Number：该场合需要转成数值</li>
+<li>String：该场合需要转成字符串</li>
+<li>Default：该场合可以转成数值，也可以转成字符串</li>
+</ul>
+<pre><code>let obj = {
+  [Symbol.toPrimitive](hint) {
+    switch (hint) {
+      case &apos;number&apos;:
+        return 123;
+      case &apos;string&apos;:
+        return &apos;str&apos;;
+      case &apos;default&apos;:
+        return &apos;default&apos;;
+      default:
+        throw new Error();
+     }
+   }
+};
+
+2 * obj // 246
+3 + obj // &apos;3default&apos;
+obj == &apos;default&apos; // true
+String(obj) // &apos;str&apos;
+</code></pre><h4 id="Symbol-toStringTag"><a href="#Symbol-toStringTag" class="headerlink" title="Symbol.toStringTag"></a>Symbol.toStringTag</h4><p>对象的Symbol.toStringTag属性，指向一个方法。在该对象上面调用Object.prototype.toString方法时，如果这个属性存在，它的返回值会出现在toString方法返回的字符串之中，表示对象的类型。也就是说，这个属性可以用来定制[object Object]或[object Array]中object后面的那个字符串。</p>
+<pre><code>// 例一
+({[Symbol.toStringTag]: &apos;Foo&apos;}.toString())
+// &quot;[object Foo]&quot;
+
+// 例二
+class Collection {
+  get [Symbol.toStringTag]() {
+    return &apos;xxx&apos;;
+  }
+}
+var x = new Collection();
+Object.prototype.toString.call(x) // &quot;[object xxx]&quot;
+</code></pre><p>ES6新增内置对象的Symbol.toStringTag属性值如下。</p>
+<ul>
+<li>JSON[Symbol.toStringTag]：’JSON’</li>
+<li>Math[Symbol.toStringTag]：’Math’</li>
+<li>Module对象M[Symbol.toStringTag]：’Module’</li>
+<li>ArrayBuffer.prototype[Symbol.toStringTag]：’ArrayBuffer’</li>
+<li>DataView.prototype[Symbol.toStringTag]：’DataView’</li>
+<li>Map.prototype[Symbol.toStringTag]：’Map’</li>
+<li>Promise.prototype[Symbol.toStringTag]：’Promise’</li>
+<li>Set.prototype[Symbol.toStringTag]：’Set’</li>
+<li>%TypedArray%.prototype[Symbol.toStringTag]：’Uint8Array’等</li>
+<li>WeakMap.prototype[Symbol.toStringTag]：’WeakMap’</li>
+<li>WeakSet.prototype[Symbol.toStringTag]：’WeakSet’</li>
+<li>%MapIteratorPrototype%[Symbol.toStringTag]：’Map Iterator’</li>
+<li>%SetIteratorPrototype%[Symbol.toStringTag]：’Set Iterator’</li>
+<li>%StringIteratorPrototype%[Symbol.toStringTag]：’String Iterator’</li>
+<li>Symbol.prototype[Symbol.toStringTag]：’Symbol’</li>
+<li>Generator.prototype[Symbol.toStringTag]：’Generator’</li>
+<li>GeneratorFunction.prototype[Symbol.toStringTag]：’GeneratorFunction’</li>
+</ul>
+<h4 id="Symbol-unscopables"><a href="#Symbol-unscopables" class="headerlink" title="Symbol.unscopables"></a>Symbol.unscopables</h4><p>对象的Symbol.unscopables属性，指向一个对象。该对象指定了使用with关键字时，哪些属性会被with环境排除。</p>
+<pre><code>Array.prototype[Symbol.unscopables]
+// {
+//   copyWithin: true,
+//   entries: true,
+//   fill: true,
+//   find: true,
+//   findIndex: true,
+//   keys: true
+// }
+
+Object.keys(Array.prototype[Symbol.unscopables])
+// [&apos;copyWithin&apos;, &apos;entries&apos;, &apos;fill&apos;, &apos;find&apos;, &apos;findIndex&apos;, &apos;keys&apos;]
+</code></pre><p>上面代码说明，数组有6个属性，会被with命令排除。</p>
+<pre><code>// 没有unscopables时
+class MyClass {
+  foo() { return 1; }
+}
+
+var foo = function () { return 2; };
+
+with (MyClass.prototype) {
+  foo(); // 1
+}
+
+// 有unscopables时
+class MyClass {
+  foo() { return 1; }
+  get [Symbol.unscopables]() {
+    return { foo: true };
+  }
+}
+
+var foo = function () { return 2; };
+
+with (MyClass.prototype) {
+  foo(); // 2
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/ES2015/" rel="tag">#ES2015</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/13/ES2015-9_object/" rel="next" title="ES2015——9.对象的扩展">
+                <i class="fa fa-chevron-left"></i> ES2015——9.对象的扩展
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/13/ES2015-11_set_map/" rel="prev" title="ES2015——11.Set和Map数据结构">
+                ES2015——11.Set和Map数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/13/ES2015-10_symbol/"
+           data-title="ES2015——10. Symbol" data-url="http://yoursite.com/2016/12/13/ES2015-10_symbol/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作为属性名的Symbol"><span class="nav-number">2.</span> <span class="nav-text">作为属性名的Symbol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：消除魔术字符串"><span class="nav-number">3.</span> <span class="nav-text">实例：消除魔术字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性名的遍历"><span class="nav-number">4.</span> <span class="nav-text">属性名的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-for-，Symbol-keyFor"><span class="nav-number">5.</span> <span class="nav-text">Symbol.for()，Symbol.keyFor()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：模块的-Singleton-模式"><span class="nav-number">6.</span> <span class="nav-text">实例：模块的 Singleton 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置的Symbol值"><span class="nav-number">7.</span> <span class="nav-text">内置的Symbol值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-hasInstance"><span class="nav-number">7.1.</span> <span class="nav-text">Symbol.hasInstance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-isConcatSpreadable"><span class="nav-number">7.2.</span> <span class="nav-text">Symbol.isConcatSpreadable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-species"><span class="nav-number">7.3.</span> <span class="nav-text">Symbol.species</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-match"><span class="nav-number">7.4.</span> <span class="nav-text">Symbol.match</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-replace"><span class="nav-number">7.5.</span> <span class="nav-text">Symbol.replace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-search"><span class="nav-number">7.6.</span> <span class="nav-text">Symbol.search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-split"><span class="nav-number">7.7.</span> <span class="nav-text">Symbol.split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-iterator"><span class="nav-number">7.8.</span> <span class="nav-text">Symbol.iterator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-toPrimitive"><span class="nav-number">7.9.</span> <span class="nav-text">Symbol.toPrimitive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-toStringTag"><span class="nav-number">7.10.</span> <span class="nav-text">Symbol.toStringTag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-unscopables"><span class="nav-number">7.11.</span> <span class="nav-text">Symbol.unscopables</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

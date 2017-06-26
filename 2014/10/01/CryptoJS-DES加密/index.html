@@ -1,0 +1,966 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,CryptoJS,加密," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么 CryptoJS DES 加密的结果和 Java DES 不一样?
+
+最近需要对数据进行加密/解密, 因此选用了CryptoJS库, 对数据做DES算法的加密/解密  
+首选查看官方示例, 将密文进行Base64编码, 掉进一个大坑  
+&amp;lt;script src=&amp;quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CryptoJS DES加密">
+<meta property="og:url" content="http://yoursite.com/2014/10/01/CryptoJS-DES加密/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="为什么 CryptoJS DES 加密的结果和 Java DES 不一样?
+
+最近需要对数据进行加密/解密, 因此选用了CryptoJS库, 对数据做DES算法的加密/解密  
+首选查看官方示例, 将密文进行Base64编码, 掉进一个大坑  
+&amp;lt;script src=&amp;quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/ro">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CryptoJS DES加密">
+<meta name="twitter:description" content="为什么 CryptoJS DES 加密的结果和 Java DES 不一样?
+
+最近需要对数据进行加密/解密, 因此选用了CryptoJS库, 对数据做DES算法的加密/解密  
+首选查看官方示例, 将密文进行Base64编码, 掉进一个大坑  
+&amp;lt;script src=&amp;quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/ro">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/10/01/CryptoJS-DES加密/"/>
+
+  <title> CryptoJS DES加密 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CryptoJS DES加密
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-10-01T01:18:54+08:00" content="2014-10-01 01:18:54">
+              2014-10-01 01:18:54
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/10/01/CryptoJS-DES加密/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/01/CryptoJS-DES加密/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://www.douban.com/note/276592520/" target="_blank" rel="external">为什么 CryptoJS DES 加密的结果和 Java DES 不一样?</a></p>
+</blockquote>
+<p>最近需要对数据进行加密/解密, 因此选用了CryptoJS库, 对数据做DES算法的加密/解密  </p>
+<p>首选查看官方示例, 将密文进行Base64编码, 掉进一个大坑  </p>
+<pre><code>&lt;script src=&quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/tripledes.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var encrypted = CryptoJS.DES.encrypt(&quot;Message&quot;, &quot;Secret Passphrase&quot;);
+    // ciphertext changed every time you run it
+    // 加密的结果不应该每次都是一样的吗?
+    console.log(encrypted.toString(), encrypted.ciphertext.toString(CryptoJS.enc.Base64));
+    var decrypted = CryptoJS.DES.decrypt(encrypted, &quot;Secret Passphrase&quot;);
+    console.log(decrypted.toString(CryptoJS.enc.Utf8));
+&lt;/script&gt;
+</code></pre><p>对这些加密算法不了解, 只能求助Google<br><a href="https://groups.google.com/d/msg/crypto-js/I378fq3esK8/HZ2P2Xtuzk8J" target="_blank" rel="external">des encrypion: js encrypted value does not match the java encrypted value</a>   </p>
+<p>In cryptoJS you have to convert the key to hex and useit as word just like above (otherwise it will be considered as passphrase)   </p>
+<p>For the key, when you pass a string, it’s treated as a passphrase and used to derive an actual key and IV. Or you can pass a WordArray that represents the actual key.    </p>
+<p>原来是我指定key的方式不对, 直接将字符串做为参数, 想当然的以为这就是key, 其实不然, CryptoJS会根据这个字符串算出真正的key和IV(各种新鲜名词不解释, 问我也没用, 我也不懂 -_-“)    </p>
+<p>那么我们只需要将key和iv对应的字符串转成CryptoJS的WordArray类型, 在DES加密时做为参数传入即可, 这样对Message这个字符串加密, 每次得到的密文都是<code>YOa3le0I+dI=</code>  </p>
+<pre><code>var keyHex = CryptoJS.enc.Utf8.parse(&apos;abcd1234&apos;);
+var ivHex = CryptoJS.enc.Utf8.parse(&apos;inputvec&apos;);
+var encrypted = CryptoJS.DES.encrypt(&apos;Message&apos;, keyHex, { iv: ivHex });
+</code></pre><p>这样是不是就万事OK了? 哪有, 谁知道这坑是一个接一个啊.<br>我们再试试Java这边的DES加密是不是和这个结果一样, 具体实现请参考<a href="http://timarcher.com/blog/2007/04/simple-java-class-to-des-encrypt-strings-such-as-passwords-and-credit-card-numbers/" target="_blank" rel="external">Simple Java Class to DES Encrypt Strings
+</a>  </p>
+<p>果真掉坑里了, Java通过DES加密Message这个字符串得到的结果是8dKft9vkZ4I=和CryptoJS算出来的不一样啊…亲  </p>
+<p>继续求助Google<br><a href="http://stackoverflow.com/questions/12894722/c-sharp-and-java-des-encryption-value-are-not-identical" target="_blank" rel="external">C# and Java DES Encryption value are not identical</a>  </p>
+<p>SunJCE provider uses ECB as the default mode, and PKCS5Padding as the default padding scheme for DES.(JCA Doc)<br>This means that in the case of the SunJCE provider,<br>    Cipher c1 = Cipher.getInstance(“DES/ECB/PKCS5Padding”);<br>and<br>    Cipher c1 = Cipher.getInstance(“DES”);<br>are equivalent statements.  </p>
+<p>原来是CryptoJS进行DES加密时, 默认的模式和padding方式和Java默认的不一样造成的, 必须使用ECB mode和PKCS5Padding, 但是CryptoJS中只有Pkcs7, 不管了, 试试看…  </p>
+<pre><code>&lt;script src=&quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/tripledes.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/mode-ecb.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var keyHex = CryptoJS.enc.Utf8.parse(&apos;abcd1234&apos;);
+    var encrypted = CryptoJS.DES.encrypt(&apos;Message&apos;, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+console.log(encrypted.toString(),encrypted.ciphertext.toString(CryptoJS.enc.Base64));
+&lt;/script&gt;
+</code></pre><p>咦…使用Pkcs7能得到和Java DES一样的结果了, 哇塞…好神奇<br>那我们试试统一Java也改成Cipher.getInstance(“DES/ECB/PKCS7Padding”)试试, 结果得到一个大大的错误<br>Error:java.security.NoSuchAlgorithmException: Cannot find any provider supporting DES/ECB/PKCS7Padding  </p>
+<p>没办法, 继续Google<br><a href="http://stackoverflow.com/questions/10193567/java-security-nosuchalgorithmexceptioncannot-find-any-provider-supporting-aes-e" target="_blank" rel="external">java.security.NoSuchAlgorithmException: Cannot find any provider supporting AES/ECB/PKCS7PADDING</a>  </p>
+<p>I will point out that PKCS#5 and PKCS#7 actually specify exactly the same type of padding (they are the same!), but it’s called #5 when used in this context. :)  </p>
+<p>这位大侠给出的解释是: PKCS#5和PKCS#7是一样的padding方式, 对加密算法一知半解, 我也只能暂且认可这个解释了.  </p>
+<p>忙完了DES的加密, 接下来就是使用CryptoJS来解密了. 我们需要直接解密DES加密后的base64密文字符串. CryptoJS好像没有提供直接解密DES密文字符串的方法啊, 他的整个加密/解密过程都是内部自己在玩, 解密时需要用到加密的结果对象, 这不是坑我吗?  </p>
+<p>只好研究下CryptoJS DES加密后返回的对象, 发现有一个属性ciphertext, 就是密文的WordArray, 那么解密的时候, 我们是不是只要提供这个就行了呢?  </p>
+<pre><code>var keyHex = CryptoJS.enc.Utf8.parse(&apos;abcd1234&apos;);
+// direct decrypt ciphertext
+var decrypted = CryptoJS.DES.decrypt({
+    ciphertext: CryptoJS.enc.Base64.parse(&apos;8dKft9vkZ4I=&apos;)
+}, keyHex, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+});
+console.log(decrypted.toString(CryptoJS.enc.Utf8));
+</code></pre><p>果不其然, 到此为止, 问题全部解决, 豁然开朗…  </p>
+<hr>
+<p>完整代码  </p>
+<pre><code>&lt;!-- test pass with CryptoJS v3.1.2 --&gt;
+&lt;script src=&quot;rollups/tripledes.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;components/mode-ecb.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+/**
+ * Encrypt message by DES in ECB mode and Pkcs7 padding scheme
+ *
+ * NOTE: DES is weak, please use 3DES(Triple DES) or AES
+ * 
+ * @param  {String} message
+ * @param  {String} key
+ * @return {String} ciphertext(base64 string)
+ * 
+ * @author Sun
+ * @version 2013-5-15
+ *
+ * @see &lt;a href=&quot;https://groups.google.com/d/msg/crypto-js/I378fq3esK8/HZ2P2Xtuzk8J&quot;&gt;des encrypion: js encrypted value does not match the java encrypted value&lt;/a&gt;
+ * In cryptoJS you have to convert the key to hex
+ * and useit as word just like above (otherwise it will be considered as passphrase)
+ * 
+ * @see &lt;a href=&quot;http://stackoverflow.com/questions/12894722/c-sharp-and-java-des-encryption-value-are-not-identical&quot;&gt;C# and Java DES Encryption value are not identical&lt;/a&gt;
+ * SunJCE provider uses ECB as the default mode,
+ * and PKCS5Padding as the default padding scheme for DES.(JCA Doc)
+ * This means that in the case of the SunJCE provider,
+ *     Cipher c1 = Cipher.getInstance(&quot;DES/ECB/PKCS5Padding&quot;);
+ * and
+ *     Cipher c1 = Cipher.getInstance(&quot;DES&quot;);
+ * are equivalent statements.
+ *
+ * @see &lt;a href=&quot;http://stackoverflow.com/questions/10193567/java-security-nosuchalgorithmexception-cannot-find-any-provider-supporting-aes&quot;&gt;java.security.NoSuchAlgorithmException: Cannot find any provider supporting AES/ECB/PKCS7PADDING&lt;/a&gt;
+ * I will point out that PKCS#5 and PKCS#7 actually specify exactly
+ * the same type of padding (they are the same!),
+ * but it&apos;s called #5 when used in this context. :)
+ */
+function encryptByDES(message, key) {
+    // For the key, when you pass a string,
+    // it&apos;s treated as a passphrase and used to derive an actual key and IV.
+    // Or you can pass a WordArray that represents the actual key.
+    // If you pass the actual key, you must also pass the actual IV.
+    var keyHex = CryptoJS.enc.Utf8.parse(key);
+    // console.log(CryptoJS.enc.Utf8.stringify(keyHex), CryptoJS.enc.Hex.stringify(keyHex));
+    // console.log(CryptoJS.enc.Hex.parse(CryptoJS.enc.Utf8.parse(key).toString(CryptoJS.enc.Hex)));
+    // CryptoJS use CBC as the default mode, and Pkcs7 as the default padding scheme
+    var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    // decrypt encrypt result
+    // var decrypted = CryptoJS.DES.decrypt(encrypted, keyHex, {
+    //     mode: CryptoJS.mode.ECB,
+    //     padding: CryptoJS.pad.Pkcs7
+    // });
+    // console.log(decrypted.toString(CryptoJS.enc.Utf8));
+    // when mode is CryptoJS.mode.CBC (default mode), you must set iv param
+    // var iv = &apos;inputvec&apos;;
+    // var ivHex = CryptoJS.enc.Hex.parse(CryptoJS.enc.Utf8.parse(iv).toString(CryptoJS.enc.Hex));
+    // var encrypted = CryptoJS.DES.encrypt(message, keyHex, { iv: ivHex, mode: CryptoJS.mode.CBC });
+    // var decrypted = CryptoJS.DES.decrypt(encrypted, keyHex, { iv: ivHex, mode: CryptoJS.mode.CBC });
+    // console.log(&apos;encrypted.toString()  -&gt; base64(ciphertext)  :&apos;, encrypted.toString());
+    // console.log(&apos;base64(ciphertext)    &lt;- encrypted.toString():&apos;, encrypted.ciphertext.toString(CryptoJS.enc.Base64));
+    // console.log(&apos;ciphertext.toString() -&gt; ciphertext hex      :&apos;, encrypted.ciphertext.toString());
+    return encrypted.toString();
+}
+/**
+ * Decrypt ciphertext by DES in ECB mode and Pkcs7 padding scheme
+ * 
+ * @param  {String} ciphertext(base64 string)
+ * @param  {String} key
+ * @return {String} plaintext
+ *
+ * @author Sun
+ * @version 2013-5-15
+ */
+function decryptByDES(ciphertext, key) {
+    var keyHex = CryptoJS.enc.Utf8.parse(key);
+    // direct decrypt ciphertext
+    var decrypted = CryptoJS.DES.decrypt({
+        ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+    }, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
+var message = &apos;Message&apos;;
+var key = &apos;abcd1234&apos;;
+var ciphertext = encryptByDES(message, key);
+// ciphertext: 8dKft9vkZ4I=
+console.info(&apos;ciphertext:&apos;, ciphertext);
+var plaintext = decryptByDES(ciphertext, key);
+// plaintext : Message
+console.info(&apos;plaintext :&apos;, plaintext);
+&lt;/script&gt;
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+            <a href="/tags/CryptoJS/" rel="tag">#CryptoJS</a>
+          
+            <a href="/tags/加密/" rel="tag">#加密</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/22/锐速/" rel="next" title="锐速">
+                <i class="fa fa-chevron-left"></i> 锐速
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/06/a_history_of_unix_directory_structure/" rel="prev" title="Unix目录结构的来历">
+                Unix目录结构的来历 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/10/01/CryptoJS-DES加密/"
+           data-title="CryptoJS DES加密" data-url="http://yoursite.com/2014/10/01/CryptoJS-DES加密/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

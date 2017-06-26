@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="jQuery," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="jQuery最佳实践
+
+使用最新版本的jQueryjQuery的版本更新很快，你应该总是使用最新的版本。因为新版本会改进性能，还有很多新功能。  
+下面就来看看，不同版本的jQuery性能差异有多大。这里是三条最常见的jQuery选择语句：  
+$(&amp;apos;.elem&amp;apos;)
+$(&amp;apos;.elem&amp;apos;, context)
+context.find(&amp;apos;.elem&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery最佳实践">
+<meta property="og:url" content="http://yoursite.com/2014/12/11/jQuery最佳实践/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="jQuery最佳实践
+
+使用最新版本的jQueryjQuery的版本更新很快，你应该总是使用最新的版本。因为新版本会改进性能，还有很多新功能。  
+下面就来看看，不同版本的jQuery性能差异有多大。这里是三条最常见的jQuery选择语句：  
+$(&amp;apos;.elem&amp;apos;)
+$(&amp;apos;.elem&amp;apos;, context)
+context.find(&amp;apos;.elem&amp;">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery最佳实践">
+<meta name="twitter:description" content="jQuery最佳实践
+
+使用最新版本的jQueryjQuery的版本更新很快，你应该总是使用最新的版本。因为新版本会改进性能，还有很多新功能。  
+下面就来看看，不同版本的jQuery性能差异有多大。这里是三条最常见的jQuery选择语句：  
+$(&amp;apos;.elem&amp;apos;)
+$(&amp;apos;.elem&amp;apos;, context)
+context.find(&amp;apos;.elem&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/12/11/jQuery最佳实践/"/>
+
+  <title> jQuery最佳实践 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                jQuery最佳实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-11T00:22:54+08:00" content="2014-12-11 00:22:54">
+              2014-12-11 00:22:54
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/11/jQuery最佳实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/11/jQuery最佳实践/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2011/08/jquery_best_practices.html" target="_blank" rel="external">jQuery最佳实践</a></p>
+</blockquote>
+<h3 id="使用最新版本的jQuery"><a href="#使用最新版本的jQuery" class="headerlink" title="使用最新版本的jQuery"></a>使用最新版本的jQuery</h3><p>jQuery的版本更新很快，你应该总是使用最新的版本。因为新版本会改进性能，还有很多新功能。  </p>
+<p>下面就来看看，不同版本的jQuery性能差异有多大。这里是三条最常见的jQuery选择语句：  </p>
+<pre><code>$(&apos;.elem&apos;)
+$(&apos;.elem&apos;, context)
+context.find(&apos;.elem&apos;)
+</code></pre><p>我们用1.4.2、1.4.4、1.6.2三个版本的jQuery测试，看看浏览器在1秒内能够执行多少次。结果如下：  </p>
+<p>可以看到，1.6.2版本的运行次数，远远超过两个老版本。尤其是第一条语句，性能有数倍的提高。  </p>
+<p>其他语句的测试，比如.attr(“value”)和.val()，也是新版本的jQuery表现好于老版本。  </p>
+<h3 id="用对选择器"><a href="#用对选择器" class="headerlink" title="用对选择器"></a>用对选择器</h3><p>在jQuery中，你可以用多种选择器，选择同一个网页元素。每种选择器的性能是不一样的，你应该了解它们的性能差异。  </p>
+<h4 id="最快的选择器：id选择器和元素标签选择器"><a href="#最快的选择器：id选择器和元素标签选择器" class="headerlink" title="最快的选择器：id选择器和元素标签选择器"></a>最快的选择器：id选择器和元素标签选择器</h4><p>举例来说，下面的语句性能最佳：  </p>
+<pre><code>$(&apos;#id&apos;)
+$(&apos;form&apos;)
+$(&apos;input&apos;)
+</code></pre><p>遇到这些选择器的时候，jQuery内部会自动调用浏览器的原生方法（比如getElementById()），所以它们的执行速度快。  </p>
+<h4 id="较慢的选择器：class选择器"><a href="#较慢的选择器：class选择器" class="headerlink" title="较慢的选择器：class选择器"></a>较慢的选择器：class选择器</h4><p>$(‘.className’)的性能，取决于不同的浏览器。  </p>
+<p>Firefox、Safari、Chrome、Opera浏览器，都有原生方法  </p>
+<p>getElementByClassName()，所以速度并不慢。但是，IE5-IE8都没有部署这个方法，所以这个选择器在IE中会相当慢。  </p>
+<h4 id="最慢的选择器：伪类选择器和属性选择器"><a href="#最慢的选择器：伪类选择器和属性选择器" class="headerlink" title="最慢的选择器：伪类选择器和属性选择器"></a>最慢的选择器：伪类选择器和属性选择器</h4><p>先来看例子。找出网页中所有的隐藏元素，就要用到伪类选择器：  </p>
+<pre><code>$(&apos;:hidden&apos;)
+</code></pre><p>属性选择器的例子则是：</p>
+<pre><code>$(&apos;[attribute=value]&apos;)
+</code></pre><p>这两种语句是最慢的，因为浏览器没有针对它们的原生方法。但是，一些浏览器的新版本，增加了querySelector()和querySelectorAll()方法，因此会使这类选择器的性能有大幅提高。  </p>
+<p>最后是不同选择器的性能比较图。  </p>
+<p>可以看到，ID选择器遥遥领先，然后是标签选择器，第三是Class选择器，其他选择器都非常慢。  </p>
+<h3 id="理解子元素和父元素的关系"><a href="#理解子元素和父元素的关系" class="headerlink" title="理解子元素和父元素的关系"></a>理解子元素和父元素的关系</h3><p>下面六个选择器，都是从父元素中选择子元素。你知道哪个速度最快，哪个速度最慢吗？  </p>
+<pre><code>$(&apos;.child&apos;, $parent)
+$parent.find(&apos;.child&apos;)
+$parent.children(&apos;.child&apos;)
+$(&apos;#parent &gt; .child&apos;)
+$(&apos;#parent .child&apos;)
+$(&apos;.child&apos;, $(&apos;#parent&apos;))
+</code></pre><p>我们一句句来看。  </p>
+<h4 id="‘-child’-parent"><a href="#‘-child’-parent" class="headerlink" title="$(‘.child’, $parent)"></a>$(‘.child’, $parent)</h4><p>这条语句的意思是，给定一个DOM对象，然后从中选择一个子元素。jQuery会自动把这条语句转成$.parent.find(‘child’)，这会导致一定的性能损失。它比最快的形式慢了5%-10%。  </p>
+<h4 id="parent-find-‘-child’"><a href="#parent-find-‘-child’" class="headerlink" title="$parent.find(‘.child’)"></a>$parent.find(‘.child’)</h4><p>这条是最快的语句。.find()方法会调用浏览器的原生方法（getElementById，getElementByName，getElementByTagName等等），所以速度较快。  </p>
+<h4 id="parent-children-‘-child’"><a href="#parent-children-‘-child’" class="headerlink" title="$parent.children(‘.child’)"></a>$parent.children(‘.child’)</h4><p>这条语句在jQuery内部，会使用$.sibling()和javascript的nextSibling()方法，一个个遍历节点。它比最快的形式大约慢50%。</p>
+<h4 id="‘-parent-gt-child’"><a href="#‘-parent-gt-child’" class="headerlink" title="$(‘#parent &gt; .child’)"></a>$(‘#parent &gt; .child’)</h4><p>jQuery内部使用Sizzle引擎，处理各种选择器。Sizzle引擎的选择顺序是从右到左，所以这条语句是先选.child，然后再一个个过滤出父元素#parent，这导致它比最快的形式大约慢70%。  </p>
+<h4 id="‘-parent-child’"><a href="#‘-parent-child’" class="headerlink" title="$(‘#parent .child’)"></a>$(‘#parent .child’)</h4><p>这条语句与上一条是同样的情况。但是，上一条只选择直接的子元素，这一条可以于选择多级子元素，所以它的速度更慢，大概比最快的形式慢了77%。  </p>
+<h4 id="‘-child’-‘-parent’"><a href="#‘-child’-‘-parent’" class="headerlink" title="$(‘.child’, $(‘#parent’))"></a>$(‘.child’, $(‘#parent’))</h4><p>jQuery内部会将这条语句转成$(‘#parent’).find(‘.child’)，比最快的形式慢了23%。  </p>
+<p>所以，最佳选择是$parent.find(‘.child’)。而且，由于$parent往往在前面的操作已经生成，jQuery会进行缓存，所以进一步加快了执行速度。<br>具体的例子和比较结果，请看这里。  </p>
+<h3 id="不要过度使用jQuery"><a href="#不要过度使用jQuery" class="headerlink" title="不要过度使用jQuery"></a>不要过度使用jQuery</h3><p>jQuery速度再快，也无法与原生的javascript方法相比。所以有原生方法可以使用的场合，尽量避免使用jQuery。  </p>
+<p>以最简单的选择器为例，document.getElementById(“foo”)要比$(“#foo”)快10多倍。  </p>
+<p>再来看一个例子，为a元素绑定一个处理点击事件的函数：  </p>
+<pre><code>$(&apos;a&apos;).click(function(){
+    alert($(this).attr(&apos;id&apos;));
+});
+</code></pre><p>这段代码的意思是，点击a元素后，弹出该元素的id属性。为了获取这个属性，必须连续两次调用jQuery，第一次是$(this)，第二次是attr(‘id’)。  </p>
+<p>事实上，这种处理完全不必要。更正确的写法是，直接采用javascript原生方法，调用this.id：  </p>
+<pre><code>$(&apos;a&apos;).click(function(){
+    alert(this.id);
+});
+</code></pre><p>根据测试，this.id的速度比$(this).attr(‘id’)快了20多倍。  </p>
+<h3 id="做好缓存"><a href="#做好缓存" class="headerlink" title="做好缓存"></a>做好缓存</h3><p>选中某一个网页元素，是开销很大的步骤。所以，使用选择器的次数应该越少越好，并且尽可能缓存选中的结果，便于以后反复使用。  </p>
+<p>比如，下面这样的写法就是糟糕的写法：  </p>
+<pre><code>jQuery(&apos;#top&apos;).find(&apos;p.classA&apos;);
+jQuery(&apos;#top&apos;).find(&apos;p.classB&apos;);
+</code></pre><p>更好的写法是：  </p>
+<pre><code>var cached = jQuery(&apos;#top&apos;);
+cached.find(&apos;p.classA&apos;);
+cached.find(&apos;p.classB&apos;);
+</code></pre><p>根据测试，缓存比不缓存，快了2-3倍。  </p>
+<h3 id="使用链式写法"><a href="#使用链式写法" class="headerlink" title="使用链式写法"></a>使用链式写法</h3><p>jQuery的一大特点，就是允许使用链式写法。  </p>
+<pre><code>$(&apos;div&apos;).find(&apos;h3&apos;).eq(2).html(&apos;Hello&apos;);
+</code></pre><p>采用链式写法时，jQuery自动缓存每一步的结果，因此比非链式写法要快。根据测试，链式写法比（不使用缓存的）非链式写法，大约快了25%。  </p>
+<h3 id="事件的委托处理（Event-Delegation）"><a href="#事件的委托处理（Event-Delegation）" class="headerlink" title="事件的委托处理（Event Delegation）"></a>事件的委托处理（Event Delegation）</h3><p>javascript的事件模型，采用”冒泡”模式，也就是说，子元素的事件会逐级向上”冒泡”，成为父元素的事件。  </p>
+<p>利用这一点，可以大大简化事件的绑定。比如，有一个表格（table元素），里面有100个格子（td元素），现在要求在每个格子上面绑定一个点击事件（click），请问是否需要将下面的命令执行100次？  </p>
+<pre><code>$(&quot;td&quot;).on(&quot;click&quot;, function(){
+    $(this).toggleClass(&quot;click&quot;);
+});
+</code></pre><p>回答是不需要，我们只要把这个事件绑定在table元素上面就可以了，因为td元素发生点击事件之后，这个事件会”冒泡”到父元素table上面，从而被监听到。  </p>
+<p>因此，这个事件只需要在父元素绑定1次即可，而不需要在子元素上绑定100次，从而大大提高性能。这就叫事件的”委托处理”，也就是子元素”委托”父元素处理这个事件。  </p>
+<pre><code>$(&quot;table&quot;).on(&quot;click&quot;, &quot;td&quot;, function(){
+    $(this).toggleClass(&quot;click&quot;);
+});
+</code></pre><p>更好的写法，则是把事件绑定在document对象上面。  </p>
+<pre><code>$(document).on(&quot;click&quot;, &quot;td&quot;, function(){
+    $(this).toggleClass(&quot;click&quot;);
+});
+</code></pre><p>如果要取消事件的绑定，就使用off()方法。  </p>
+<pre><code>$(document).off(&quot;click&quot;, &quot;td&quot;);
+</code></pre><h3 id="少改动DOM结构"><a href="#少改动DOM结构" class="headerlink" title="少改动DOM结构"></a>少改动DOM结构</h3><ol>
+<li><p>改动DOM结构开销很大，因此不要频繁使用.append()、.insertBefore()和.insetAfter()这样的方法。  </p>
+<p> 如果要插入多个元素，就先把它们合并，然后再一次性插入。根据测试，合并插入比不合并插入，快了将近10倍。  </p>
+</li>
+<li><p>如果你要对一个DOM元素进行大量处理，应该先用.detach()方法，把这个元素从DOM中取出来，处理完毕以后，再重新插回文档。根据测试，使用.detach()方法比不使用时，快了60%。  </p>
+</li>
+<li><p>如果你要在DOM元素上储存数据，不要写成下面这样：  </p>
+<pre><code>var elem = $(&apos;#elem&apos;);
+elem.data(key,value);
+</code></pre><p> 而要写成  </p>
+<pre><code>var elem = $(&apos;#elem&apos;);
+$.data(elem[0],key,value);
+</code></pre><p> 根据测试，后一种写法要比前一种写法，快了将近10倍。因为elem.data()方法是定义在jQuery函数的prototype对象上面的，而$.data()方法是定义jQuery函数上面的，调用的时候不从复杂的jQuery对象上调用，所以速度快得多。（此处可以参阅下面第10点。）  </p>
+</li>
+<li><p>插入html代码的时候，浏览器原生的innterHTML()方法比jQuery对象的html()更快。  </p>
+</li>
+</ol>
+<h3 id="正确处理循环"><a href="#正确处理循环" class="headerlink" title="正确处理循环"></a>正确处理循环</h3><p>循环总是一种比较耗时的操作，如果可以使用复杂的选择器直接选中元素，就不要使用循环，去一个个辨认元素。  </p>
+<p>javascript原生循环方法for和while，要比jQuery的.each()方法快，应该优先使用原生方法。  </p>
+<h3 id="尽量少生成jQuery对象"><a href="#尽量少生成jQuery对象" class="headerlink" title="尽量少生成jQuery对象"></a>尽量少生成jQuery对象</h3><p>每当你使用一次选择器（比如$(‘#id’)），就会生成一个jQuery对象。jQuery对象是一个很庞大的对象，带有很多属性和方法，会占用不少资源。所以，尽量少生成jQuery对象。  </p>
+<p>举例来说，许多jQuery方法都有两个版本，一个是供jQuery对象使用的版本，另一个是供jQuery函数使用的版本。下面两个例子，都是取出一个元素的文本，使用的都是text()方法。  </p>
+<p>你既可以使用针对jQuery对象的版本：  </p>
+<pre><code>var $text = $(&quot;#text&quot;);
+var $ts = $text.text();
+</code></pre><p>也可以使用针对jQuery函数的版本：  </p>
+<pre><code>var $text = $(&quot;#text&quot;);
+var $ts = $.text($text);
+</code></pre><p>由于后一种针对jQuery函数的版本不通过jQuery对象操作，所以相对开销较小，速度比较快。  </p>
+<h3 id="选择作用域链最短的方法"><a href="#选择作用域链最短的方法" class="headerlink" title="选择作用域链最短的方法"></a>选择作用域链最短的方法</h3><p>严格地说，这一条原则对所有Javascript编程都适用，而不仅仅针对jQuery。  </p>
+<p>我们知道，Javascript的变量采用链式作用域。读取变量的时候，先在当前作用域寻找该变量，如果找不到，就前往上一层的作用域寻找该变量。这样的设计，使得读取局部变量比读取全局变量快得多。  </p>
+<p>请看下面两段代码，第一段代码是读取全局变量：  </p>
+<pre><code>var a = 0;
+function x(){
+    a += 1;
+}
+</code></pre><p>第二段代码是读取局部变量：  </p>
+<pre><code>function y(){
+    var a = 0;
+    a += 1;
+}
+</code></pre><p>第二段代码读取变量a的时候，不用前往上一层作用域，所以要比第一段代码快五六倍。  </p>
+<p>同理，在调用对象方法的时候，closure模式要比prototype模式更快。  </p>
+<p>prototype模式：  </p>
+<pre><code>var X = function(name){ this.name = name; }
+X.prototype.get_name = function() { return this.name; };
+</code></pre><p>closure模式：  </p>
+<pre><code>var Y = function(name) {
+    var y = { name: name };
+    return { &apos;get_name&apos;: function() { return y.name; } };
+};
+</code></pre><p>同样是get_name()方法，closure模式更快。  </p>
+<h3 id="使用Pub-Sub模式管理事件"><a href="#使用Pub-Sub模式管理事件" class="headerlink" title="使用Pub/Sub模式管理事件"></a>使用Pub/Sub模式管理事件</h3><p>当发生某个事件后，如果要连续执行多个操作，最好不要写成下面这样：  </p>
+<pre><code>function doSomthing{
+    doSomethingElse();
+    doOneMoreThing();
+}
+</code></pre><p>而要改用事件触发的形式：  </p>
+<pre><code>function doSomething{
+    $.trigger(&quot;DO_SOMETHING_DONE&quot;);
+}
+$(document).on(&quot;DO_SOMETHING_DONE&quot;, function(){
+    doSomethingElse(); }
+);
+</code></pre><p>还可以考虑使用deferred对象。  </p>
+<pre><code>function doSomething(){
+    var dfd = new $.Deferred();
+    //Do something async, then... 
+    //dfd.resolve();
+    return dfd.promise();
+}
+function doSomethingElse(){
+    $.when(doSomething()).then(//The next thing);
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jQuery/" rel="tag">#jQuery</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/09/jQuery设计思想/" rel="next" title="jQuery设计思想">
+                <i class="fa fa-chevron-left"></i> jQuery设计思想
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/12/jQuery的deferred对象详解/" rel="prev" title="jQuery的deferred对象详解">
+                jQuery的deferred对象详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/12/11/jQuery最佳实践/"
+           data-title="jQuery最佳实践" data-url="http://yoursite.com/2014/12/11/jQuery最佳实践/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用最新版本的jQuery"><span class="nav-number">1.</span> <span class="nav-text">使用最新版本的jQuery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用对选择器"><span class="nav-number">2.</span> <span class="nav-text">用对选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最快的选择器：id选择器和元素标签选择器"><span class="nav-number">2.1.</span> <span class="nav-text">最快的选择器：id选择器和元素标签选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较慢的选择器：class选择器"><span class="nav-number">2.2.</span> <span class="nav-text">较慢的选择器：class选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最慢的选择器：伪类选择器和属性选择器"><span class="nav-number">2.3.</span> <span class="nav-text">最慢的选择器：伪类选择器和属性选择器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解子元素和父元素的关系"><span class="nav-number">3.</span> <span class="nav-text">理解子元素和父元素的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#‘-child’-parent"><span class="nav-number">3.1.</span> <span class="nav-text">$(‘.child’, $parent)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-find-‘-child’"><span class="nav-number">3.2.</span> <span class="nav-text">$parent.find(‘.child’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parent-children-‘-child’"><span class="nav-number">3.3.</span> <span class="nav-text">$parent.children(‘.child’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#‘-parent-gt-child’"><span class="nav-number">3.4.</span> <span class="nav-text">$(‘#parent > .child’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#‘-parent-child’"><span class="nav-number">3.5.</span> <span class="nav-text">$(‘#parent .child’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#‘-child’-‘-parent’"><span class="nav-number">3.6.</span> <span class="nav-text">$(‘.child’, $(‘#parent’))</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要过度使用jQuery"><span class="nav-number">4.</span> <span class="nav-text">不要过度使用jQuery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#做好缓存"><span class="nav-number">5.</span> <span class="nav-text">做好缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用链式写法"><span class="nav-number">6.</span> <span class="nav-text">使用链式写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件的委托处理（Event-Delegation）"><span class="nav-number">7.</span> <span class="nav-text">事件的委托处理（Event Delegation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#少改动DOM结构"><span class="nav-number">8.</span> <span class="nav-text">少改动DOM结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确处理循环"><span class="nav-number">9.</span> <span class="nav-text">正确处理循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量少生成jQuery对象"><span class="nav-number">10.</span> <span class="nav-text">尽量少生成jQuery对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择作用域链最短的方法"><span class="nav-number">11.</span> <span class="nav-text">选择作用域链最短的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Pub-Sub模式管理事件"><span class="nav-number">12.</span> <span class="nav-text">使用Pub/Sub模式管理事件</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,理解计算机,SSH," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="SSH原理与运用（二）：远程操作与端口转发
+
+远程操作SSH不仅可以用于远程主机登录，还可以直接在远程主机上执行操作。上一节的操作，就是一个例子：  
+$ ssh user@host &amp;apos;mkdir -p .ssh &amp;amp;&amp;amp; cat &amp;gt;&amp;gt; .ssh/authorized_keys&amp;apos; &amp;lt; ~/.ssh/id_rsa.pub
+单引号中间的部分，表示在远">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSH原理与运用（二）：远程操作与端口转发">
+<meta property="og:url" content="http://yoursite.com/2014/12/22/ssh_port_forwarding/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="SSH原理与运用（二）：远程操作与端口转发
+
+远程操作SSH不仅可以用于远程主机登录，还可以直接在远程主机上执行操作。上一节的操作，就是一个例子：  
+$ ssh user@host &amp;apos;mkdir -p .ssh &amp;amp;&amp;amp; cat &amp;gt;&amp;gt; .ssh/authorized_keys&amp;apos; &amp;lt; ~/.ssh/id_rsa.pub
+单引号中间的部分，表示在远">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSH原理与运用（二）：远程操作与端口转发">
+<meta name="twitter:description" content="SSH原理与运用（二）：远程操作与端口转发
+
+远程操作SSH不仅可以用于远程主机登录，还可以直接在远程主机上执行操作。上一节的操作，就是一个例子：  
+$ ssh user@host &amp;apos;mkdir -p .ssh &amp;amp;&amp;amp; cat &amp;gt;&amp;gt; .ssh/authorized_keys&amp;apos; &amp;lt; ~/.ssh/id_rsa.pub
+单引号中间的部分，表示在远">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2014/12/22/ssh_port_forwarding/"/>
+
+  <title> SSH原理与运用（二）：远程操作与端口转发 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SSH原理与运用（二）：远程操作与端口转发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-22T20:25:12+08:00" content="2014-12-22 20:25:12">
+              2014-12-22 20:25:12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/22/ssh_port_forwarding/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/22/ssh_port_forwarding/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html" target="_blank" rel="external">SSH原理与运用（二）：远程操作与端口转发</a></p>
+</blockquote>
+<h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><p>SSH不仅可以用于远程主机登录，还可以直接在远程主机上执行操作。<br>上一节的操作，就是一个例子：  </p>
+<pre><code>$ ssh user@host &apos;mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys&apos; &lt; ~/.ssh/id_rsa.pub
+</code></pre><p>单引号中间的部分，表示在远程主机上执行的操作；后面的输入重定向，表示数据通过SSH传向远程主机。  </p>
+<p>这就是说，SSH可以在用户和远程主机之间，建立命令和数据的传输通道，因此很多事情都可以通过SSH来完成。  </p>
+<p>下面看几个例子。  </p>
+<h4 id="【例1】"><a href="#【例1】" class="headerlink" title="【例1】"></a>【例1】</h4><p>将$HOME/src/目录下面的所有文件，复制到远程主机的$HOME/src/目录。  </p>
+<pre><code>$ cd &amp;&amp; tar czv src | ssh user@host &apos;tar xz&apos;
+</code></pre><h4 id="【例2】"><a href="#【例2】" class="headerlink" title="【例2】"></a>【例2】</h4><p>将远程主机$HOME/src/目录下面的所有文件，复制到用户的当前目录。  </p>
+<pre><code>$ ssh user@host &apos;tar cz src&apos; | tar xzv
+</code></pre><h4 id="【例3】"><a href="#【例3】" class="headerlink" title="【例3】"></a>【例3】</h4><p>查看远程主机是否运行进程httpd。  </p>
+<pre><code>$ ssh user@host &apos;ps ax | grep [h]ttpd&apos;
+</code></pre><h3 id="绑定本地端口"><a href="#绑定本地端口" class="headerlink" title="绑定本地端口"></a>绑定本地端口</h3><p>既然SSH可以传送数据，那么我们可以让那些不加密的网络连接，全部改走SSH连接，从而提高安全性。  </p>
+<p>假定我们要让8080端口的数据，都通过SSH传向远程主机，命令就这样写：  </p>
+<pre><code>$ ssh -D 8080 user@host
+</code></pre><p>SSH会建立一个socket，去监听本地的8080端口。一旦有数据传向那个端口，就自动把它转移到SSH连接上面，发往远程主机。可以想象，如果8080端口原来是一个不加密端口，现在将变成一个加密端口。  </p>
+<h3 id="本地端口转发"><a href="#本地端口转发" class="headerlink" title="本地端口转发"></a>本地端口转发</h3><p>有时，绑定本地端口还不够，还必须指定数据传送的目标主机，从而形成点对点的”端口转发”。为了区别后文的”远程端口转发”，我们把这种情况称为”本地端口转发”（Local forwarding）。  </p>
+<p>假定host1是本地主机，host2是远程主机。由于种种原因，这两台主机之间无法连通。但是，另外还有一台host3，可以同时连通前面两台主机。因此，很自然的想法就是，通过host3，将host1连上host2。  </p>
+<p>我们在host1执行下面的命令：  </p>
+<pre><code>$ ssh -L 2121:host2:21 host3
+</code></pre><p>命令中的L参数一共接受三个值，分别是”本地端口:目标主机:目标主机端口”，它们之间用冒号分隔。这条命令的意思，就是指定SSH绑定本地端口2121，然后指定host3将所有的数据，转发到目标主机host2的21端口（假定host2运行FTP，默认端口为21）。  </p>
+<p>这样一来，我们只要连接host1的2121端口，就等于连上了host2的21端口。  </p>
+<pre><code>$ ftp localhost:2121
+</code></pre><p>“本地端口转发”使得host1和host3之间仿佛形成一个数据传输的秘密隧道，因此又被称为”SSH隧道”。  </p>
+<p>下面是一个比较有趣的例子。  </p>
+<pre><code>$ ssh -L 5900:localhost:5900 host3
+</code></pre><p>它表示将本机的5900端口绑定host3的5900端口（这里的localhost指的是host3，因为目标主机是相对host3而言的）。  </p>
+<p>另一个例子是通过host3的端口转发，ssh登录host2。  </p>
+<pre><code>$ ssh -L 9001:host2:22 host3
+</code></pre><p>这时，只要ssh登录本机的9001端口，就相当于登录host2了。  </p>
+<pre><code>$ ssh -p 9001 localhost
+</code></pre><p>上面的-p参数表示指定登录端口。  </p>
+<h3 id="远程端口转发"><a href="#远程端口转发" class="headerlink" title="远程端口转发"></a>远程端口转发</h3><p>既然”本地端口转发”是指绑定本地端口的转发，那么”远程端口转发”（remote forwarding）当然是指绑定远程端口的转发。  </p>
+<p>还是接着看上面那个例子，host1与host2之间无法连通，必须借助host3转发。但是，特殊情况出现了，host3是一台内网机器，它可以连接外网的host1，但是反过来就不行，外网的host1连不上内网的host3。这时，”本地端口转发”就不能用了，怎么办？  </p>
+<p>解决办法是，既然host3可以连host1，那么就从host3上建立与host1的SSH连接，然后在host1上使用这条连接就可以了。  </p>
+<p>我们在host3执行下面的命令：  </p>
+<pre><code>$ ssh -R 2121:host2:21 host1
+</code></pre><p>R参数也是接受三个值，分别是”远程主机端口:目标主机:目标主机端口”。这条命令的意思，就是让host1监听它自己的2121端口，然后将所有数据经由host3，转发到host2的21端口。由于对于host3来说，host1是远程主机，所以这种情况就被称为”远程端口绑定”。  </p>
+<p>绑定之后，我们在host1就可以连接host2了：  </p>
+<pre><code>$ ftp localhost:2121
+</code></pre><p>这里必须指出，”远程端口转发”的前提条件是，host1和host3两台主机都有sshD和ssh客户端。  </p>
+<h3 id="SSH的其他参数"><a href="#SSH的其他参数" class="headerlink" title="SSH的其他参数"></a>SSH的其他参数</h3><p>SSH还有一些别的参数，也值得介绍。  </p>
+<p>N参数，表示只连接远程主机，不打开远程shell；T参数，表示不为这个连接分配TTY。这个两个参数可以放在一起用，代表这个SSH连接只用来传数据，不执行远程操作。  </p>
+<pre><code>$ ssh -NT -D 8080 host
+</code></pre><p>f参数，表示SSH连接成功后，转入后台运行。这样一来，你就可以在不中断SSH连接的情况下，在本地shell中执行其他操作。  </p>
+<pre><code>$ ssh -f -D 8080 host
+</code></pre><p>要关闭这个后台连接，就只有用kill命令去杀掉进程。  </p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li>SSH, The Secure Shell: The Definitive Guide: <a href="http://docstore.mik.ua/orelly/networking_2ndEd/ssh/ch02_04.htm" target="_blank" rel="external">2.4. Authentication by Cryptographic Key</a>, O’reilly</li>
+<li>SSH, The Secure Shell: The Definitive Guide: <a href="http://docstore.mik.ua/orelly/networking_2ndEd/ssh/ch09_02.htm" target="_blank" rel="external">9.2. Port Forwarding</a>, O’reilly</li>
+<li>Shebang: <a href="http://shebang.brandonmintern.com/tips-for-remote-unix-work-ssh-screen-and-vnc" target="_blank" rel="external">Tips for Remote Unix Work (SSH, screen, and VNC</a></li>
+<li>brihatch: <a href="http://www.symantec.com/connect/articles/ssh-host-key-protection" target="_blank" rel="external">SSH Host Key Protection</a></li>
+<li>brihatch: <a href="http://www.symantec.com/connect/articles/ssh-user-identities" target="_blank" rel="external">SSH User Identities</a></li>
+<li>IBM developerWorks: <a href="http://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/" target="_blank" rel="external">实战 SSH 端口转发</a>　</li>
+<li>Jianing YANG：<a href="http://blog.jianingy.com/2009/09/ssh隧道技术简介/" target="_blank" rel="external">ssh隧道技术简介</a></li>
+<li>WikiBooks: <a href="http://en.wikibooks.org/wiki/Internet_Technologies/SSH" target="_blank" rel="external">Internet Technologies/SSH</a></li>
+<li>Buddhika Chamith: <a href="http://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained/" target="_blank" rel="external">SSH Tunneling Explained</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+            <a href="/tags/理解计算机/" rel="tag">#理解计算机</a>
+          
+            <a href="/tags/SSH/" rel="tag">#SSH</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/21/ssh_remote_login/" rel="next" title="SSH原理与运用（一）：远程登录">
+                <i class="fa fa-chevron-left"></i> SSH原理与运用（一）：远程登录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/22/XMLHttpRequest-Level-2-使用指南/" rel="prev" title="XMLHttpRequest Level 2 使用指南">
+                XMLHttpRequest Level 2 使用指南 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/12/22/ssh_port_forwarding/"
+           data-title="SSH原理与运用（二）：远程操作与端口转发" data-url="http://yoursite.com/2014/12/22/ssh_port_forwarding/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程操作"><span class="nav-number">1.</span> <span class="nav-text">远程操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#【例1】"><span class="nav-number">1.1.</span> <span class="nav-text">【例1】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【例2】"><span class="nav-number">1.2.</span> <span class="nav-text">【例2】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#【例3】"><span class="nav-number">1.3.</span> <span class="nav-text">【例3】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定本地端口"><span class="nav-number">2.</span> <span class="nav-text">绑定本地端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地端口转发"><span class="nav-number">3.</span> <span class="nav-text">本地端口转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程端口转发"><span class="nav-number">4.</span> <span class="nav-text">远程端口转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH的其他参数"><span class="nav-number">5.</span> <span class="nav-text">SSH的其他参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

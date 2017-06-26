@@ -1,0 +1,1185 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavsScript,ES2015," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="ECMAScript 2015简介
+
+ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。  
+ECMAScript和JavaScript的关系一个常见的问题是，ECMAScript和JavaScript到底是什么关系？  
+要讲清楚这个问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES2015——1.ECMAScript2015简介">
+<meta property="og:url" content="http://yoursite.com/2016/12/08/ES2015-1_intro/index.html">
+<meta property="og:site_name" content="zhuoyue">
+<meta property="og:description" content="ECMAScript 2015简介
+
+ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。  
+ECMAScript和JavaScript的关系一个常见的问题是，ECMAScript和JavaScript到底是什么关系？  
+要讲清楚这个问">
+<meta property="og:updated_time" content="2017-06-26T08:42:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES2015——1.ECMAScript2015简介">
+<meta name="twitter:description" content="ECMAScript 2015简介
+
+ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。  
+ECMAScript和JavaScript的关系一个常见的问题是，ECMAScript和JavaScript到底是什么关系？  
+要讲清楚这个问">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/08/ES2015-1_intro/"/>
+
+  <title> ES2015——1.ECMAScript2015简介 | zhuoyue </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c01c0e51b835643529ad3c2911ec1bb0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">zhuoyue</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">+1s</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ES2015——1.ECMAScript2015简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-08T10:11:06+08:00" content="2016-12-08 10:11:06">
+              2016-12-08 10:11:06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/08/ES2015-1_intro/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/08/ES2015-1_intro/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="external">ECMAScript 2015简介</a></p>
+</blockquote>
+<p>ECMAScript 6.0（以下简称ES6）是JavaScript语言的下一代标准，已经在2015年6月正式发布了。它的目标，是使得JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言。  </p>
+<h3 id="ECMAScript和JavaScript的关系"><a href="#ECMAScript和JavaScript的关系" class="headerlink" title="ECMAScript和JavaScript的关系"></a>ECMAScript和JavaScript的关系</h3><p>一个常见的问题是，ECMAScript和JavaScript到底是什么关系？  </p>
+<p>要讲清楚这个问题，需要回顾历史。1996年11月，JavaScript的创造者Netscape公司，决定将JavaScript提交给国际标准化组织ECMA，希望这种语言能够成为国际标准。次年，ECMA发布262号标准文件（ECMA-262）的第一版，规定了浏览器脚本语言的标准，并将这种语言称为ECMAScript，这个版本就是1.0版。  </p>
+<p>该标准从一开始就是针对JavaScript语言制定的，但是之所以不叫JavaScript，有两个原因。一是商标，Java是Sun公司的商标，根据授权协议，只有Netscape公司可以合法地使用JavaScript这个名字，且JavaScript本身也已经被Netscape公司注册为商标。二是想体现这门语言的制定者是ECMA，不是Netscape，这样有利于保证这门语言的开放性和中立性。  </p>
+<p>因此，ECMAScript和JavaScript的关系是，前者是后者的规格，后者是前者的一种实现（另外的ECMAScript方言还有Jscript和ActionScript）。日常场合，这两个词是可以互换的。  </p>
+<h3 id="ES6与ECMAScript-2015的关系"><a href="#ES6与ECMAScript-2015的关系" class="headerlink" title="ES6与ECMAScript 2015的关系"></a>ES6与ECMAScript 2015的关系</h3><p>媒体里面经常可以看到”ECMAScript 2015“这个词，它与ES6是什么关系呢？  </p>
+<p>2011年，ECMAScript 5.1版发布后，就开始制定6.0版了。因此，”ES6”这个词的原意，就是指JavaScript语言的下一个版本。  </p>
+<p>但是，因为这个版本引入的语法功能太多，而且制定过程当中，还有很多组织和个人不断提交新功能。事情很快就变得清楚了，不可能在一个版本里面包括所有将要引入的功能。常规的做法是先发布6.0版，过一段时间再发6.1版，然后是6.2版、6.3版等等。  </p>
+<p>但是，标准的制定者不想这样做。他们想让标准的升级成为常规流程：任何人在任何时候，都可以向标准委员会提交新语法的提案，然后标准委员会每个月开一次会，评估这些提案是否可以接受，需要哪些改进。如果经过多次会议以后，一个提案足够成熟了，就可以正式进入标准了。这就是说，标准的版本升级成为了一个不断滚动的流程，每个月都会有变动。  </p>
+<p>标准委员会最终决定，标准在每年的6月份正式发布一次，作为当年的正式版本。接下来的时间，就在这个版本的基础上做改动，直到下一年的6月份，草案就自然变成了新一年的版本。这样一来，就不需要以前的版本号了，只要用年份标记就可以了。  </p>
+<p>ES6的第一个版本，就这样在2015年6月发布了，正式名称就是《ECMAScript 2015标准》（简称ES2015）。2016年6月，小幅修订的《ECMAScript 2016标准》（简称ES2016）如期发布，这个版本可以看作是ES6.1版，因为两者的差异非常小（只新增了数组实例的includes方法和指数运算符），基本上是同一个标准。根据计划，2017年6月将发布ES2017标准。  </p>
+<p>因此，ES6既是一个历史名词，也是一个泛指，含义是5.1版以后的JavaScript的下一代标准，涵盖了ES2015、ES2016、ES2017等等，而ES2015则是正式名称，特指该年发布的正式版本的语言标准。本书中提到“ES6”的地方，一般是指ES2015标准，但有时也是泛指“下一代JavaScript语言”。  </p>
+<h3 id="语法提案的批准流程"><a href="#语法提案的批准流程" class="headerlink" title="语法提案的批准流程"></a>语法提案的批准流程</h3><p>任何人都可以向TC39标准委员会提案。一种新的语法从提案到变成正式标准，需要经历五个阶段。每个阶段的变动都需要由TC39委员会批准。  </p>
+<ul>
+<li>Stage 0 - Strawman（展示阶段）</li>
+<li>Stage 1 - Proposal（征求意见阶段）</li>
+<li>Stage 2 - Draft（草案阶段）</li>
+<li>Stage 3 - Candidate（候选人阶段）</li>
+<li>Stage 4 - Finished（定案阶段）</li>
+</ul>
+<p>一个提案只要能进入Stage 2，就差不多等于肯定会包括在以后的正式标准里面。ECMAScript当前的所有提案，可以在TC39的官方网站Github.com/tc39/ecma262查看。  </p>
+<p>本书的写作目标之一，是跟踪ECMAScript语言的最新进展，介绍5.1版本以后所有的新语法。对于那些明确将要列入标准的新语法，尤其是那些Babel转码器（详见后文）已经支持的功能，也将予以介绍。  </p>
+<h3 id="ECMAScript的历史"><a href="#ECMAScript的历史" class="headerlink" title="ECMAScript的历史"></a>ECMAScript的历史</h3><p>ES6从开始制定到最后发布，整整用了15年。  </p>
+<p>前面提到，ECMAScript 1.0是1997年发布的，接下来的两年，连续发布了ECMAScript 2.0（1998年6月）和ECMAScript 3.0（1999年12月）。3.0版是一个巨大的成功，在业界得到广泛支持，成为通行标准，奠定了JavaScript语言的基本语法，以后的版本完全继承。直到今天，初学者一开始学习JavaScript，其实就是在学3.0版的语法。  </p>
+<p>2000年，ECMAScript 4.0开始酝酿。这个版本最后没有通过，但是它的大部分内容被ES6继承了。因此，ES6制定的起点其实是2000年。  </p>
+<p>为什么ES4没有通过呢？因为这个版本太激进了，对ES3做了彻底升级，导致标准委员会的一些成员不愿意接受。ECMA的第39号技术专家委员会（Technical Committee 39，简称TC39）负责制订ECMAScript标准，成员包括Microsoft、Mozilla、Google等大公司。  </p>
+<p>2007年10月，ECMAScript 4.0版草案发布，本来预计次年8月发布正式版本。但是，各方对于是否通过这个标准，发生了严重分歧。以Yahoo、Microsoft、Google为首的大公司，反对JavaScript的大幅升级，主张小幅改动；以JavaScript创造者Brendan Eich为首的Mozilla公司，则坚持当前的草案。  </p>
+<p>2008年7月，由于对于下一个版本应该包括哪些功能，各方分歧太大，争论过于激烈，ECMA开会决定，中止ECMAScript 4.0的开发，将其中涉及现有功能改善的一小部分，发布为ECMAScript 3.1，而将其他激进的设想扩大范围，放入以后的版本，由于会议的气氛，该版本的项目代号起名为Harmony（和谐）。会后不久，ECMAScript 3.1就改名为ECMAScript 5。  </p>
+<p>2009年12月，ECMAScript 5.0版正式发布。Harmony项目则一分为二，一些较为可行的设想定名为JavaScript.next继续开发，后来演变成ECMAScript 6；一些不是很成熟的设想，则被视为JavaScript.next.next，在更远的将来再考虑推出。TC39委员会的总体考虑是，ES5与ES3基本保持兼容，较大的语法修正和新功能加入，将由JavaScript.next完成。当时，JavaScript.next指的是ES6，第六版发布以后，就指ES7。TC39的判断是，ES5会在2013年的年中成为JavaScript开发的主流标准，并在此后五年中一直保持这个位置。  </p>
+<p>2011年6月，ECMAscript 5.1版发布，并且成为ISO国际标准（ISO/IEC 16262:2011）。  </p>
+<p>2013年3月，ECMAScript 6草案冻结，不再添加新功能。新的功能设想将被放到ECMAScript 7。  </p>
+<p>2013年12月，ECMAScript 6草案发布。然后是12个月的讨论期，听取各方反馈。  </p>
+<p>2015年6月，ECMAScript 6正式通过，成为国际标准。从2000年算起，这时已经过去了15年。  </p>
+<h3 id="部署进度"><a href="#部署进度" class="headerlink" title="部署进度"></a>部署进度</h3><p>各大浏览器的最新版本，对ES6的支持可以查看kangax.github.io/es5-compat-table/es6/。随着时间的推移，支持度已经越来越高了，ES6的大部分特性都实现了。  </p>
+<p>Node.js是JavaScript语言的服务器运行环境，对ES6的支持度比浏览器更高。通过Node，可以体验更多ES6的特性。建议使用版本管理工具nvm，来安装Node，因为可以自由切换版本。不过，nvm不支持Windows系统，如果你使用Windows系统，下面的操作可以改用nvmw或nvm-windows代替。  </p>
+<p>安装nvm需要打开命令行窗口，运行下面的命令。  </p>
+<pre><code>$ curl -o- https://raw.githubusercontent.com/creationix/nvm/&lt;version number&gt;/install.sh | bash
+</code></pre><p>上面命令的version number处，需要用版本号替换。本节写作时的版本号是v0.29.0。该命令运行后，nvm会默认安装在用户主目录的.nvm子目录。  </p>
+<p>然后，激活nvm。  </p>
+<pre><code>$ source ~/.nvm/nvm.sh
+</code></pre><p>激活以后，安装Node的最新版。  </p>
+<pre><code>$ nvm install node
+</code></pre><p>安装完成后，切换到该版本。  </p>
+<pre><code>$ nvm use node
+</code></pre><p>使用下面的命令，可以查看Node所有已经实现的ES6特性。  </p>
+<pre><code>$ node --v8-options | grep harmony
+
+  --harmony_typeof
+  --harmony_scoping
+  --harmony_modules
+  --harmony_symbols
+  --harmony_proxies
+  --harmony_collections
+  --harmony_observation
+  --harmony_generators
+  --harmony_iteration
+  --harmony_numeric_literals
+  --harmony_strings
+  --harmony_arrays
+  --harmony_maths
+  --harmony
+</code></pre><p>上面命令的输出结果，会因为版本的不同而有所不同。  </p>
+<p>我写了一个ES-Checker模块，用来检查各种运行环境对ES6的支持情况。访问ruanyf.github.io/es-checker，可以看到您的浏览器支持ES6的程度。运行下面的命令，可以查看你正在使用的Node环境对ES6的支持程度。  </p>
+<pre><code>$ npm install -g es-checker
+$ es-checker
+
+=========================================
+Passes 24 feature Dectations
+Your runtime supports 57% of ECMAScript 6
+=========================================
+</code></pre><h3 id="Babel转码器"><a href="#Babel转码器" class="headerlink" title="Babel转码器"></a>Babel转码器</h3><p>Babel是一个广泛使用的ES6转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。这意味着，你可以用ES6的方式编写程序，又不用担心现有环境是否支持。下面是一个例子。  </p>
+<pre><code>// 转码前
+input.map(item =&gt; item + 1);
+
+// 转码后
+input.map(function (item) {
+  return item + 1;
+});
+</code></pre><p>上面的原始代码用了箭头函数，这个特性还没有得到广泛支持，Babel将其转为普通函数，就能在现有的JavaScript环境执行了。  </p>
+<h4 id="配置文件-babelrc"><a href="#配置文件-babelrc" class="headerlink" title="配置文件.babelrc"></a>配置文件.babelrc</h4><p>Babel的配置文件是.babelrc，存放在项目的根目录下。使用Babel的第一步，就是配置这个文件。  </p>
+<p>该文件用来设置转码规则和插件，基本格式如下。</p>
+<pre><code>{
+  &quot;presets&quot;: [],
+  &quot;plugins&quot;: []
+}
+</code></pre><p>presets字段设定转码规则，官方提供以下的规则集，你可以根据需要安装。  </p>
+<pre><code># ES2015转码规则
+$ npm install --save-dev babel-preset-es2015
+
+# react转码规则
+$ npm install --save-dev babel-preset-react
+
+# ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个
+$ npm install --save-dev babel-preset-stage-0
+$ npm install --save-dev babel-preset-stage-1
+$ npm install --save-dev babel-preset-stage-2
+$ npm install --save-dev babel-preset-stage-3
+</code></pre><p>然后，将这些规则加入.babelrc。  </p>
+<pre><code>{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;,
+    &quot;react&quot;,
+    &quot;stage-2&quot;
+  ],
+  &quot;plugins&quot;: []
+}
+</code></pre><p>注意，以下所有Babel工具和模块的使用，都必须先写好.babelrc。  </p>
+<h4 id="命令行转码babel-cli"><a href="#命令行转码babel-cli" class="headerlink" title="命令行转码babel-cli"></a>命令行转码babel-cli</h4><p>Babel提供babel-cli工具，用于命令行转码。</p>
+<p>它的安装命令如下。  </p>
+<pre><code>$ npm install --global babel-cli
+</code></pre><p>基本用法如下。  </p>
+<pre><code># 转码结果输出到标准输出
+$ babel example.js
+
+# 转码结果写入一个文件
+# --out-file 或 -o 参数指定输出文件
+$ babel example.js --out-file compiled.js
+# 或者
+$ babel example.js -o compiled.js
+
+# 整个目录转码
+# --out-dir 或 -d 参数指定输出目录
+$ babel src --out-dir lib
+# 或者
+$ babel src -d lib
+
+# -s 参数生成source map文件
+$ babel src -d lib -s
+</code></pre><p>上面代码是在全局环境下，进行Babel转码。这意味着，如果项目要运行，全局环境必须有Babel，也就是说项目产生了对环境的依赖。另一方面，这样做也无法支持不同项目使用不同版本的Babel。  </p>
+<p>一个解决办法是将babel-cli安装在项目之中。  </p>
+<pre><code># 安装
+$ npm install --save-dev babel-cli
+</code></pre><p>然后，改写package.json。  </p>
+<pre><code>{
+  // ...
+  &quot;devDependencies&quot;: {
+    &quot;babel-cli&quot;: &quot;^6.0.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;babel src -d lib&quot;
+  },
+}
+</code></pre><p>转码的时候，就执行下面的命令。</p>
+<pre><code>$ npm run build
+</code></pre><h4 id="babel-node"><a href="#babel-node" class="headerlink" title="babel-node"></a>babel-node</h4><p>babel-cli工具自带一个babel-node命令，提供一个支持ES6的REPL环境。它支持Node的REPL环境的所有功能，而且可以直接运行ES6代码。  </p>
+<p>它不用单独安装，而是随babel-cli一起安装。然后，执行babel-node就进入REPL环境。  </p>
+<pre><code>$ babel-node
+&gt; (x =&gt; x * 2)(1)
+2
+</code></pre><p>babel-node命令可以直接运行ES6脚本。将上面的代码放入脚本文件es6.js，然后直接运行。</p>
+<pre><code>$ babel-node es6.js
+2
+</code></pre><p>babel-node也可以安装在项目中。</p>
+<pre><code>$ npm install --save-dev babel-cli
+</code></pre><p>然后，改写package.json。</p>
+<pre><code>{
+  &quot;scripts&quot;: {
+    &quot;script-name&quot;: &quot;babel-node script.js&quot;
+  }
+}
+</code></pre><p>上面代码中，使用babel-node替代node，这样script.js本身就不用做任何转码处理。</p>
+<h4 id="babel-register"><a href="#babel-register" class="headerlink" title="babel-register"></a>babel-register</h4><p>babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。  </p>
+<pre><code>$ npm install --save-dev babel-register
+</code></pre><p>使用时，必须首先加载babel-register。</p>
+<pre><code>require(&quot;babel-register&quot;);
+require(&quot;./index.js&quot;);
+</code></pre><p>然后，就不需要手动对index.js转码了。  </p>
+<p>需要注意的是，babel-register只会对require命令加载的文件转码，而不会对当前文件转码。另外，由于它是实时转码，所以只适合在开发环境使用。</p>
+<h4 id="babel-core"><a href="#babel-core" class="headerlink" title="babel-core"></a>babel-core</h4><p>如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块。  </p>
+<p>安装命令如下。  </p>
+<pre><code>$ npm install babel-core --save
+</code></pre><p>然后，在项目中就可以调用babel-core。  </p>
+<pre><code>var babel = require(&apos;babel-core&apos;);
+
+// 字符串转码
+babel.transform(&apos;code();&apos;, options);
+// =&gt; { code, map, ast }
+
+// 文件转码（异步）
+babel.transformFile(&apos;filename.js&apos;, options, function(err, result) {
+  result; // =&gt; { code, map, ast }
+});
+
+// 文件转码（同步）
+babel.transformFileSync(&apos;filename.js&apos;, options);
+// =&gt; { code, map, ast }
+
+// Babel AST转码
+babel.transformFromAst(ast, code, options);
+// =&gt; { code, map, ast }
+</code></pre><p>配置对象options，可以参看官方文档<a href="http://babeljs.io/docs/usage/options/。" target="_blank" rel="external">http://babeljs.io/docs/usage/options/。</a>  </p>
+<p>下面是一个例子。  </p>
+<pre><code>var es6Code = &apos;let x = n =&gt; n + 1&apos;;
+var es5Code = require(&apos;babel-core&apos;)
+  .transform(es6Code, {
+    presets: [&apos;es2015&apos;]
+  })
+  .code;
+// &apos;&quot;use strict&quot;;\n\nvar x = function x(n) {\n  return n + 1;\n};&apos;
+</code></pre><p>上面代码中，transform方法的第一个参数是一个字符串，表示需要被转换的ES6代码，第二个参数是转换的配置对象。  </p>
+<h4 id="babel-polyfill"><a href="#babel-polyfill" class="headerlink" title="babel-polyfill"></a>babel-polyfill</h4><p>Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。  </p>
+<p>举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。  </p>
+<p>安装命令如下。  </p>
+<pre><code>$ npm install --save babel-polyfill
+</code></pre><p>然后，在脚本头部，加入如下一行代码。  </p>
+<pre><code>import &apos;babel-polyfill&apos;;
+// 或者
+require(&apos;babel-polyfill&apos;);
+</code></pre><p>Babel默认不转码的API非常多，详细清单可以查看babel-plugin-transform-runtime模块的definitions.js文件。  </p>
+<h4 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h4><p>Babel也可以用于浏览器环境。但是，从Babel 6.0开始，不再直接提供浏览器版本，而是要用构建工具构建出来。如果你没有或不想使用构建工具，可以通过安装5.x版本的babel-core模块获取。</p>
+<pre><code>$ npm install babel-core@5
+</code></pre><p>运行上面的命令以后，就可以在当前目录的node_modules/babel-core/子目录里面，找到babel的浏览器版本browser.js（未精简）和browser.min.js（已精简）。  </p>
+<p>然后，将下面的代码插入网页。  </p>
+<pre><code>&lt;script src=&quot;node_modules/babel-core/browser.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/babel&quot;&gt;
+// Your ES6 code
+&lt;/script&gt;
+</code></pre><p>上面代码中，browser.js是Babel提供的转换器脚本，可以在浏览器运行。用户的ES6脚本放在script标签之中，但是要注明type=”text/babel”。  </p>
+<p>另一种方法是使用babel-standalone模块提供的浏览器版本，将其插入网页。  </p>
+<pre><code>&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/babel&quot;&gt;
+// Your ES6 code
+&lt;/script&gt;
+</code></pre><p>注意，网页中实时将ES6代码转为ES5，对性能会有影响。生产环境需要加载已经转码完成的脚本。  </p>
+<p>下面是如何将代码打包成浏览器可以使用的脚本，以Babel配合Browserify为例。首先，安装babelify模块。  </p>
+<pre><code>$ npm install --save-dev babelify babel-preset-es2015
+</code></pre><p>然后，再用命令行转换ES6脚本。  </p>
+<pre><code>$  browserify script.js -o bundle.js \
+  -t [ babelify --presets [ es2015 ] ]
+</code></pre><p>上面代码将ES6脚本script.js，转为bundle.js，浏览器直接加载后者就可以了。  </p>
+<p>在package.json设置下面的代码，就不用每次命令行都输入参数了。</p>
+<pre><code>{
+  &quot;browserify&quot;: {
+    &quot;transform&quot;: [[&quot;babelify&quot;, { &quot;presets&quot;: [&quot;es2015&quot;] }]]
+  }
+}
+</code></pre><h4 id="在线转换"><a href="#在线转换" class="headerlink" title="在线转换"></a>在线转换</h4><p>Babel提供一个REPL在线编译器，可以在线将ES6代码转为ES5代码。转换后的代码，可以直接作为ES5代码插入网页运行。  </p>
+<h4 id="与其他工具的配合"><a href="#与其他工具的配合" class="headerlink" title="与其他工具的配合"></a>与其他工具的配合</h4><p>许多工具需要Babel进行前置转码，这里举两个例子：ESLint和Mocha。  </p>
+<p>ESLint用于静态检查代码的语法和风格，安装命令如下。  </p>
+<pre><code>$ npm install --save-dev eslint babel-eslint
+</code></pre><p>然后，在项目根目录下，新建一个配置文件.eslintrc，在其中加入parser字段。  </p>
+<pre><code>{
+  &quot;parser&quot;: &quot;babel-eslint&quot;,
+  &quot;rules&quot;: {
+    ...
+  }
+}
+</code></pre><p>再在package.json之中，加入相应的scripts脚本。</p>
+<pre><code>{
+  &quot;name&quot;: &quot;my-module&quot;,
+  &quot;scripts&quot;: {
+    &quot;lint&quot;: &quot;eslint my-files.js&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;babel-eslint&quot;: &quot;...&quot;,
+    &quot;eslint&quot;: &quot;...&quot;
+  }
+}
+</code></pre><p>Mocha则是一个测试框架，如果需要执行使用ES6语法的测试脚本，可以修改package.json的scripts.test。  </p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;test&quot;: &quot;mocha --ui qunit --compilers js:babel-core/register&quot;
+}
+</code></pre><p>上面命令中，–compilers参数指定脚本的转码器，规定后缀名为js的文件，都需要使用babel-core/register先转码。  </p>
+<h3 id="Traceur转码器"><a href="#Traceur转码器" class="headerlink" title="Traceur转码器"></a>Traceur转码器</h3><p>Google公司的Traceur转码器，也可以将ES6代码转为ES5代码。  </p>
+<h4 id="直接插入网页"><a href="#直接插入网页" class="headerlink" title="直接插入网页"></a>直接插入网页</h4><p>Traceur允许将ES6代码直接插入网页。首先，必须在网页头部加载Traceur库文件。  </p>
+<pre><code>&lt;script src=&quot;https://google.github.io/traceur-compiler/bin/traceur.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://google.github.io/traceur-compiler/bin/BrowserSystem.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://google.github.io/traceur-compiler/src/bootstrap.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot;&gt;
+  import &apos;./Greeter.js&apos;;
+&lt;/script&gt;
+</code></pre><p>上面代码中，一共有4个script标签。第一个是加载Traceur的库文件，第二个和第三个是将这个库文件用于浏览器环境，第四个则是加载用户脚本，这个脚本里面可以使用ES6代码。  </p>
+<p>注意，第四个script标签的type属性的值是module，而不是text/javascript。这是Traceur编译器识别ES6代码的标志，编译器会自动将所有type=module的代码编译为ES5，然后再交给浏览器执行。  </p>
+<p>除了引用外部ES6脚本，也可以直接在网页中放置ES6代码。  </p>
+<pre><code>&lt;script type=&quot;module&quot;&gt;
+  class Calc {
+    constructor(){
+      console.log(&apos;Calc constructor&apos;);
+    }
+    add(a, b){
+      return a + b;
+    }
+  }
+
+  var c = new Calc();
+  console.log(c.add(4,5));
+&lt;/script&gt;
+</code></pre><p>正常情况下，上面代码会在控制台打印出9。  </p>
+<p>如果想对Traceur的行为有精确控制，可以采用下面参数配置的写法。  </p>
+<pre><code>&lt;script&gt;
+  // Create the System object
+  window.System = new traceur.runtime.BrowserTraceurLoader();
+  // Set some experimental options
+  var metadata = {
+    traceurOptions: {
+      experimental: true,
+      properTailCalls: true,
+      symbols: true,
+      arrayComprehension: true,
+      asyncFunctions: true,
+      asyncGenerators: exponentiation,
+      forOn: true,
+      generatorComprehension: true
+    }
+  };
+  // Load your module
+  System.import(&apos;./myModule.js&apos;, {metadata: metadata}).catch(function(ex) {
+    console.error(&apos;Import failed&apos;, ex.stack || ex);
+  });
+&lt;/script&gt;
+</code></pre><p>上面代码中，首先生成Traceur的全局对象window.System，然后System.import方法可以用来加载ES6模块。加载的时候，需要传入一个配置对象metadata，该对象的traceurOptions属性可以配置支持ES6功能。如果设为experimental: true，就表示除了ES6以外，还支持一些实验性的新功能。  </p>
+<h4 id="在线转换-1"><a href="#在线转换-1" class="headerlink" title="在线转换"></a>在线转换</h4><p>Traceur也提供一个<a href="http://google.github.io/traceur-compiler/demo/repl.html" target="_blank" rel="external">在线编译器</a>，可以在线将ES6代码转为ES5代码。转换后的代码，可以直接作为ES5代码插入网页运行。  </p>
+<p>上面的例子转为ES5代码运行，就是下面这个样子。  </p>
+<pre><code>&lt;script src=&quot;https://google.github.io/traceur-compiler/bin/traceur.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://google.github.io/traceur-compiler/bin/BrowserSystem.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://google.github.io/traceur-compiler/src/bootstrap.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+$traceurRuntime.ModuleStore.getAnonymousModule(function() {
+  &quot;use strict&quot;;
+
+  var Calc = function Calc() {
+    console.log(&apos;Calc constructor&apos;);
+  };
+
+  ($traceurRuntime.createClass)(Calc, {add: function(a, b) {
+    return a + b;
+  }}, {});
+
+  var c = new Calc();
+  console.log(c.add(4, 5));
+  return {};
+});
+&lt;/script&gt;
+</code></pre><h4 id="命令行转换"><a href="#命令行转换" class="headerlink" title="命令行转换"></a>命令行转换</h4><p>作为命令行工具使用时，Traceur是一个Node的模块，首先需要用Npm安装。  </p>
+<pre><code>$ npm install -g traceur
+</code></pre><p>安装成功后，就可以在命令行下使用Traceur了。  </p>
+<p>Traceur直接运行es6脚本文件，会在标准输出显示运行结果，以前面的calc.js为例。  </p>
+<pre><code>$ traceur calc.js
+Calc constructor
+9
+</code></pre><p>如果要将ES6脚本转为ES5保存，要采用下面的写法。  </p>
+<pre><code>$ traceur --script calc.es6.js --out calc.es5.js
+</code></pre><p>上面代码的–script选项表示指定输入文件，–out选项表示指定输出文件。  </p>
+<p>为了防止有些特性编译不成功，最好加上–experimental选项。  </p>
+<pre><code>$ traceur --script calc.es6.js --out calc.es5.js --experimental
+</code></pre><p>命令行下转换生成的文件，就可以直接放到浏览器中运行。</p>
+<h4 id="Node-js环境的用法"><a href="#Node-js环境的用法" class="headerlink" title="Node.js环境的用法"></a>Node.js环境的用法</h4><p>Traceur的Node.js用法如下（假定已安装traceur模块）。</p>
+<pre><code>var traceur = require(&apos;traceur&apos;);
+var fs = require(&apos;fs&apos;);
+
+// 将ES6脚本转为字符串
+var contents = fs.readFileSync(&apos;es6-file.js&apos;).toString();
+
+var result = traceur.compile(contents, {
+  filename: &apos;es6-file.js&apos;,
+  sourceMap: true,
+  // 其他设置
+  modules: &apos;commonjs&apos;
+});
+
+if (result.error)
+  throw result.error;
+
+// result对象的js属性就是转换后的ES5代码
+fs.writeFileSync(&apos;out.js&apos;, result.js);
+// sourceMap属性对应map文件
+fs.writeFileSync(&apos;out.js.map&apos;, result.sourceMap);
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://www.luanmingli.com/static/image/wechat-reward-image.png" alt="卓越 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://www.luanmingli.com/static/image/alipay-reward-image.png" alt="卓越 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavsScript/" rel="tag">#JavsScript</a>
+          
+            <a href="/tags/ES2015/" rel="tag">#ES2015</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/07/commonJS/" rel="next" title="CommonJS规范">
+                <i class="fa fa-chevron-left"></i> CommonJS规范
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/08/ES2015-2_let_const/" rel="prev" title="ES2015——2.let和const命令">
+                ES2015——2.let和const命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/08/ES2015-1_intro/"
+           data-title="ES2015——1.ECMAScript2015简介" data-url="http://yoursite.com/2016/12/08/ES2015-1_intro/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.luanmingli.com/static/image/head.png"
+               alt="卓越" />
+          <p class="site-author-name" itemprop="name">卓越</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">125</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/Lmingli" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ECMAScript和JavaScript的关系"><span class="nav-number">1.</span> <span class="nav-text">ECMAScript和JavaScript的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6与ECMAScript-2015的关系"><span class="nav-number">2.</span> <span class="nav-text">ES6与ECMAScript 2015的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法提案的批准流程"><span class="nav-number">3.</span> <span class="nav-text">语法提案的批准流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECMAScript的历史"><span class="nav-number">4.</span> <span class="nav-text">ECMAScript的历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署进度"><span class="nav-number">5.</span> <span class="nav-text">部署进度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Babel转码器"><span class="nav-number">6.</span> <span class="nav-text">Babel转码器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件-babelrc"><span class="nav-number">6.1.</span> <span class="nav-text">配置文件.babelrc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行转码babel-cli"><span class="nav-number">6.2.</span> <span class="nav-text">命令行转码babel-cli</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel-node"><span class="nav-number">6.3.</span> <span class="nav-text">babel-node</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel-register"><span class="nav-number">6.4.</span> <span class="nav-text">babel-register</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel-core"><span class="nav-number">6.5.</span> <span class="nav-text">babel-core</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#babel-polyfill"><span class="nav-number">6.6.</span> <span class="nav-text">babel-polyfill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器环境"><span class="nav-number">6.7.</span> <span class="nav-text">浏览器环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在线转换"><span class="nav-number">6.8.</span> <span class="nav-text">在线转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与其他工具的配合"><span class="nav-number">6.9.</span> <span class="nav-text">与其他工具的配合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Traceur转码器"><span class="nav-number">7.</span> <span class="nav-text">Traceur转码器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接插入网页"><span class="nav-number">7.1.</span> <span class="nav-text">直接插入网页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在线转换-1"><span class="nav-number">7.2.</span> <span class="nav-text">在线转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行转换"><span class="nav-number">7.3.</span> <span class="nav-text">命令行转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js环境的用法"><span class="nav-number">7.4.</span> <span class="nav-text">Node.js环境的用法</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">卓越</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"luanmingli"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
